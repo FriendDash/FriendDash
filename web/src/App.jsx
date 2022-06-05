@@ -2,12 +2,22 @@ import React from 'react';
 import { ChakraProvider, Box } from '@chakra-ui/react';
 import theme from './theme';
 
-function App() {
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+
+const App = () => {
   return (
     <ChakraProvider theme={theme}>
-      <Box>Hello World</Box>
+      <BrowserRouter>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/home" element={<Home />} />
+          <Route exact path="/login" element={<Home />} />
+          <Route exact path="/register" element={<Home />} />
+        </Routes>
+      </BrowserRouter>
     </ChakraProvider>
   );
-}
+};
 
 export default App;
