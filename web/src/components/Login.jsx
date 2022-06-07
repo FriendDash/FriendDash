@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import glogo from '../assets/glogo.png';
-import { Box, Heading, Button, Image, Text } from '@chakra-ui/react';
-import { useMediaQuery } from '@chakra-ui/react';
+import { Box, Heading, Button, Image, Text, VStack } from '@chakra-ui/react';
 
 const Login = () => {
-  const [isSmallerThan600] = useMediaQuery('(max-width: 600px)');
   const [requiresRegister, setRequiresRegister] = useState(false);
   const handleRegisterLogin = () => {
     setRequiresRegister(!requiresRegister);
@@ -17,26 +15,21 @@ const Login = () => {
 
   return (
     <Box>
-      {isSmallerThan600 ? (
-        <Box
-          padding="30px"
-          bg="orange"
-          w="100%"
-          h="100%"
-          borderRadius="10px"
-          align="center"
-          outline="solid"
-        >
-          {requiresRegister ? (
-            <Heading size="2xl" ml="18px" pt="9px">
-              Register to FriendDash!
-            </Heading>
-          ) : (
-            <Heading size="2xl" ml="18px" pt="9px">
-              Login to FriendDash!
-            </Heading>
-          )}
-          <br />
+      <Box
+        p="30px"
+        bg="orange"
+        w={{ lg: '600px', md: '600px', base: '100%' }}
+        h="300px"
+        borderRadius="10px"
+        align="center"
+        outline="solid"
+      >
+        <Heading size="xl" ml="18px" pt="9px">
+          {requiresRegister
+            ? 'Register to FriendDash!'
+            : 'Login to FriendDash!'}
+        </Heading>
+        <Box mt="20px" mb="40px">
           {requiresRegister ? (
             <Button
               display="flex"
@@ -45,7 +38,7 @@ const Login = () => {
             >
               <Image src={glogo} h="90%" />
 
-              <Text paddingLeft="10px">Register with Google</Text>
+              <Text pl="10px">Register with Google</Text>
             </Button>
           ) : (
             <Button
@@ -55,89 +48,27 @@ const Login = () => {
             >
               <Image src={glogo} h="90%" />
 
-              <Text paddingLeft="10px">Login with Google</Text>
+              <Text pl="10px">Login with Google</Text>
             </Button>
           )}
-          <br />
+        </Box>
 
-          {requiresRegister ? (
-            <Text marginRight="10px">
-              Already have an account?
-              <br />
-              <Button onClick={handleRegisterLogin}>
-                <b>Login</b>
-              </Button>
-            </Text>
-          ) : (
-            <Text marginRight="10px">
-              Don't have an account?
-              <br />
-              <Button onClick={handleRegisterLogin}>
-                <b>Register</b>
-              </Button>
-            </Text>
-          )}
-        </Box>
-      ) : (
-        <Box
-          padding="30px"
-          margin="10px"
-          bg="orange"
-          w="50%"
-          h="50%"
-          borderRadius="10px"
-          align="center"
-          outline="solid"
-        >
-          {requiresRegister ? (
-            <Heading size="md" ml="18px" pt="9px">
-              Register to FriendDash!
-            </Heading>
-          ) : (
-            <Heading size="md" ml="18px" pt="9px">
-              Login to FriendDash!
-            </Heading>
-          )}
-          <br />
-          {requiresRegister ? (
-            <Button
-              display="flex"
-              flexDir="row"
-              padding="10px"
-              onClick={handleLoginOrRegister}
-            >
-              <Image src={glogo} h="80%" />
-              <Text paddingLeft="10px">Register with Google</Text>
+        {requiresRegister ? (
+          <VStack>
+            <Text mr="10px">Already have an account?</Text>
+            <Button onClick={handleRegisterLogin} mt="10px">
+              <b>Login</b>
             </Button>
-          ) : (
-            <Button
-              display="flex"
-              flexDir="row"
-              padding="10px"
-              onClick={handleLoginOrRegister}
-            >
-              <Image src={glogo} h="80%" />
-              <Text paddingLeft="10px">Login with Google</Text>
+          </VStack>
+        ) : (
+          <VStack>
+            <Text mr="10px">Don't have an account?</Text>
+            <Button onClick={handleRegisterLogin} mt="10px">
+              <b>Register</b>
             </Button>
-          )}
-          <br />
-          {requiresRegister ? (
-            <Text marginRight="10px">
-              Already have an account?
-              <button onClick={handleRegisterLogin}>
-                <b>Login</b>
-              </button>
-            </Text>
-          ) : (
-            <Text marginRight="10px">
-              Don't have an account?
-              <button onClick={handleRegisterLogin}>
-                <b>Register</b>
-              </button>
-            </Text>
-          )}
-        </Box>
-      )}
+          </VStack>
+        )}
+      </Box>
     </Box>
   );
 };
