@@ -16,10 +16,7 @@ const Login = () => {
   };
 
   return (
-    <Box display="flex" flexDir="column" alignItems="center">
-      <Box marginTop="10%" align="center">
-        <Heading>Welcome Wanderer!</Heading>
-      </Box>
+    <Box>
       {isSmallerThan600 ? (
         <Box
           padding="30px"
@@ -61,8 +58,6 @@ const Login = () => {
               <Text paddingLeft="10px">Login with Google</Text>
             </Button>
           )}
-          <br />
-          <br />
           <br />
 
           {requiresRegister ? (
