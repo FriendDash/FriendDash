@@ -64,8 +64,7 @@ const Login = () => {
           <br />
           <br />
           <br />
-          <br />
-          <br />
+
           {requiresRegister ? (
             <Text marginRight="10px">
               Already have an account?
