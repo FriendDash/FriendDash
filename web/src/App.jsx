@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/DashboardPage';
 import Home from './pages/Home';
 import LoginPage from './pages/LoginPage';
+import RestaurantMenuPage from './pages/RestaurantMenuPage';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
           <Route exact path="/home" element={<Home />} />
           <Route exact path="/dashboard" element={<Dashboard />} />
           <Route exact path="/login" element={<LoginPage />} />
+          <Route exact path="/menu" element={<RestaurantMenuPage />} />
         </Routes>
       </BrowserRouter>
     </ChakraProvider>

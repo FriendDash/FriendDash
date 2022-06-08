@@ -1,0 +1,49 @@
+{
+  "name": "Sample Restaurant",
+  "starters": [
+    {
+      "dishName": "Calimari",
+      "price": 12,
+      "description": "Deep fried squid served with lemon and tzatziki sauce."
+    },
+    {
+      "dishName": "Truffle fries",
+      "price": 10,
+      "description": "Golden french fries served with a dash of truffle oil and parmesan cheese."
+    }
+  ],
+  "mains": [
+    {
+      "dishName": "New York T-bone Steak",
+      "price": 35,
+      "description": "A combination of tender filet and hearty New York Strip from the top loin that make for a full-flavored USDA Prime cut."
+    },
+    {
+      "dishName": "Creamy Carbonara",
+      "price": 25,
+      "description": "This Creamy Carbonara recipe is a plate of heavenly, creamy pasta. Silky spaghetti with crispy pancetta in a super creamy and cheesy sauce."
+    },
+    {
+      "dishName": "Pistachio Crusted Salmon",
+      "price": 28,
+      "description": "Garlic mashed potato, roasted brussels sprouts, maple butter."
+    }
+  ],
+  "desserts": [
+    {
+      "dishName": "Crème Brûlée",
+      "price": 18,
+      "description": "Classic French custard topped with a brittle crust of caramelized sugar."
+    },
+    {
+      "dishName": "Belgium Chocolate Terrine",
+      "price": 18,
+      "description": "Rich Belgium chocolate with a touch of cointreau, crème anglaise, raspberry coulis."
+    },
+    {
+      "dishName": "Vanilla Bean Ice Cream",
+      "price": 18,
+      "description": "Chocolate sauce, crème anglaise, vanilla wafer."
+    }
+  ]
+}
