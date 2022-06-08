@@ -49,9 +49,9 @@ const HeaderTray = () => {
           </DrawerHeader>
           <DrawerBody>
             <Box w="100%" p="1px">
-              {menuItems.map(entry => {
+              {menuItems.map((entry, index) => {
                 return (
-                  <HStack p="10px">
+                  <HStack p="10px" key={index}>
                     <CalendarIcon w={6} h={6} />
                     <Text fontSize="20px">{entry}</Text>
                   </HStack>
