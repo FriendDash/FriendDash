@@ -1,5 +1,4 @@
 import {
-  Box,
   Image,
   chakra,
   VStack,
@@ -13,7 +12,7 @@ import {
 import React from 'react';
 
 // we will have a seperate mapping that takes restaraunt name as key to retrieve image
-
+// example mapping
 const restarauntImageMapping = {
   Subway:
     'https://doordash-static.s3.amazonaws.com/media/store/header/55699.jpg',
@@ -32,8 +31,14 @@ export default chakra(function ClubCard({ className, data }) {
       justify="center"
       w="300px"
       bg="gray.50"
-      p="5px"
+      p="7px"
       rounded="10px"
+      _hover={{
+        bg: 'gray.100',
+        transform: 'scale(1.05)',
+        boxShadow: '5px 5px 15px rgba(0,0,0,0.1)',
+      }}
+      transition="0.2s ease"
     >
       <VStack alignItems="left">
         <Image
@@ -45,12 +50,10 @@ export default chakra(function ClubCard({ className, data }) {
         />
         <Heading size="md">{data.restaurant}</Heading>
         <HStack w="100%">
-          <VStack alignItems="flex-start">
-            <HStack>
-              <Text>Pickup Time:</Text>
-              <Text fontSize="md">{data.pickupTime}</Text>
-            </HStack>
-          </VStack>
+          <HStack>
+            <Text>Pickup Time:</Text>
+            <Text fontSize="md">{data.pickupTime}</Text>
+          </HStack>
           <Spacer />
           <Button colorScheme="blue" alignSelf="flex-end">
             Join Order
