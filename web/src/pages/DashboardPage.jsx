@@ -1,6 +1,7 @@
 import { Box, SimpleGrid, VStack } from '@chakra-ui/react';
 import ContentContainer from '../components/ContentContainer';
-import GroupCard from '../components/GroupCard';
+import GroupOrderNew from '../components/GroupCard/GroupOrderNew';
+import GroupOrderCard from '../components/GroupCard/GroupOrderCard';
 import SearchBar from '../components/SearchBar';
 
 import mockData from '../mockData.json';
@@ -18,8 +19,9 @@ const DashboardPage = () => {
           spacing="30px"
         >
           {mockData.groupOrders.map((order, key) => (
-            <GroupCard key={key} data={order} />
+            <GroupOrderCard key={key} data={order} />
           ))}
+          <GroupOrderNew />
         </SimpleGrid>
       </ContentContainer>
     </VStack>
