@@ -1,4 +1,4 @@
-import { Box, Heading, Divider, Button, Image, Text, VStack } from '@chakra-ui/react';
+import { Box, Heading } from '@chakra-ui/react';
 import SampleMenu from "../mocks/restuarantMenuMock.json";
 import RestaurantMenuSection from './RestaurantMenuSection';
 
