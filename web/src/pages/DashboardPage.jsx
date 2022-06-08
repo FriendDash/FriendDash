@@ -1,12 +1,30 @@
+import { Box, SimpleGrid, VStack } from '@chakra-ui/react';
+import ContentContainer from '../components/ContentContainer';
+import GroupOrderNew from '../components/GroupCard/GroupOrderNew';
+import GroupOrderCard from '../components/GroupCard/GroupOrderCard';
 import SearchBar from '../components/SearchBar';
+
+import mockData from '../mockData.json';
 
 // Dashboard Page
 const DashboardPage = () => {
   return (
-    <div>
+    <VStack>
       <h1>Dashboard Page</h1>
       <SearchBar />
-    </div>
+      <ContentContainer>
+        <SimpleGrid
+          columns={{ lg: 3, base: 1 }}
+          justifyItems="center"
+          spacing="30px"
+        >
+          {mockData.groupOrders.map((order, key) => (
+            <GroupOrderCard key={key} data={order} />
+          ))}
+          <GroupOrderNew />
+        </SimpleGrid>
+      </ContentContainer>
+    </VStack>
   );
 };
 
