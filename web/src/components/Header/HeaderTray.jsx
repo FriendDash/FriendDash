@@ -18,9 +18,12 @@ import { HamburgerIcon, CalendarIcon } from '@chakra-ui/icons';
 // Button that opens tray when pressed!
 const HeaderTray = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  // We will change this arr to a json arr in future to add urls and corresponding icons
+  const menuItems = ['Orders', 'Favorites', 'Payment', 'Help', 'Account'];
   return (
     <>
-      <HStack width="100%">
+      <HStack w="100%">
         <Button colorScheme="gray" onClick={onOpen}>
           <HamburgerIcon />
         </Button>
@@ -45,33 +48,21 @@ const HeaderTray = () => {
             </HStack>
           </DrawerHeader>
           <DrawerBody>
-            <Box width="100%" padding="1px">
-              <HStack padding="10px">
-                <CalendarIcon w={6} h={6} />
-                <Text fontSize="20px">Orders</Text>
-              </HStack>
-              <HStack padding="10px">
-                <CalendarIcon w={6} h={6} />
-                <Text fontSize="20px">Favorites</Text>
-              </HStack>
-              <HStack padding="10px">
-                <CalendarIcon w={6} h={6} />
-                <Text fontSize="20px">Payment</Text>
-              </HStack>
-              <HStack padding="10px">
-                <CalendarIcon w={6} h={6} />
-                <Text fontSize="20px">Help</Text>
-              </HStack>
-              <HStack padding="10px">
-                <CalendarIcon w={6} h={6} />
-                <Text fontSize="20px">Account</Text>
-              </HStack>
+            <Box w="100%" p="1px">
+              {menuItems.map(entry => {
+                return (
+                  <HStack p="10px">
+                    <CalendarIcon w={6} h={6} />
+                    <Text fontSize="20px">{entry}</Text>
+                  </HStack>
+                );
+              })}
             </Box>
           </DrawerBody>
           <DrawerFooter>
-            <Box width="100%" padding="1px">
+            <Box w="100%" p="1px">
               <hr />
-              <HStack padding="10px">
+              <HStack p="10px">
                 <CalendarIcon w={6} h={6} />
                 <Text fontSize="20px">Logout</Text>
               </HStack>
