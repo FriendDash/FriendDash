@@ -11,7 +11,9 @@ import {
   Avatar,
   Box,
   DrawerFooter,
+  Image,
 } from '@chakra-ui/react';
+import MainLogo from './../../assets/main-logo.png';
 
 import { HamburgerIcon, CalendarIcon } from '@chakra-ui/icons';
 
@@ -27,6 +29,7 @@ const HeaderTray = () => {
         <Button colorScheme="gray" onClick={onOpen}>
           <HamburgerIcon />
         </Button>
+        <Image src={MainLogo} h="40px" />
         <Text fontSize="xl" as="b">
           FriendDash
         </Text>

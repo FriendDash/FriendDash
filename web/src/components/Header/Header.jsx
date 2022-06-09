@@ -4,7 +4,7 @@ import HeaderTray from './HeaderTray';
 const Header = ({ className }) => {
   return (
     <Box
-      bgColor="white"
+      bgColor="gray.100"
       p="7px"
       w="100%"
       position="fixed"
