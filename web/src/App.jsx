@@ -13,8 +13,8 @@ const App = () => {
     <ChakraProvider theme={theme}>
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route exact path="/home" element={<Home />} />
+          <Route exact path="/" element={<Dashboard />} />
+          <Route exact path="/home" element={<Dashboard />} />
           <Route exact path="/dashboard" element={<Dashboard />} />
           <Route exact path="/login" element={<LoginPage />} />
           <Route exact path="/menu" element={<RestaurantMenuPage />} />
