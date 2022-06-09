@@ -8,8 +8,10 @@ import {
   HStack,
   Button,
   Spacer,
+  useDisclosure,
 } from '@chakra-ui/react';
 import GroupCard from './GroupCard';
+import ViewOrderModal from '../ViewOrderModal';
 
 // we will have a seperate mapping that takes restaraunt name as key to retrieve image
 // example mapping
@@ -25,6 +27,8 @@ const restarauntImageMapping = {
 };
 
 export default chakra(function GroupOrderCard({ className, data }) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <GroupCard className={className}>
       <VStack alignItems="left">
@@ -42,9 +46,11 @@ export default chakra(function GroupOrderCard({ className, data }) {
             <Text fontSize="md">{data.pickupTime}</Text>
           </HStack>
           <Spacer />
-          <Button colorScheme="blue" alignSelf="flex-end">
-            Join Order
+          <Button colorScheme="blue" alignSelf="flex-end" onClick={onOpen}>
+            View Order
           </Button>
+
+          <ViewOrderModal isOpen={isOpen} onClose={onClose} data={data} />
         </HStack>
       </VStack>
     </GroupCard>
