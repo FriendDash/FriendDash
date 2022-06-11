@@ -21,7 +21,7 @@ export default chakra(function GroupOrderNew({ className }) {
   }
   return (
     <Box>
-      {modalVisible && <CreateGroupForm className={className} onCloseCallback={handleModalClose}></CreateGroupForm>}
+      <CreateGroupForm className={className} isOpen={modalVisible} onCloseCallback={handleModalClose}></CreateGroupForm>
       <GroupCard className={className}>
         <Center>
           <VStack>

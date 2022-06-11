@@ -1,12 +1,12 @@
 import { chakra, Modal, FormControl, FormLabel, Input, Select, Button, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@chakra-ui/react";
 import React, { useState } from 'react';
 
-export default chakra(function CreateGroupForm({ className, onCloseCallback }) {
+export default chakra(function CreateGroupForm({ className, isOpen, onCloseCallback }) {
     const [restaurantName, setRestaurantName] = useState("");
     const [time, setTime] = useState(new Date());
     const [groupMembers, setGroupMembers] = useState("1");
     return (
-        <Modal isOpen={true} className={className}
+        <Modal isOpen={isOpen} className={className}
         >
             <ModalOverlay />
             <ModalContent>
