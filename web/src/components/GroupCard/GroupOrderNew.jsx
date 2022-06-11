@@ -8,6 +8,7 @@ import {
   Spacer,
   Box,
   ChakraProvider,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { PhoneIcon, AddIcon, WarningIcon } from '@chakra-ui/icons';
 
@@ -15,17 +16,13 @@ import GroupCard from './GroupCard';
 import CreateGroupForm from '../CreateGroupForm';
 
 export default chakra(function GroupOrderNew({ className }) {
-  const [modalVisible, setModalVisible] = useState(false);
-  const handleModalClose = () => {
-    setModalVisible(false);
-  };
+  // const [modalVisible, setModalVisible] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  // const handleModalClose = () => {
+  //   setModalVisible(false);
+  // };
   return (
     <Box>
-      <CreateGroupForm
-        className={className}
-        isOpen={modalVisible}
-        onCloseCallback={handleModalClose}
-      ></CreateGroupForm>
       <GroupCard className={className}>
         <Center>
           <VStack>
@@ -36,8 +33,10 @@ export default chakra(function GroupOrderNew({ className }) {
             <Box h="10px" />
 
             <Button colorScheme="teal" w="50px" h="50px" rounded="25px">
-              <AddIcon w={6} h={6} onClick={() => setModalVisible(true)} />
+              <AddIcon w={6} h={6} onClick={onOpen} />
             </Button>
+
+            <CreateGroupForm isOpen={isOpen} onClose={onClose} />
 
             <Box h="10px" />
 

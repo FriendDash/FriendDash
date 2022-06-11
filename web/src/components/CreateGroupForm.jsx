@@ -14,16 +14,12 @@ import {
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 
-export default chakra(function CreateGroupForm({
-  className,
-  isOpen,
-  onCloseCallback,
-}) {
+export default chakra(function CreateGroupForm({ className, isOpen, onClose }) {
   const [restaurantName, setRestaurantName] = useState('');
   const [time, setTime] = useState(new Date());
   const [groupMembers, setGroupMembers] = useState('1');
   return (
-    <Modal isOpen={isOpen} className={className}>
+    <Modal isOpen={isOpen} onClose={onClose} className={className}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Create a Group Order</ModalHeader>
@@ -68,10 +64,10 @@ export default chakra(function CreateGroupForm({
           </FormControl>
         </ModalBody>
         <ModalFooter display={'flex'} justifyContent="space-between">
-          <Button type="Submit" onClick={() => onCloseCallback()}>
+          <Button type="Submit" onClick={() => onClose()}>
             Create Group
           </Button>
-          <Button type="Cancel" onClick={() => onCloseCallback()}>
+          <Button type="Cancel" onClick={() => onClose()}>
             Cancel
           </Button>
         </ModalFooter>
