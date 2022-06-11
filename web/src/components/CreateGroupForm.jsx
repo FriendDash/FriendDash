@@ -1,6 +1,5 @@
-import { Heading, chakra, Modal, FormControl, FormLabel, Input, Select, Button, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter } from "@chakra-ui/react";
+import { chakra, Modal, FormControl, FormLabel, Input, Select, Button, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@chakra-ui/react";
 import React, { useState } from 'react';
-import { TimePicker } from 'react';
 
 export default chakra(function CreateGroupForm({ className, onCloseCallback }) {
     const [restaurantName, setRestaurantName] = useState("");
@@ -39,7 +38,7 @@ export default chakra(function CreateGroupForm({ className, onCloseCallback }) {
                     </form>
                 </ModalBody>
                 <ModalFooter display={'flex'} justifyContent='space-between'>
-                    <Button type="Submit" onClick={() => onCloseCallback()} margin=''>
+                    <Button type="Submit" onClick={() => onCloseCallback()}>
                         Create Group
                     </Button>
                     <Button type="Cancel" onClick={() => onCloseCallback()}>

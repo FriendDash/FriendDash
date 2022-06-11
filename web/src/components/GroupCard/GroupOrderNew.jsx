@@ -13,8 +13,6 @@ import { PhoneIcon, AddIcon, WarningIcon } from '@chakra-ui/icons';
 
 import GroupCard from './GroupCard';
 import CreateGroupForm from '../CreateGroupForm';
-import { updateModalStatus } from '../../actions';
-import {useSelector, useDispatch} from 'react-redux';
 
 export default chakra(function GroupOrderNew({ className }) {
   const [modalVisible, setModalVisible] = useState(false);
