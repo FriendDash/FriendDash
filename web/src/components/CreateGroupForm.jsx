@@ -17,15 +17,18 @@ export default chakra(function CreateGroupForm({ className, onCloseCallback }) {
                     <form>
                         <FormControl>
                             <FormLabel>Select Restaurant</FormLabel>
-                            <Input type="restaurantName" value={restaurantName} placeholder="Restaurant Name" onChange={e => setRestaurantName(e.target.value)} required />
+                            <Input type="restaurantName" value={restaurantName} placeholder="Restaurant Name" onChange={e => setRestaurantName(e.target.value)} required 
+                                marginBottom={'10px'}/>
                         </FormControl>
                         <FormControl>
                             <FormLabel>Pick Up Time</FormLabel>
                             <input type="time" id="pickUpTimePicker" value={time} onChange={e => setTime(e.target.value)} required />
                         </FormControl>
                         <FormControl>
-                            <FormLabel>Max. Number of Group Members</FormLabel>
-                            <Select value={groupMembers} onChange={e => setGroupMembers(e.target.value)} required>
+                            <FormLabel marginTop={'10px'}>Max. Number of Group Members</FormLabel>
+                            <Select value={groupMembers} onChange={e => setGroupMembers(e.target.value)} required
+                                w='100px'
+                            >
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -35,8 +38,8 @@ export default chakra(function CreateGroupForm({ className, onCloseCallback }) {
                         </FormControl>
                     </form>
                 </ModalBody>
-                <ModalFooter>
-                    <Button type="Submit" onClick={() => onCloseCallback()}>
+                <ModalFooter display={'flex'} justifyContent='space-between'>
+                    <Button type="Submit" onClick={() => onCloseCallback()} margin=''>
                         Create Group
                     </Button>
                     <Button type="Cancel" onClick={() => onCloseCallback()}>
