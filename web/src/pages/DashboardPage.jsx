@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Box, SimpleGrid, VStack } from '@chakra-ui/react';
 import ContentContainer from '../components/ContentContainer';
 import GroupOrderNew from '../components/GroupCard/GroupOrderNew';
@@ -11,10 +11,6 @@ import mockData from '../mockData.json';
 // Dashboard Page
 const DashboardPage = () => {
   const [searchValue, setSearchValue] = useState('');
-
-  useEffect(() => {
-    console.log(searchValue);
-  }, [searchValue]);
 
   return (
     <VStack>
