@@ -64,10 +64,10 @@ export default chakra(function CreateGroupForm({ className, isOpen, onClose }) {
           </FormControl>
         </ModalBody>
         <ModalFooter display={'flex'} justifyContent="space-between">
-          <Button type="Submit" onClick={() => onClose()}>
+          <Button type="Submit" onClick={onClose}>
             Create Group
           </Button>
-          <Button type="Cancel" onClick={() => onClose()}>
+          <Button type="Cancel" onClick={onClose}>
             Cancel
           </Button>
         </ModalFooter>
