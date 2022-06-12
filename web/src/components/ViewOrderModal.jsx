@@ -15,7 +15,6 @@ import {
   Text,
   Image,
   VStack,
-  Spacer,
 } from '@chakra-ui/react';
 
 const restarauntImageMapping = {
