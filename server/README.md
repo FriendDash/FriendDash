@@ -1,11 +1,11 @@
-## Server
+# Server
 
 The development environment for the server will be hosted at localhost:5000
 
-# Installation
+## Installation
 
 npm install
 
-# Development
+## Development
 
 npm start
