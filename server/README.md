@@ -21,5 +21,5 @@ npm start
 **Orders Route** /orders
 - GET: http://localhost:5000/orders  
 - POST: http://localhost:5000/orders/add
-- DELETE: http://localhost:5000/orders/remove/:userId
-- PUT: http://localhost:5000/orders/update/:userId
+- DELETE: http://localhost:5000/orders/remove/:orderId
+- PUT: http://localhost:5000/orders/update/:orderId
