@@ -45,23 +45,23 @@ export default chakra(function CreateGroupForm({ className, isOpen, onClose }) {
   }, []);
 
   const handleAddress = () => {
-    if (lat !== undefined || long !== undefined)
+    if (
+      (lat !== undefined || long !== undefined) &&
+      process.env.REACT_APP_GOOGLE_MAPS_API_KEY
+    ) {
       (async () => {
         const res = await fetch(
           `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
         );
         const json = await res.json();
         setMapsAPIResponse(json);
-        setPickupLocation(json.results[0].formatted_address);
-
-        // .then(json => {
-        //   setMapsAPIResponse(json);
-        // })
-        // .then(() => {
-        //   console.log(json);
-        //   setPickupLocation(mapsAPIResponse.results[0].formatted_address);
-        // });
+        if (json.results.length > 0) {
+          setPickupLocation(json.results[0].formatted_address);
+        }
       })();
+    } else {
+      console.log('No env found');
+    }
   };
   return (
     <Modal isOpen={isOpen} onClose={onClose} className={className}>
