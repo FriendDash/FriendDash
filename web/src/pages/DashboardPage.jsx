@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, SimpleGrid, VStack } from '@chakra-ui/react';
 import ContentContainer from '../components/ContentContainer';
 import GroupOrderNew from '../components/GroupCard/GroupOrderNew';
@@ -6,11 +6,19 @@ import GroupOrderCard from '../components/GroupCard/GroupOrderCard';
 import SearchBar from '../components/SearchBar';
 import Header from '../components/Header/Header';
 
-import mockData from '../mockData.json';
+// import mockData from '../mockData.json';
+import { getOrdersAsync } from '../redux/orders/thunk';
+import { useSelector, useDispatch } from 'react-redux';
 
 // Dashboard Page
 const DashboardPage = () => {
   const [searchValue, setSearchValue] = useState('');
+  let ordersFromReduxStore = useSelector(state => state.orders.list);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getOrdersAsync());
+  }, []);
 
   return (
     <VStack>
@@ -24,7 +32,7 @@ const DashboardPage = () => {
             justifyItems="center"
             spacing="30px"
           >
-            {mockData.groupOrders.map(
+            {ordersFromReduxStore.map(
               (order, key) =>
                 order.restaurant
                   .toLowerCase()
