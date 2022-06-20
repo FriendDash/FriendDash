@@ -12,6 +12,7 @@ let orders = [
     pickupLocation: "5751 Student Union Blvd",
     pickupTime: "6:30pm",
     orderId: 1,
+    creatorUserId: 1,
   },
   {
     restaurant: "Pizza Pizza",
@@ -20,6 +21,7 @@ let orders = [
     pickupLocation: "5751 Student Union Blvd",
     pickupTime: "7:00pm",
     orderId: 2,
+    creatorUserId: 2,
   },
 
   {
@@ -29,6 +31,7 @@ let orders = [
     pickupLocation: "5751 Student Union Blvd",
     pickupTime: "7:10pm",
     orderId: 3,
+    creatorUserId: 3,
   },
   {
     restaurant: "McDonalds",
@@ -37,6 +40,7 @@ let orders = [
     pickupLocation: "5751 Student Union Blvd",
     pickupTime: "7:20pm",
     orderId: 4,
+    creatorUserId: 4,
   },
 ];
 
@@ -59,7 +63,8 @@ router.post("/add", function (req, res, next) {
   if (
     !req.body.restaurant ||
     !req.body.creatorFirstName ||
-    !req.body.creatorLastName
+    !req.body.creatorLastName ||
+    !req.body.creatorUserId
   ) {
     return res.status(400).send({ message: "order post req missing info" });
   }
@@ -71,6 +76,7 @@ router.post("/add", function (req, res, next) {
     pickupLocation: req.body.pickupLocation,
     pickupTime: req.body.pickupTime,
     orderId: req.body.orderId,
+    creatorUserId: req.body.creatorUserId,
   };
   orders.push(order);
   return res.send(order);
@@ -92,7 +98,8 @@ router.put("/update/:orderId", function (req, res, next) {
   if (
     !req.body.restaurant ||
     !req.body.creatorFirstName ||
-    !req.body.creatorLastName
+    !req.body.creatorLastName ||
+    !req.body.creatorUserId
   ) {
     return res.status(400).send({ message: "order post req missing info" });
   }
@@ -106,6 +113,7 @@ router.put("/update/:orderId", function (req, res, next) {
       orders[entry].pickupLocation = req.body.pickupLocation;
       orders[entry].pickupTime = req.body.pickupTime;
       orders[entry].orderId;
+      orders[entry].creatorUserId = req.body.creatorUserId;
     }
   }
   console.log(orders);
