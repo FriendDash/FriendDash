@@ -14,7 +14,10 @@ import {
   InputRightElement,
   InputGroup,
 } from '@chakra-ui/react';
+
+import { addOrderAsync } from '../redux/orders/thunk';
 import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 export default chakra(function CreateGroupForm({ className, isOpen, onClose }) {
   const [restaurantName, setRestaurantName] = useState('');
@@ -24,6 +27,10 @@ export default chakra(function CreateGroupForm({ className, isOpen, onClose }) {
   const [lat, setLat] = useState('');
   const [long, setLong] = useState('');
   const [mapsAPIResponse, setMapsAPIResponse] = useState({});
+  const firstName = 'Dan';
+  const lastName = 'Abrahmov';
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     console.log(mapsAPIResponse);
@@ -44,6 +51,25 @@ export default chakra(function CreateGroupForm({ className, isOpen, onClose }) {
     }
   }, []);
 
+  const handleSubmitToServer = () => {
+    const rand = 1 + Math.random() * (100 - 1);
+    let newGroup = {
+      restaurant: restaurantName,
+      creatorFirstName: firstName,
+      creatorLastName: lastName,
+      pickupLocation: pickupLocation,
+      pickupTime: time,
+      orderId: rand,
+      creatorUserId: rand,
+    };
+    if (restaurantName === '' || time === '' || pickupLocation === '') {
+      alert('You must not submit an empty form.');
+    } else {
+      dispatch(addOrderAsync(newGroup));
+      alert('Successfully Submitted Order! ' + JSON.stringify(newGroup));
+    }
+  };
+
   const handleAddress = () => {
     if (
       (lat !== undefined || long !== undefined) &&
@@ -60,7 +86,7 @@ export default chakra(function CreateGroupForm({ className, isOpen, onClose }) {
         }
       })();
     } else {
-      console.log('No env found');
+      setPickupLocation('6245 Agronomy Road, Vancouver, BC V6T 1Z4');
     }
   };
   return (
@@ -124,7 +150,7 @@ export default chakra(function CreateGroupForm({ className, isOpen, onClose }) {
           </FormControl>
         </ModalBody>
         <ModalFooter display={'flex'} justifyContent="space-between">
-          <Button type="Submit" onClick={onClose}>
+          <Button type="Submit" onClick={handleSubmitToServer}>
             Create Group
           </Button>
           <Button type="Cancel" onClick={onClose}>
