@@ -99,7 +99,7 @@ router.put("/update/:orderId", function (req, res, next) {
 
   for (entry in orders) {
     // console.log(req.body.orderId + " | " + orders[entry].orderId);
-    if (orders[entry].orderId === req.body.orderId) {
+    if (parseInt(orders[entry].orderId) === parseInt(req.params.orderId)) {
       orders[entry].restaurant = req.body.restaurant;
       orders[entry].creatorFirstName = req.body.creatorFirstName;
       orders[entry].creatorLastName = req.body.creatorLastName;

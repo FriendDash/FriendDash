@@ -91,7 +91,7 @@ router.put("/update/:userId", function (req, res, next) {
 
   for (entry in users) {
     // console.log(req.body.userId + " | " + users[entry].userId);
-    if (users[entry].userId === req.body.userId) {
+    if (parseInt(users[entry].userId) === parseInt(req.params.userId)) {
       users[entry].userName = req.body.userName;
       users[entry].userEmail = req.body.userEmail;
       users[entry].userOrders = req.body.userOrders;
