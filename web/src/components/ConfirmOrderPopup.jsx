@@ -10,7 +10,25 @@ import {
     AlertDialogOverlay,
   } from '@chakra-ui/react'
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { updateOrderAsync } from '../redux/orders/thunk';
+
+const mockUpdateOrder = {
+    restaurant: 'Subway',
+    creatorFirstName: 'Johhny',
+    creatorLastName: 'Hacks',
+    pickupLocation: '5751 Student Union Blvd',
+    pickupTime: '6:30pm',
+    orderId: 1,
+    creatorUserId: 1,
+    orderStatus: 'open',
+    orderDetails: [
+      {
+        orderUserId: 1,
+        orderItems: { classicFootLong: 2, doritos: 1, sprite: 1 },
+      },
+    ],
+  }
 
 export default function ConfirmOrderPopup(props) {
     const dispatch = useDispatch();
@@ -26,11 +44,14 @@ export default function ConfirmOrderPopup(props) {
     }
 
     const confirmOrderClick = () => {
-        dispatch(updateOrderAsync(props.id))
+        const newOrderItem = {
+            orderUserId: 1234,
+            orderItems: completeOrder
+        }
+        mockUpdateOrder.orderDetails.push(newOrderItem);
+        dispatch(updateOrderAsync(mockUpdateOrder));
         onClose();
     }
-
-   
   
     return (
       <>

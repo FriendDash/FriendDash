@@ -25,7 +25,7 @@ const RestaurantMenuItem = ({ menuItem, setOrderItem, quantityGTZero, orderSoFar
       <Heading size="md">{menuItem.dishName}</Heading>
       <Text size="md">{menuItem.description}</Text>
       <Heading size="md">${menuItem.price}</Heading>
-      <NumberInput defaultValue="0" onChange={(valueString) => handleChange({menuItem: menuItem.dishName, price: menuItem.price, quantity: parseInt(valueString)})}>
+      <NumberInput defaultValue="0" min={0} onChange={(valueString) => handleChange({menuItem: menuItem.dishName, price: menuItem.price, quantity: parseInt(valueString)})}>
         <NumberInputField />
         <NumberInputStepper>
           <NumberIncrementStepper />

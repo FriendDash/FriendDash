@@ -123,28 +123,22 @@ router.delete('/remove/:orderId', function (req, res, next) {
 });
 
 router.put('/update/:orderId', function (req, res, next) {
-  if (
-    !req.body.restaurant ||
-    !req.body.creatorFirstName ||
-    !req.body.creatorLastName ||
-    !req.body.creatorUserId
+  if (!req.body
+    // !req.body.restaurant ||
+    // !req.body.creatorFirstName ||
+    // !req.body.creatorLastName ||
+    // !req.body.creatorUserId
   ) {
     return res.status(400).send({ message: 'order post req missing info' });
   }
 
   for (entry in orders) {
-    // console.log(req.body.orderId + " | " + orders[entry].orderId);
+    console.log(req.body.orderId + " | " + orders[entry].orderId);
     if (parseInt(orders[entry].orderId) === parseInt(req.params.orderId)) {
-      orders[entry].restaurant = req.body.restaurant;
-      orders[entry].creatorFirstName = req.body.creatorFirstName;
-      orders[entry].creatorLastName = req.body.creatorLastName;
-      orders[entry].pickupLocation = req.body.pickupLocation;
-      orders[entry].pickupTime = req.body.pickupTime;
-      orders[entry].orderId;
-      orders[entry].creatorUserId = req.body.creatorUserId;
+      orders[entry].orderDetails = req.body.orderDetails;
     }
   }
   console.log(orders);
-  return res.send('ok');
+  return res.send(orders);
 });
 module.exports = router;
