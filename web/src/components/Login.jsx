@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import glogo from '../assets/glogo.png';
 import { Box, Heading, Button, Image, Text, VStack } from '@chakra-ui/react';
+import { GoogleLogin } from '@react-oauth/google';
 
 const Login = () => {
   const [requiresRegister, setRequiresRegister] = useState(false);
@@ -41,15 +42,25 @@ const Login = () => {
               <Text pl="10px">Register with Google</Text>
             </Button>
           ) : (
-            <Button
-              display="flex"
-              flexDir="row"
-              onClick={handleLoginOrRegister}
-            >
-              <Image src={glogo} h="90%" />
+            // <Button
+            //   display="flex"
+            //   flexDir="row"
+            //   onClick={handleLoginOrRegister}
+            // >
+            //   <Image src={glogo} h="90%" />
 
-              <Text pl="10px">Login with Google</Text>
-            </Button>
+            //   <Text pl="10px">Login with Google</Text>
+            // </Button>
+
+            <GoogleLogin
+              onSuccess={credentialResponse => {
+                console.log(credentialResponse);
+              }}
+              onError={() => {
+                console.log('Login Failed');
+              }}
+              useOneTap
+            />
           )}
         </Box>
 

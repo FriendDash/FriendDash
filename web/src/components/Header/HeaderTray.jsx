@@ -14,12 +14,16 @@ import {
   Image,
 } from '@chakra-ui/react';
 import MainLogo from './../../assets/main-logo.png';
-
+import { useGoogleLogin } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
 import { HamburgerIcon, CalendarIcon } from '@chakra-ui/icons';
+// const { OAuth2Client } = require('google-auth-library');
 
 // Button that opens tray when pressed!
 const HeaderTray = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const onSignIn = () => {};
 
   // We will change this arr to a json arr in future to add urls and corresponding icons
   const menuItems = ['Orders', 'Favorites', 'Payment', 'Help', 'Account'];
@@ -66,8 +70,27 @@ const HeaderTray = () => {
             <Box w="100%" p="1px">
               <hr />
               <HStack p="10px">
-                <CalendarIcon w={6} h={6} />
-                <Text fontSize="20px">Logout</Text>
+                {/* <CalendarIcon w={6} h={6} /> */}
+                {/* <Text fontSize="20px" onClick={() => login()}>
+                  Login
+                </Text> */}
+                <GoogleLogin
+                  theme="filled_blue"
+                  shape="pill"
+                  size="large"
+                  type="standard"
+                  width="100%"
+                  height="800px"
+                  onSuccess={credentialResponse => {
+                    console.log(credentialResponse);
+                    onSignIn();
+                  }}
+                  onError={() => {
+                    console.log('Login Failed');
+                  }}
+                  useOneTap
+                />
+                ;
               </HStack>
             </Box>
           </DrawerFooter>
