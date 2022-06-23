@@ -121,8 +121,12 @@ const HeaderTray = () => {
             <Box w="100%" p="1px">
               {menuItems.map((entry, index) => {
                 return (
-                  <a href={entry.url} style={{ textDecoration: 'none' }}>
-                    <HStack p="10px" key={index}>
+                  <a
+                    href={entry.url}
+                    style={{ textDecoration: 'none' }}
+                    key={index}
+                  >
+                    <HStack p="10px">
                       <CalendarIcon w={6} h={6} />
                       <Text fontSize="20px">{entry.tabName}</Text>
                     </HStack>
