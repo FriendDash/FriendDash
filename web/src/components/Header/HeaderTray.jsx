@@ -27,11 +27,13 @@ const HeaderTray = () => {
   const [user, setUser] = useState({});
   const [name, setName] = useState('User');
   const [avatar, setAvatar] = useState('');
+  const [id, setId] = useState('');
 
   // Refs:
   // https://developers.google.com/identity/gsi/web/guides/display-button#javascript
   // https://stackoverflow.com/questions/65234862/how-to-define-variable-google-when-using-google-one-tap-javascript-api
   // https://www.youtube.com/watch?v=roxC8SMs7HU&t=0s
+  // https://developers.google.com/identity/gsi/web/guides/verify-google-id-token
 
   // Ref: icon https://react-icons.github.io/react-icons/search?q=iom
 
@@ -41,8 +43,9 @@ const HeaderTray = () => {
     console.log(userObject);
     setUser(userObject); // use redux and store this locally
     document.getElementById('signInDiv').hidden = true;
-    setName(userObject.name);
-    setAvatar(userObject.picture);
+    setName(userObject.name); // google fullname
+    setAvatar(userObject.picture); // google pic
+    setId(userObject.sub); // google id
   };
 
   const handleSignOut = () => {
@@ -51,6 +54,7 @@ const HeaderTray = () => {
     onClose();
     setName('User');
     setAvatar('');
+    setId('');
   };
 
   useEffect(() => {
@@ -113,7 +117,9 @@ const HeaderTray = () => {
               <Avatar name={name} size="lg" src={avatar} />
               <Box>
                 <Text>{name}</Text>
-                <Text fontSize="md">View Profile</Text>
+                <a href={`/profile/${id}`}>
+                  <Text fontSize="md">View Profile</Text>
+                </a>
               </Box>
             </HStack>
           </DrawerHeader>
