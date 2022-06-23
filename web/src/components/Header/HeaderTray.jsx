@@ -13,8 +13,8 @@ import {
   DrawerFooter,
   Image,
   Icon,
-  Link,
 } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 import MainLogo from './../../assets/main-logo.png';
 import { IoMdPower } from 'react-icons/io';
 
@@ -68,7 +68,7 @@ const HeaderTray = () => {
       document.getElementById('signInDiv'),
       { theme: 'filled_blue', size: 'large', type: 'standard' } // customization attributes
     );
-    // window.google.accounts.id.prompt(); // also display the One Tap dialog
+    window.google.accounts.id.prompt(); // also display the One Tap dialog
   }, []);
 
   // We will change this arr to a json arr in future to add urls and corresponding icons
@@ -117,9 +117,9 @@ const HeaderTray = () => {
               <Avatar name={name} size="lg" src={avatar} />
               <Box>
                 <Text>{name}</Text>
-                <a href={`/profile/${id}`}>
+                <Link to={`/profile/${id}`}>
                   <Text fontSize="md">View Profile</Text>
-                </a>
+                </Link>
               </Box>
             </HStack>
           </DrawerHeader>
