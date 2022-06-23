@@ -12,8 +12,11 @@ import {
   Box,
   DrawerFooter,
   Image,
+  Icon,
+  Link,
 } from '@chakra-ui/react';
 import MainLogo from './../../assets/main-logo.png';
+import { IoMdPower } from 'react-icons/io';
 
 import { HamburgerIcon, CalendarIcon } from '@chakra-ui/icons';
 import { useEffect, useState } from 'react';
@@ -29,6 +32,8 @@ const HeaderTray = () => {
   // https://developers.google.com/identity/gsi/web/guides/display-button#javascript
   // https://stackoverflow.com/questions/65234862/how-to-define-variable-google-when-using-google-one-tap-javascript-api
   // https://www.youtube.com/watch?v=roxC8SMs7HU&t=0s
+
+  // Ref: icon https://react-icons.github.io/react-icons/search?q=iom
 
   const handleCredentialResponse = res => {
     console.log('Encoded JWT ID token: ' + res.credential);
@@ -63,7 +68,13 @@ const HeaderTray = () => {
   }, []);
 
   // We will change this arr to a json arr in future to add urls and corresponding icons
-  const menuItems = ['Orders', 'Favorites', 'Payment', 'Help', 'Account'];
+  const menuItems = [
+    { tabName: 'Orders', url: '/orders' },
+    { tabName: 'Favorites', url: '/fav' },
+    { tabName: 'Payment', url: '/payment' },
+    { tabName: 'Help', url: '/help' },
+    { tabName: 'Account', url: '/account' },
+  ];
 
   return (
     <>
@@ -82,7 +93,17 @@ const HeaderTray = () => {
             </Text>
           )}
         </HStack>
-        <div id="signInDiv"></div>
+        <div id="signInDiv"></div>{' '}
+        {Object.keys(user).length > 0 && (
+          <HStack
+            p="10px"
+            onClick={handleSignOut}
+            style={{ cursor: 'pointer' }}
+          >
+            <Icon as={IoMdPower} w={6} h={6} />
+            <Text fontSize="20px">Logout</Text>
+          </HStack>
+        )}
       </HStack>
       <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
@@ -100,10 +121,12 @@ const HeaderTray = () => {
             <Box w="100%" p="1px">
               {menuItems.map((entry, index) => {
                 return (
-                  <HStack p="10px" key={index}>
-                    <CalendarIcon w={6} h={6} />
-                    <Text fontSize="20px">{entry}</Text>
-                  </HStack>
+                  <Link href={entry.url} style={{ textDecoration: 'none' }}>
+                    <HStack p="10px" key={index}>
+                      <CalendarIcon w={6} h={6} />
+                      <Text fontSize="20px">{entry.tabName}</Text>
+                    </HStack>
+                  </Link>
                 );
               })}
             </Box>
@@ -118,7 +141,7 @@ const HeaderTray = () => {
                   onClick={handleSignOut}
                   style={{ cursor: 'pointer' }}
                 >
-                  <CalendarIcon w={6} h={6} />
+                  <Icon as={IoMdPower} w={6} h={6} />
                   <Text fontSize="20px">Logout</Text>
                 </HStack>
               )}
