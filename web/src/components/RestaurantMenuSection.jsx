@@ -12,8 +12,9 @@ const RestaurantMenuSection = props => {
         {props.sectionName}
       </Heading>
       {props.menuItems.map(item => {
-        return <RestaurantMenuItem key={item.dishName} menuItem={item} />;
+        return <RestaurantMenuItem key={item.dishName} menuItem={item} orderSoFar={props.orderSoFar} setOrderItem={props.setOrderItem} quantityGTZero={props.quantityGTZero}/>;
       })}
+      <br/>
     </div>
   );
 };
