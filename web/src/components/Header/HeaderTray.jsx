@@ -19,19 +19,33 @@ import { HamburgerIcon, CalendarIcon } from '@chakra-ui/icons';
 import { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
 
-// Button that opens tray when pressed!
 const HeaderTray = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [user, setUser] = useState({});
+  const [name, setName] = useState('User');
+  const [avatar, setAvatar] = useState('');
 
+  // Refs:
   // https://developers.google.com/identity/gsi/web/guides/display-button#javascript
   // https://stackoverflow.com/questions/65234862/how-to-define-variable-google-when-using-google-one-tap-javascript-api
+  // https://www.youtube.com/watch?v=roxC8SMs7HU&t=0s
 
   const handleCredentialResponse = res => {
     console.log('Encoded JWT ID token: ' + res.credential);
     let userObject = jwt_decode(res.credential);
     console.log(userObject);
     setUser(userObject); // use redux and store this locally
+    document.getElementById('signInDiv').hidden = true;
+    setName(userObject.name);
+    setAvatar(userObject.picture);
+  };
+
+  const handleSignOut = () => {
+    setUser({});
+    document.getElementById('signInDiv').hidden = false;
+    onClose();
+    setName('User');
+    setAvatar('');
   };
 
   useEffect(() => {
@@ -45,7 +59,7 @@ const HeaderTray = () => {
       document.getElementById('signInDiv'),
       { theme: 'filled_blue', size: 'large', type: 'standard' } // customization attributes
     );
-    window.google.accounts.id.prompt(); // also display the One Tap dialog
+    // window.google.accounts.id.prompt(); // also display the One Tap dialog
   }, []);
 
   // We will change this arr to a json arr in future to add urls and corresponding icons
@@ -60,8 +74,13 @@ const HeaderTray = () => {
           </Button>
           <Image src={MainLogo} h="40px" />
           <Text fontSize="xl" as="b">
-            FriendDash
-          </Text>
+            FriendDash |
+          </Text>{' '}
+          {user && (
+            <Text fontSize="xl" paddingRight="20px" as="b">
+              Hello {name}!
+            </Text>
+          )}
         </HStack>
         <div id="signInDiv"></div>
       </HStack>
@@ -70,13 +89,9 @@ const HeaderTray = () => {
         <DrawerContent>
           <DrawerHeader borderBottomWidth="1px">
             <HStack>
-              <Avatar
-                name="Dan Abrahmov"
-                size="lg"
-                src="https://bit.ly/dan-abramov"
-              />
+              <Avatar name={name} size="lg" src={avatar} />
               <Box>
-                <Text>Dan Abrahmov</Text>
+                <Text>{name}</Text>
                 <Text fontSize="md">View Profile</Text>
               </Box>
             </HStack>
@@ -96,12 +111,17 @@ const HeaderTray = () => {
           <DrawerFooter>
             <Box w="100%" p="1px">
               <hr />
-              {/* <HStack p="10px">
-                <CalendarIcon w={6} h={6} />
-                <Text fontSize="20px">Logout</Text>
-              </HStack> */}
-
-              {/*  This handles google oauth */}
+              {/*  This handles logout*/}
+              {Object.keys(user).length > 0 && (
+                <HStack
+                  p="10px"
+                  onClick={handleSignOut}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <CalendarIcon w={6} h={6} />
+                  <Text fontSize="20px">Logout</Text>
+                </HStack>
+              )}
             </Box>
           </DrawerFooter>
         </DrawerContent>
