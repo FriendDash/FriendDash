@@ -25,8 +25,8 @@ const DashboardPage = () => {
       <Header />
       <Box paddingTop="50px">
         {/* <h1>Dashboard Page</h1> */}
-        <SearchBar handleChange={setSearchValue} />
         <ContentContainer>
+          <SearchBar handleChange={setSearchValue} mb="20px" />
           <SimpleGrid
             columns={{ lg: 3, base: 1 }}
             justifyItems="center"
