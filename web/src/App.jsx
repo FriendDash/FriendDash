@@ -7,6 +7,7 @@ import Dashboard from './pages/DashboardPage';
 import Home from './pages/Home';
 import LoginPage from './pages/LoginPage';
 import RestaurantMenuPage from './pages/RestaurantMenuPage';
+import ProfilePage from './pages/ProfilePage';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           <Route exact path="/dashboard" element={<Dashboard />} />
           <Route exact path="/login" element={<LoginPage />} />
           <Route exact path="/menu" element={<RestaurantMenuPage />} />
+          <Route path="/profile/:id" element={<ProfilePage />} />
         </Routes>
       </BrowserRouter>
     </ChakraProvider>
