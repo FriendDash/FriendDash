@@ -17,7 +17,25 @@ let orders = [
     orderDetails: [
       {
         orderUserId: 1,
-        orderItems: { classicFootLong: 2, doritos: 1, sprite: 1 },
+        orderItems: [
+          { menuItem: 'Classic Foot Long', price: 8, quantity: 2 },
+          { menuItem: 'Doritos', price: 2, quantity: 1 },
+          { menuItem: 'Sprite', price: 3, quantity: 1 },
+        ],
+      },
+      {
+        orderUserId: 2,
+        orderItems: [
+          { menuItem: 'Meatball Marinara', price: 10, quantity: 1 },
+          { menuItem: 'Sprite', price: 3, quantity: 1 },
+        ],
+      },
+      {
+        orderUserId: 3,
+        orderItems: [
+          { menuItem: 'Italian BMT', price: 8, quantity: 1 },
+          { menuItem: 'Salad', price: 5, quantity: 1 },
+        ],
       },
     ],
   },
@@ -33,7 +51,7 @@ let orders = [
     orderDetails: [
       {
         orderUserId: 2,
-        orderItems: { cheesePizza: 1 },
+        orderItems: [{ menuItem: 'Cheese Pizza', price: 16, quantity: 1 }],
       },
     ],
   },
@@ -50,7 +68,11 @@ let orders = [
     orderDetails: [
       {
         orderUserId: 3,
-        orderItems: { beefBento: 1, chickenKarage: 1, bubbly: 1 },
+        orderItems: [
+          { menuItem: 'Beef Bento', price: 11, quantity: 1 },
+          { menuItem: 'Chicken Karage', price: 3, quantity: 1 },
+          { menuItem: 'Bubbly', price: 1, quantity: 1 },
+        ],
       },
     ],
   },
@@ -66,7 +88,11 @@ let orders = [
     orderDetails: [
       {
         orderUserId: 4,
-        orderItems: { mcdouble: 1, cheeseburger: 2, fries: 2 },
+        orderItems: [
+          { menuItem: 'Big Mac', price: 7, quantity: 1 },
+          { menuItem: 'Large Fries', price: 4, quantity: 1 },
+          { menuItem: 'Coca Cola', price: 2, quantity: 1 },
+        ],
       },
     ],
   },

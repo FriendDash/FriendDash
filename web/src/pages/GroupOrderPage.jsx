@@ -13,10 +13,10 @@ import {
   Text,
   Image,
   Divider,
-  Circle,
 } from '@chakra-ui/react';
 import ContentContainer from '../components/ContentContainer';
 import { restarauntImageMapping } from '../components/ViewOrderModal';
+import MemberOrderDetail from '../components/Order/MemberOrderDetail';
 
 const GroupOrderPage = () => {
   const [groupOrder, setGroupOrder] = useState();
@@ -75,7 +75,7 @@ const GroupOrderPage = () => {
                 objectFit="cover"
               />
 
-              <HStack mt="10px" h="40px">
+              <HStack mt="10px" h="60px">
                 <Heading>{groupOrder.restaurant}</Heading>
                 <HStack
                   border="1px solid gray"
@@ -84,34 +84,21 @@ const GroupOrderPage = () => {
                   px="10px"
                 >
                   <Box>
-                    <Text>{groupOrder.pickupLocation}</Text>
+                    <Text color="gray.600">Pick up Location</Text>
+                    <Text fontWeight="semibold">
+                      {groupOrder.pickupLocation}
+                    </Text>
                   </Box>
-                  <Divider h="15px" orientation="vertical" />
+                  <Divider h="40px" orientation="vertical" />
                   <Box>
-                    <Text>{groupOrder.pickupTime}</Text>
+                    <Text color="gray.600">Pick up Time</Text>
+                    <Text fontWeight="semibold">{groupOrder.pickupTime}</Text>
                   </Box>
                 </HStack>
               </HStack>
 
-              {/* Render all currently added orders */}
-              <HStack mt="30px">
-                {groupOrder.orderDetails.map((order, i) => (
-                  <Box key={i} h="300px" w="200px" bg="gray.200" rounded="20px">
-                    <VStack alignItems="flex-start">
-                      {Object.entries(order.orderItems).map(
-                        ([item, quantity], i) => (
-                          <HStack key={i} mx="auto">
-                            <Circle size="30px" bg="gray.700">
-                              <Text color="white">{quantity}x</Text>
-                            </Circle>
-                            <Text textTransform="capitalize">{item}</Text>
-                          </HStack>
-                        )
-                      )}
-                    </VStack>
-                  </Box>
-                ))}
-              </HStack>
+              {/* Render all currently added orders as cards */}
+              <MemberOrderDetail groupOrder={groupOrder} />
             </Box>
           ) : (
             <Spinner
