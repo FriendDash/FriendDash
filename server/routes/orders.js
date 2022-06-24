@@ -78,7 +78,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/:orderId', function (req, res, next) {
-  const foundOrder = orders.find(order => order.orderId === req.params.orderId);
+  const foundOrder = orders.find(order => order.orderId == req.params.orderId);
 
   if (!foundOrder) return res.status(404).send({ message: 'order not found' });
 
@@ -123,7 +123,8 @@ router.delete('/remove/:orderId', function (req, res, next) {
 });
 
 router.put('/update/:orderId', function (req, res, next) {
-  if (!req.body
+  if (
+    !req.body
     // !req.body.restaurant ||
     // !req.body.creatorFirstName ||
     // !req.body.creatorLastName ||
@@ -133,7 +134,7 @@ router.put('/update/:orderId', function (req, res, next) {
   }
 
   for (entry in orders) {
-    console.log(req.body.orderId + " | " + orders[entry].orderId);
+    console.log(req.body.orderId + ' | ' + orders[entry].orderId);
     if (parseInt(orders[entry].orderId) === parseInt(req.params.orderId)) {
       orders[entry].orderDetails = req.body.orderDetails;
     }

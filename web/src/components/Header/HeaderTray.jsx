@@ -98,15 +98,19 @@ const HeaderTray = () => {
           <Button colorScheme="gray" onClick={onOpen}>
             <HamburgerIcon />
           </Button>
-          <Image src={MainLogo} h="40px" />
-          <Text fontSize="xl" as="b">
-            FriendDash |
-          </Text>
-          {user && (
-            <Text fontSize="xl" paddingRight="20px" as="b">
-              Hello {name}!
-            </Text>
-          )}
+          <a href="/dashboard">
+            <HStack>
+              <Image src={MainLogo} h="40px" />
+              <Text fontSize="xl" as="b">
+                FriendDash |
+              </Text>
+              {user && (
+                <Text fontSize="xl" paddingRight="20px" as="b">
+                  Hello {name}!
+                </Text>
+              )}
+            </HStack>
+          </a>
         </HStack>
         <div id="signInDiv"></div>
         {Object.keys(user).length > 0 && (

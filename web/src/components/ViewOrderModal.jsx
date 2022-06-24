@@ -16,8 +16,9 @@ import {
   Image,
   VStack,
 } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 
-const restarauntImageMapping = {
+export const restarauntImageMapping = {
   Subway:
     'https://doordash-static.s3.amazonaws.com/media/store/header/55699.jpg',
   'Pizza Pizza':
@@ -34,6 +35,8 @@ export default chakra(function ViewOrderModal({
   isOpen,
   onClose,
 }) {
+  const navigate = useNavigate();
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} className={className}>
       <ModalOverlay />
@@ -82,7 +85,11 @@ export default chakra(function ViewOrderModal({
           <Button colorScheme="blue" mr={3} onClick={onClose} w="110px">
             Close
           </Button>
-          <Button colorScheme="teal" w="110px">
+          <Button
+            colorScheme="teal"
+            w="110px"
+            onClick={() => navigate(`/group/${data.orderId}`)}
+          >
             Join Order
           </Button>
         </ModalFooter>
