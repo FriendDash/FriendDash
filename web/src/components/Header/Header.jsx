@@ -16,11 +16,7 @@ const Header = ({ className }) => {
       borderStyle="solid"
       borderWidth="1px"
     >
-      <HStack>
-        <div>
-          <HeaderTray />
-        </div>
-      </HStack>
+      <HeaderTray />
     </Box>
   );
 };
