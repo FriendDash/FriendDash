@@ -67,6 +67,7 @@ export default chakra(function CreateGroupForm({ className, isOpen, onClose }) {
     } else {
       dispatch(addOrderAsync(newGroup));
       alert('Successfully Submitted Order! ' + JSON.stringify(newGroup));
+      onClose();
     }
   };
 
