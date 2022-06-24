@@ -16,7 +16,14 @@ import {
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import MainLogo from './../../assets/main-logo.png';
-import { IoMdPower } from 'react-icons/io';
+import {
+  IoMdPower,
+  IoMdListBox,
+  IoMdStar,
+  IoIosCard,
+  IoMdHelpCircle,
+  IoMdPerson,
+} from 'react-icons/io';
 
 import { HamburgerIcon, CalendarIcon } from '@chakra-ui/icons';
 import { useEffect, useState } from 'react';
@@ -25,7 +32,7 @@ import jwt_decode from 'jwt-decode';
 const HeaderTray = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [user, setUser] = useState({});
-  const [name, setName] = useState('User');
+  const [name, setName] = useState('Foodie');
   const [avatar, setAvatar] = useState('');
   const [id, setId] = useState('');
 
@@ -52,7 +59,7 @@ const HeaderTray = () => {
     setUser({});
     document.getElementById('signInDiv').hidden = false;
     onClose();
-    setName('User');
+    setName('Foodie');
     setAvatar('');
     setId('');
   };
@@ -73,11 +80,15 @@ const HeaderTray = () => {
 
   // We will change this arr to a json arr in future to add urls and corresponding icons
   const menuItems = [
-    { tabName: 'Orders', url: '/orders' },
-    { tabName: 'Favorites', url: '/fav' },
-    { tabName: 'Payment', url: '/payment' },
-    { tabName: 'Help', url: '/help' },
-    { tabName: 'Account', url: '/account' },
+    {
+      tabName: 'Orders',
+      url: '/orders',
+      icon: IoMdListBox,
+    },
+    { tabName: 'Favorites', url: '/fav', icon: IoMdStar },
+    { tabName: 'Payment', url: '/payment', icon: IoIosCard },
+    { tabName: 'Help', url: '/help', icon: IoMdHelpCircle },
+    { tabName: 'Account', url: '/account', icon: IoMdPerson },
   ];
 
   return (
@@ -97,7 +108,7 @@ const HeaderTray = () => {
             </Text>
           )}
         </HStack>
-        <div id="signInDiv"></div>{' '}
+        <div id="signInDiv"></div>
         {Object.keys(user).length > 0 && (
           <HStack
             p="10px"
