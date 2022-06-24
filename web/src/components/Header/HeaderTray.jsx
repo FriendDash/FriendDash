@@ -101,7 +101,7 @@ const HeaderTray = () => {
           <Image src={MainLogo} h="40px" />
           <Text fontSize="xl" as="b">
             FriendDash |
-          </Text>{' '}
+          </Text>
           {user && (
             <Text fontSize="xl" paddingRight="20px" as="b">
               Hello {name}!
@@ -138,16 +138,22 @@ const HeaderTray = () => {
             <Box w="100%" p="1px">
               {menuItems.map((entry, index) => {
                 return (
-                  <a
-                    href={entry.url}
-                    style={{ textDecoration: 'none' }}
+                  <Button
                     key={index}
+                    variant="ghost"
+                    p="0px 0px"
+                    my="5px"
+                    w="100%"
+                    h="50px"
+                    justifyContent="flex-start"
                   >
-                    <HStack p="10px">
-                      <CalendarIcon w={6} h={6} />
-                      <Text fontSize="20px">{entry.tabName}</Text>
-                    </HStack>
-                  </a>
+                    <a href={entry.url}>
+                      <HStack p="10px">
+                        <Icon as={entry.icon} w={6} h={6} mr="5px" />
+                        <Text fontSize="20px">{entry.tabName}</Text>
+                      </HStack>
+                    </a>
+                  </Button>
                 );
               })}
             </Box>
