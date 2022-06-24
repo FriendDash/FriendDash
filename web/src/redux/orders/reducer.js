@@ -72,6 +72,7 @@ const ordersSlice = createSlice({
       })
       .addCase(updateOrderAsync.fulfilled, (state, action) => {
         state.updateOrder = REQUEST_STATE.FULFILLED;
+        state.list = action.payload;
         //state.list.push(action.payload);
       })
       .addCase(updateOrderAsync.rejected, (state, action) => {
