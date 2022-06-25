@@ -11,6 +11,12 @@ import {
   VStack,
   Avatar,
 } from '@chakra-ui/react';
+import { getUserByIdAsync } from '../redux/users/thunk';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { useState } from 'react';
+
+import  NotFound  from '../components/NotFound';
 
 // Ref Dynamic Routing: https://reacttraining.com/blog/react-router-v5-1/
 
@@ -22,6 +28,15 @@ const userMock = {
   userOrders: ['1', '2', '3'],
   userId: 1,
 };
+
+const emptyUser = {
+  userName: '',
+  userProfile: '',
+  userEmail: '',
+  userRating: [],
+  userOrders: [],
+  userId: '',
+}
 
 const orderItems = [
   {
@@ -73,6 +88,20 @@ const orderItems = [
 
 const ProfilePage = () => {
   let { id } = useParams();
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    (async () => {
+      const res = await fetch(`http://localhost:5000/users/${id}`);
+      const json = await res.json();
+      console.log(json);
+      if (res.status == '200') {
+
+        setUser(json);
+      }
+    })();
+  }, []);
+
   // get id from url
   // do fetch/get req from db for this user id
   // show user profile info and ratings
@@ -86,8 +115,11 @@ const ProfilePage = () => {
   // </Box>
 
   return (
-    <Box align="center">
+    <Box>
       <Header />
+
+      {Object.keys(user).length > 1 ? (
+        <>
       <Box
         marginTop="6%"
         align="center"
@@ -101,20 +133,20 @@ const ProfilePage = () => {
         {' '}
         <Avatar
           size="2xl"
-          name={userMock.userName}
-          src={userMock.userProfile}
+          name={user.userName}
+          src={user.userProfile}
         />
         <Heading size="xl" pt="9px">
-          {userMock.userName}
+          {user.userName}
         </Heading>
         <Heading size="l" pt="9px">
           Average User Rating:{' '}
-          {userMock.userRating.reduce((a, b) => a + b, 0) /
-            userMock.userRating.length}
+          {user.userRating.reduce((a, b) => a + b, 0) /
+            user.userRating.length}
           <br />
           User ID: {id}
           <br />
-          Total Orders: {userMock.userOrders.length}
+          Total Orders: {user.userOrders.length}
         </Heading>
       </Box>
       <Box
@@ -133,14 +165,15 @@ const ProfilePage = () => {
 
         {orderItems.map((entry, index) => {
           return (
-            <Box backgroundColor="blue.100" padding="20px" margin="10px">
+            <Box key={index} backgroundColor="blue.100" padding="20px" margin="10px">
               {entry.menuItem} x {entry.quantity} @ ${entry.price}
             </Box>
           );
         })}
-      </Box>
+      </Box></>) :(<NotFound element={"User"} />)}
     </Box>
-  );
-};
+  )
+
+}
 
 export default ProfilePage;

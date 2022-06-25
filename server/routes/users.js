@@ -15,7 +15,7 @@ let users = [
   },
   {
     userName: '2',
-    userProfile: 'https://i.imgur.com/GxUEUe0.jpeg',
+    userProfile: 'https://bit.ly/dan-abramov',
     userEmail: 'default2@gmail.com',
     userRating: [2, 1, 2, 5],
     userOrders: ['2'],
@@ -23,7 +23,7 @@ let users = [
   },
   {
     userName: '3',
-    userProfile: 'https://i.imgur.com/GxUEUe0.jpeg',
+    userProfile: 'https://bit.ly/kent-c-dodds',
     userEmail: 'default3@gmail.com',
     userRating: [5, 5, 5, 5, 4],
     userOrders: ['3'],
@@ -31,7 +31,7 @@ let users = [
   },
   {
     userName: '4',
-    userProfile: 'https://i.imgur.com/GxUEUe0.jpeg',
+    userProfile: 'https://bit.ly/code-beast',
     userEmail: 'default4@gmail.com',
     userRating: [1, 2, 3, 4],
     userOrders: ['4'],
@@ -45,7 +45,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/:userId', function (req, res, next) {
-  const foundUser = users.find(user => user.userId === req.params.userId);
+  const foundUser = users.find(user => user.userId == req.params.userId);
 
   if (!foundUser) return res.status(404).send({ message: 'user not found' });
 
@@ -90,10 +90,22 @@ router.put('/update/:userId', function (req, res, next) {
       users[entry].userEmail = req.body.userEmail;
       users[entry].userRating = req.body.userRating;
       users[entry].userOrders = req.body.userOrders;
+      users[entry].userProfile = req.body.userProfile;
       users[entry].userId;
+      console.log(users);
+      return res.send('ok');
     }
   }
+  const user = {
+    userName: req.body.userName,
+    userEmail: req.body.userEmail,
+    userRating: req.body.userRating,
+    userOrders: req.body.userOrders,
+    userId: req.body.userId,
+    userProfile: req.body.userProfile,
+  };
+  users.push(user);
   console.log(users);
-  return res.send('ok');
+  return res.status(201).send(user);
 });
 module.exports = router;
