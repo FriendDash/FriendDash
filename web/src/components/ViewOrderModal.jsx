@@ -43,6 +43,7 @@ export default chakra(function ViewOrderModal({
   const deleteOrder = () => {
     dispatch(removeOrderAsync(data.orderId));
     onConfirmationClose();
+    onClose();
   }
   return (
     <Modal isOpen={isOpen} onClose={onClose} className={className}>

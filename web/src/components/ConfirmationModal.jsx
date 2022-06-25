@@ -12,7 +12,7 @@ export default chakra(function ConfirmationModal({
     return (
         <Modal isOpen={isOpen} onClose={onClose} className={className}>
             <ModalOverlay />
-            <ModalContent marginTop={"30%"}>
+            <ModalContent marginTop={"20%"}>
                 <ModalHeader>{title}</ModalHeader>
                 <ModalFooter>
                     <Button colorScheme="blue" mr={3} w="110px" onClick={onClose}>
