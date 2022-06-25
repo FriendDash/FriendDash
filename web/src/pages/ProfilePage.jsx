@@ -16,6 +16,8 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
+import  NotFound  from '../components/NotFound';
+
 // Ref Dynamic Routing: https://reacttraining.com/blog/react-router-v5-1/
 
 const userMock = {
@@ -26,6 +28,15 @@ const userMock = {
   userOrders: ['1', '2', '3'],
   userId: 1,
 };
+
+const emptyUser = {
+  userName: '',
+  userProfile: '',
+  userEmail: '',
+  userRating: [],
+  userOrders: [],
+  userId: '',
+}
 
 const orderItems = [
   {
@@ -77,7 +88,7 @@ const orderItems = [
 
 const ProfilePage = () => {
   let { id } = useParams();
-  const [user, setUser] = useState(userMock);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     (async () => {
@@ -87,11 +98,10 @@ const ProfilePage = () => {
       if (res.status == '200') {
 
         setUser(json);
-      } else {
-        setUser(userMock);
       }
     })();
   }, []);
+
   // get id from url
   // do fetch/get req from db for this user id
   // show user profile info and ratings
@@ -105,8 +115,11 @@ const ProfilePage = () => {
   // </Box>
 
   return (
-    <Box align="center">
+    <Box>
       <Header />
+
+      {Object.keys(user).length > 1 ? (
+        <>
       <Box
         marginTop="6%"
         align="center"
@@ -157,9 +170,10 @@ const ProfilePage = () => {
             </Box>
           );
         })}
-      </Box>
+      </Box></>) :(<NotFound element={"User"} />)}
     </Box>
-  );
-};
+  )
+
+}
 
 export default ProfilePage;
