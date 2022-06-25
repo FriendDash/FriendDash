@@ -13,7 +13,7 @@ import { useSelector, useDispatch } from 'react-redux';
 // Dashboard Page
 const DashboardPage = () => {
   const [searchValue, setSearchValue] = useState('');
-  let ordersFromReduxStore = useSelector(state => state.orders.list);
+  let ordersFromReduxStore = useSelector(state => state.reducer.orders.list);
   const dispatch = useDispatch();
 
   useEffect(() => {
