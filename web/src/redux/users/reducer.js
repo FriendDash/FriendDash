@@ -5,11 +5,13 @@ import {
   getUsersAsync,
   removeUserAsync,
   updateUserAsync,
+  getUserByIdAsync
 } from './thunk';
 
 const INITIAL_STATE = {
   list: [],
   getUsers: REQUEST_STATE.IDLE,
+  getUserById: REQUEST_STATE.IDLE,
   addUser: REQUEST_STATE.IDLE,
   removeUser: REQUEST_STATE.IDLE,
   updateUser: REQUEST_STATE.IDLE,
@@ -41,6 +43,17 @@ const usersSlice = createSlice({
       })
       .addCase(getUsersAsync.rejected, (state, action) => {
         state.getUsers = REQUEST_STATE.REJECTED;
+        state.error = action.error;
+      })
+      .addCase(getUserByIdAsync.pending, state => {
+        state.getUserById = REQUEST_STATE.PENDING;
+        state.error = null;
+      })
+      .addCase(getUserByIdAsync.fulfilled, (state, action) => {
+        state.getUserById = REQUEST_STATE.FULFILLED;
+      })
+      .addCase(getUserByIdAsync.rejected, (state, action) => {
+        state.getUserById = REQUEST_STATE.REJECTED;
         state.error = action.error;
       })
       .addCase(addUserAsync.pending, state => {

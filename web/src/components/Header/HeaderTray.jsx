@@ -28,6 +28,8 @@ import {
 import { HamburgerIcon, CalendarIcon } from '@chakra-ui/icons';
 import { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUsersAsync, updateUserAsync } from '../../redux/users/thunk';
 
 const HeaderTray = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -35,6 +37,8 @@ const HeaderTray = () => {
   const [name, setName] = useState('Foodie');
   const [avatar, setAvatar] = useState('');
   const [id, setId] = useState('');
+
+  const dispatch = useDispatch();
 
   // Refs:
   // https://developers.google.com/identity/gsi/web/guides/display-button#javascript
@@ -49,6 +53,7 @@ const HeaderTray = () => {
     let userObject = jwt_decode(res.credential);
     console.log(userObject);
     setUser(userObject); // use redux and store this locally
+    dispatch(updateUserAsync({userName: userObject.name, userProfile: userObject.picture, userEmail: userObject.email, userId: userObject.sub, userRating: [], userOrders: ['6']}));
     document.getElementById('signInDiv').hidden = true;
     setName(userObject.name); // google fullname
     setAvatar(userObject.picture); // google pic

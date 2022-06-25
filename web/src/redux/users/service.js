@@ -25,7 +25,7 @@ const addUser = async user => {
   
   const removeUser = async userId => {
     const response = await fetch(
-      `http://localhost:5000/orders/remove/${userId}`,
+      `http://localhost:5000/users/remove/${userId}`,
       {
         method: 'DELETE',
       }
@@ -35,10 +35,17 @@ const addUser = async user => {
       throw new Error(response.errorMsg);
     }
   };
+
+  const getUserById = async userId => {
+    const response = await fetch(`http://localhost:5000/users/${userId}`, {
+      method: 'GET',
+    });
+    return response.json();
+  }
   
   const updateUser = async user => {
     const response = await fetch(
-      `http://localhost:5000/orders/update/${user.userId}`,
+      `http://localhost:5000/users/update/${user.userId}`,
       {
         method: 'PUT',
         headers: {
@@ -53,5 +60,5 @@ const addUser = async user => {
     }
   };
   
-  export { addUser, getUsers, removeUser, updateUser };
+  export { addUser, getUsers, getUserById, removeUser, updateUser };
   
