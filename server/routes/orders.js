@@ -11,6 +11,7 @@ let orders = [
     creatorLastName: 'Hacks',
     pickupLocation: '5751 Student Union Blvd',
     pickupTime: '6:30pm',
+    maxSize: 4,
     orderId: 1,
     creatorUserId: 1,
     orderStatus: 'open',
@@ -23,20 +24,6 @@ let orders = [
           { menuItem: 'Sprite', price: 3, quantity: 1 },
         ],
       },
-      {
-        orderUserId: 2,
-        orderItems: [
-          { menuItem: 'Meatball Marinara', price: 10, quantity: 1 },
-          { menuItem: 'Sprite', price: 3, quantity: 1 },
-        ],
-      },
-      {
-        orderUserId: 3,
-        orderItems: [
-          { menuItem: 'Italian BMT', price: 8, quantity: 1 },
-          { menuItem: 'Salad', price: 5, quantity: 1 },
-        ],
-      },
     ],
   },
   {
@@ -45,6 +32,7 @@ let orders = [
     creatorLastName: 'Rank',
     pickupLocation: '5751 Student Union Blvd',
     pickupTime: '7:00pm',
+    maxSize: 4,
     orderId: 2,
     creatorUserId: 2,
     orderStatus: 'open',
@@ -62,6 +50,7 @@ let orders = [
     creatorLastName: 'Ility',
     pickupLocation: '5751 Student Union Blvd',
     pickupTime: '7:10pm',
+    maxSize: 4,
     orderId: 3,
     creatorUserId: 3,
     orderStatus: 'open',
@@ -82,6 +71,7 @@ let orders = [
     creatorLastName: 'Monkey',
     pickupLocation: '5751 Student Union Blvd',
     pickupTime: '7:20pm',
+    maxSize: 4,
     orderId: 4,
     creatorUserId: 4,
     orderStatus: 'open',
@@ -90,9 +80,32 @@ let orders = [
         orderUserId: 4,
         orderItems: [
           { menuItem: 'Big Mac', price: 7, quantity: 1 },
-          { menuItem: 'Large Fries', price: 4, quantity: 1 },
+          { menuItem: 'Fries (Large)', price: 4, quantity: 1 },
           { menuItem: 'Coca Cola', price: 2, quantity: 1 },
         ],
+      },
+      {
+        orderUserId: 4,
+        orderItems: [
+          { menuItem: 'McDouble', price: 3, quantity: 2 },
+          { menuItem: 'Chicken Nuggets (10)', price: 7, quantity: 1 },
+          { menuItem: 'Sprite', price: 2, quantity: 1 },
+        ],
+      },
+      {
+        orderUserId: 4,
+        orderItems: [
+          { menuItem: 'Quarter Pounder', price: 7, quantity: 2 },
+          { menuItem: 'McChicken', price: 7, quantity: 3 },
+          { menuItem: 'Coffee (Medium)', price: 2, quantity: 1 },
+          { menuItem: 'Coca Cola', price: 2, quantity: 4 },
+          { menuItem: 'Fries (Large)', price: 4, quantity: 1 },
+          { menuItem: 'Apple Slices', price: 2, quantity: 1 },
+        ],
+      },
+      {
+        orderUserId: 4,
+        orderItems: [{ menuItem: 'Cheeseburger', price: 3, quantity: 1 }],
       },
     ],
   },
@@ -129,6 +142,7 @@ router.post('/add', function (req, res, next) {
     pickupTime: req.body.pickupTime,
     orderId: req.body.orderId,
     creatorUserId: req.body.creatorUserId,
+    maxSize: req.body.maxSize,
     orderStatus: 'new',
     orderDetails: [],
   };

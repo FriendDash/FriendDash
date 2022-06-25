@@ -1,7 +1,7 @@
 import { chakra, Box, Heading, HStack, Text, Circle } from '@chakra-ui/react';
 
 const colorMapping = {
-  0: 'red.600',
+  0: 'green.600',
   1: 'pink.700',
   2: 'yellow.700',
   3: 'blue.600',
@@ -9,7 +9,7 @@ const colorMapping = {
 
 export default chakra(function MemberOrderDetail({ className, groupOrder }) {
   return (
-    <HStack mt="30px" className={className} spacing="20px">
+    <HStack className={className} spacing="30px">
       {groupOrder.orderDetails.map((order, i) => (
         <Box key={i} h="300px" w="200px" bg="gray.200" rounded="20px">
           <Box alignItems="flex-start">
@@ -30,10 +30,16 @@ export default chakra(function MemberOrderDetail({ className, groupOrder }) {
             <Box px="15px">
               {order.orderItems.map(({ menuItem, quantity }, i) => (
                 <HStack key={i} my="10px">
-                  <Circle size="30px" bg="gray.700">
-                    <Text color="white">{quantity}x</Text>
+                  <Circle size="25px" bg="gray.700">
+                    <Text color="white" fontSize="12px">
+                      {quantity}x
+                    </Text>
                   </Circle>
-                  <Text textTransform="capitalize" wordBreak="break-word">
+                  <Text
+                    textTransform="capitalize"
+                    fontSize="14px"
+                    wordBreak="break-word"
+                  >
                     {menuItem}
                   </Text>
                 </HStack>

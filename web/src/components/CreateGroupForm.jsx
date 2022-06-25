@@ -59,6 +59,7 @@ export default chakra(function CreateGroupForm({ className, isOpen, onClose }) {
       creatorLastName: lastName,
       pickupLocation: pickupLocation,
       pickupTime: time,
+      maxSize: groupMembers,
       orderId: rand,
       creatorUserId: rand,
     };

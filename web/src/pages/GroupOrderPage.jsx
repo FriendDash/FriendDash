@@ -21,7 +21,7 @@ import MemberOrderDetail from '../components/Order/MemberOrderDetail';
 const GroupOrderPage = () => {
   const [groupOrder, setGroupOrder] = useState();
   const navigate = useNavigate();
-
+  const isOrderFull = groupOrder?.orderDetails.length >= groupOrder?.maxSize;
   let { id } = useParams();
 
   useEffect(() => {
@@ -41,6 +41,7 @@ const GroupOrderPage = () => {
         <VStack>
           {groupOrder ? (
             <Box>
+              {/* Info Banner */}
               <HStack bg="gray.700" w="100%" p="10px" rounded="10px">
                 <VStack alignItems="flex-start">
                   <HStack>
@@ -59,11 +60,24 @@ const GroupOrderPage = () => {
                   <Button w="130px" onClick={() => navigate('/dashboard')}>
                     Go Back
                   </Button>
-                  <Button w="130px" onClick={() => navigate('/menu')}>
+                  <Button
+                    disabled={isOrderFull}
+                    w="130px"
+                    onClick={() => navigate('/menu')}
+                  >
                     Add to Order
                   </Button>
                 </HStack>
               </HStack>
+
+              {/* Order Full Banner */}
+              {isOrderFull && (
+                <Box bg="red" rounded="10px" p="10px" mt="10px">
+                  <Heading size="lg" textAlign="center" color="whiteAlpha.900">
+                    Sorry! Order is full, please find another order
+                  </Heading>
+                </Box>
+              )}
 
               <Image
                 src={restarauntImageMapping[groupOrder.restaurant]}
@@ -98,16 +112,15 @@ const GroupOrderPage = () => {
               </HStack>
 
               {/* Render all currently added orders as cards */}
-              <MemberOrderDetail groupOrder={groupOrder} />
+              <MemberOrderDetail mt="20px" groupOrder={groupOrder} />
             </Box>
           ) : (
             <Spinner
-              thickness="4px"
-              speed="0.65s"
+              thickness="8px"
+              speed="0.8s"
               emptyColor="gray.200"
               color="blue.500"
-              size="xl"
-              h="500px"
+              boxSize="300px"
             />
           )}
         </VStack>
