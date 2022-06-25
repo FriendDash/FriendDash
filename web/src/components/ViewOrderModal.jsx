@@ -19,10 +19,8 @@ import {
   VStack,
   useDisclosure
 } from '@chakra-ui/react';
-
 import { useNavigate } from 'react-router-dom';
 import ConfirmationModal from './ConfirmationModal';
-
 
 export const restarauntImageMapping = {
   Subway:
