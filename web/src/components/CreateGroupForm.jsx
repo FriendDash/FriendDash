@@ -13,6 +13,7 @@ import {
   ModalFooter,
   InputRightElement,
   InputGroup,
+  useToast,
 } from '@chakra-ui/react';
 
 import { addOrderAsync } from '../redux/orders/thunk';
@@ -31,6 +32,13 @@ export default chakra(function CreateGroupForm({ className, isOpen, onClose }) {
   const lastName = 'Abrahmov';
 
   const dispatch = useDispatch();
+  const orderCreatedToast = useToast({
+    title: 'Order Created',
+    description: 'Group order created',
+    status: 'success',
+    duration: 4000,
+    isClosable: true,
+  });
 
   useEffect(() => {
     console.log(mapsAPIResponse);
@@ -63,12 +71,24 @@ export default chakra(function CreateGroupForm({ className, isOpen, onClose }) {
       orderId: rand,
       creatorUserId: rand,
     };
-    if (restaurantName === '' || time === '' || pickupLocation === '') {
+    if (restaurantName.trim() === '' || time === '' || pickupLocation === '') {
       alert('You must not submit an empty form.');
     } else {
       dispatch(addOrderAsync(newGroup));
-      alert('Successfully Submitted Order! ' + JSON.stringify(newGroup));
+      orderCreatedToast();
+      resetForm();
+      onClose();
     }
+  };
+
+  const resetForm = () => {
+    setRestaurantName('');
+    setTime(new Date());
+    setGroupMembers('1');
+    setPickupLocation('');
+    setLat('');
+    setLong('');
+    setMapsAPIResponse({});
   };
 
   const handleAddress = () => {
@@ -98,15 +118,18 @@ export default chakra(function CreateGroupForm({ className, isOpen, onClose }) {
         <ModalBody>
           <FormControl>
             <FormLabel>Select Restaurant</FormLabel>
-            <Input
-              type="restaurantName"
+            <Select
               value={restaurantName}
-              placeholder="Restaurant Name"
               onChange={e => setRestaurantName(e.target.value)}
               required
+              placeholder=" "
               marginBottom={'10px'}
-            />
-
+            >
+              <option value="McDonalds">McDonald's</option>
+              <option value="Nori Bento & Udon">Nori Bento & Udon</option>
+              <option value="Pizza Pizza">Pizza Pizza</option>
+              <option value="Subway">Subway</option>
+            </Select>
             <FormLabel>Select Pickup Location</FormLabel>
             <InputGroup>
               <Input
