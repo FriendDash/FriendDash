@@ -1,4 +1,6 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { removeOrderAsync } from '../redux/orders/thunk';
 import {
   chakra,
   Box,
@@ -15,7 +17,9 @@ import {
   Text,
   Image,
   VStack,
+  useDisclosure
 } from '@chakra-ui/react';
+import ConfirmationModal from './ConfirmationModal';
 
 const restarauntImageMapping = {
   Subway:
@@ -34,6 +38,13 @@ export default chakra(function ViewOrderModal({
   isOpen,
   onClose,
 }) {
+  const { isOpen: isConfirmationOpen, onOpen: onConfirmationOpen, onClose: onConfirmationClose } = useDisclosure();
+  const dispatch = useDispatch();
+  const deleteOrder = () => {
+    dispatch(removeOrderAsync(data.orderId));
+    onConfirmationClose();
+    onClose();
+  }
   return (
     <Modal isOpen={isOpen} onClose={onClose} className={className}>
       <ModalOverlay />
@@ -42,6 +53,12 @@ export default chakra(function ViewOrderModal({
         <ModalCloseButton />
 
         <ModalBody pt="0px">
+          <HStack marginBottom={"10px"}>
+            <Button colorScheme="red" marginRight={"0"} marginLeft={"auto"} onClick={onConfirmationOpen}>
+              Delete Order
+            </Button>
+            <ConfirmationModal isOpen={isConfirmationOpen} onClose={onConfirmationClose} className={className} title={"Confirm delete group order? This cannot be undone"} confirmButton={"CONFIRM"} cancelButton={"CANCEL"} onConfirm={deleteOrder} />
+          </HStack>
           <VStack>
             <Image
               src={restarauntImageMapping[data.restaurant]}
