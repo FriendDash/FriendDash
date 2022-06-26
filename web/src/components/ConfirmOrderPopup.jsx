@@ -14,8 +14,7 @@ import { updateOrderAsync } from '../redux/orders/thunk';
 
 const mockUpdateOrder = {
   restaurant: 'Subway',
-  creatorFirstName: 'Johhny',
-  creatorLastName: 'Hacks',
+  creatorName: 'Johhny Hacks',
   pickupLocation: '5751 Student Union Blvd',
   pickupTime: '6:30pm',
   orderId: 1,

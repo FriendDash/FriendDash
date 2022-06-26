@@ -28,8 +28,7 @@ export default chakra(function CreateGroupForm({ className, isOpen, onClose }) {
   const [lat, setLat] = useState('');
   const [long, setLong] = useState('');
   const [mapsAPIResponse, setMapsAPIResponse] = useState({});
-  const firstName = 'Dan';
-  const lastName = 'Abrahmov';
+  const name = 'Dan Abrahmov';
 
   const dispatch = useDispatch();
   const orderCreatedToast = useToast({
@@ -63,8 +62,7 @@ export default chakra(function CreateGroupForm({ className, isOpen, onClose }) {
     const rand = 1 + Math.random() * (100 - 1);
     let newGroup = {
       restaurant: restaurantName,
-      creatorFirstName: firstName,
-      creatorLastName: lastName,
+      creatorName: name,
       pickupLocation: pickupLocation,
       pickupTime: time,
       maxSize: groupMembers,

@@ -45,10 +45,7 @@ const GroupOrderPage = () => {
               <HStack bg="gray.700" w="100%" p="10px" rounded="10px">
                 <VStack alignItems="flex-start">
                   <HStack>
-                    <Heading color="white">
-                      {groupOrder.creatorFirstName} {groupOrder.creatorLastName}
-                      's
-                    </Heading>
+                    <Heading color="white">{groupOrder.creatorName}'s</Heading>
                     <Heading color="whiteAlpha.800">Group Order</Heading>
                   </HStack>
                   <Text color="white">

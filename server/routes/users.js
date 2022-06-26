@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+
+let User = require('../model/user.model');
 const { v4: uuid } = require('uuid');
 
 // Repo Referenced: https://github.com/svmah/cs455-express-demo
@@ -41,31 +43,36 @@ let users = [
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-  return res.send(users);
+  User.find()
+    .then(users => res.json(users))
+    .catch(err => res.status(400).json('Error: ' + err));
 });
 
+// GET A SINGLE ORDER BY MONGODB ID (_ID)
 router.get('/:userId', function (req, res, next) {
-  const foundUser = users.find(user => user.userId == req.params.userId);
-
-  if (!foundUser) return res.status(404).send({ message: 'user not found' });
-
-  return res.send(foundUser);
+  User.findById(req.params.userId) // find it by id
+    .then(user => res.send(user)) //then return as json ; else return error
+    .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.post('/add', function (req, res, next) {
   if (!req.body.userEmail || !req.body.userName) {
     return res.status(400).send({ message: 'user post req missing info' });
   }
-  // const user = { id: uuid(), name: req.body.name };
-  const user = {
+
+  const user = new User({
     userName: req.body.userName,
+    userProfile: req.body.userProfile,
     userEmail: req.body.userEmail,
     userRating: [],
     userOrders: [],
-    userId: uuid(),
-  };
-  users.push(user);
-  return res.send(user);
+    googleId: uuid(),
+  });
+
+  user
+    .save()
+    .then(user => res.json(user))
+    .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.delete('/remove/:userId', function (req, res, next) {
@@ -73,9 +80,9 @@ router.delete('/remove/:userId', function (req, res, next) {
     return res.status(400).send({ message: 'user post req missing info' });
   }
 
-  users = users.filter(entry => entry.userId.toString() !== req.params.userId);
-  console.log(users);
-  res.send('ok');
+  User.findByIdAndDelete(req.params.userId)
+    .then(deletedUser => res.json(deletedUser))
+    .catch(err => res.status(404).json('Error: ' + err));
 });
 
 router.put('/update/:userId', function (req, res, next) {
@@ -83,29 +90,18 @@ router.put('/update/:userId', function (req, res, next) {
     return res.status(400).send({ message: 'user post req missing info' });
   }
 
-  for (entry in users) {
-    // console.log(req.body.userId + " | " + users[entry].userId);
-    if (parseInt(users[entry].userId) === parseInt(req.params.userId)) {
-      users[entry].userName = req.body.userName;
-      users[entry].userEmail = req.body.userEmail;
-      users[entry].userRating = req.body.userRating;
-      users[entry].userOrders = req.body.userOrders;
-      users[entry].userProfile = req.body.userProfile;
-      users[entry].userId;
-      console.log(users);
-      return res.send('ok');
-    }
-  }
   const user = {
     userName: req.body.userName,
+    userProfile: req.body.userProfile,
     userEmail: req.body.userEmail,
     userRating: req.body.userRating,
     userOrders: req.body.userOrders,
-    userId: req.body.userId,
-    userProfile: req.body.userProfile,
+    googleId: req.body.googleId,
   };
-  users.push(user);
-  console.log(users);
-  return res.status(201).send(user);
+
+  User.findByIdAndUpdate(req.params.userId, user, { new: true })
+    .then(updatedUser => res.json(updatedUser))
+    .catch(err => res.status(400).json('Error: ' + err));
 });
+
 module.exports = router;

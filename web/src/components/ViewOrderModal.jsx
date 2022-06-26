@@ -17,7 +17,7 @@ import {
   Text,
   Image,
   VStack,
-  useDisclosure
+  useDisclosure,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import ConfirmationModal from './ConfirmationModal';
@@ -40,13 +40,17 @@ export default chakra(function ViewOrderModal({
   onClose,
 }) {
   const navigate = useNavigate();
-  const { isOpen: isConfirmationOpen, onOpen: onConfirmationOpen, onClose: onConfirmationClose } = useDisclosure();
+  const {
+    isOpen: isConfirmationOpen,
+    onOpen: onConfirmationOpen,
+    onClose: onConfirmationClose,
+  } = useDisclosure();
   const dispatch = useDispatch();
   const deleteOrder = () => {
     dispatch(removeOrderAsync(data.orderId));
     onConfirmationClose();
     onClose();
-  }
+  };
   return (
     <Modal isOpen={isOpen} onClose={onClose} className={className}>
       <ModalOverlay />
@@ -55,11 +59,24 @@ export default chakra(function ViewOrderModal({
         <ModalCloseButton />
 
         <ModalBody pt="0px">
-          <HStack marginBottom={"10px"}>
-            <Button colorScheme="red" marginRight={"0"} marginLeft={"auto"} onClick={onConfirmationOpen}>
+          <HStack marginBottom={'10px'}>
+            <Button
+              colorScheme="red"
+              marginRight={'0'}
+              marginLeft={'auto'}
+              onClick={onConfirmationOpen}
+            >
               Delete Order
             </Button>
-            <ConfirmationModal isOpen={isConfirmationOpen} onClose={onConfirmationClose} className={className} title={"Confirm delete group order? This cannot be undone"} confirmButton={"CONFIRM"} cancelButton={"CANCEL"} onConfirm={deleteOrder} />
+            <ConfirmationModal
+              isOpen={isConfirmationOpen}
+              onClose={onConfirmationClose}
+              className={className}
+              title={'Confirm delete group order? This cannot be undone'}
+              confirmButton={'CONFIRM'}
+              cancelButton={'CANCEL'}
+              onConfirm={deleteOrder}
+            />
           </HStack>
           <VStack>
             <Image
@@ -78,9 +95,7 @@ export default chakra(function ViewOrderModal({
                 </Box>
                 <Box>
                   <Heading size="sm">Organizer:</Heading>
-                  <Text>
-                    {data.creatorFirstName} {data.creatorLastName}
-                  </Text>
+                  <Text>{data.creatorName}</Text>
                 </Box>
               </VStack>
               <VStack alignItems="flex-start">
