@@ -26,8 +26,8 @@ export const updateOrderAsync = createAsyncThunk(
 
 export const removeOrderAsync = createAsyncThunk(
   actionTypes.REMOVE_ORDER,
-  async (orderId, { dispatch }) => {
-    await removeOrder(orderId);
+  async (_id, { dispatch }) => {
+    await removeOrder(_id);
     await dispatch(getOrdersAsync());
   }
 );

@@ -47,7 +47,7 @@ export default chakra(function ViewOrderModal({
   } = useDisclosure();
   const dispatch = useDispatch();
   const deleteOrder = () => {
-    dispatch(removeOrderAsync(data.orderId));
+    dispatch(removeOrderAsync(data._id));
     onConfirmationClose();
     onClose();
   };
@@ -119,7 +119,7 @@ export default chakra(function ViewOrderModal({
           <Button
             colorScheme="teal"
             w="110px"
-            onClick={() => navigate(`/group/${data.orderId}`)}
+            onClick={() => navigate(`/group/${data._id}`)}
           >
             Join Order
           </Button>

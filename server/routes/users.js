@@ -85,7 +85,7 @@ router.delete('/remove/:userId', function (req, res, next) {
     .catch(err => res.status(404).json('Error: ' + err));
 });
 
-router.put('/update/:userId', function (req, res, next) {
+router.put('/update/:userId/', function (req, res, next) {
   if (!req.body.userName || !req.body.userEmail || !req.body.userOrders) {
     return res.status(400).send({ message: 'user post req missing info' });
   }
