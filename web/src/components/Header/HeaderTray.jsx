@@ -29,7 +29,7 @@ import { HamburgerIcon, CalendarIcon } from '@chakra-ui/icons';
 import { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUsersAsync, updateUserAsync } from '../../redux/users/thunk';
+import { getUserByIdAsync, addUserAsync } from '../../redux/users/thunk';
 
 const HeaderTray = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -52,18 +52,22 @@ const HeaderTray = () => {
     console.log('Encoded JWT ID token: ' + res.credential);
     let userObject = jwt_decode(res.credential);
     console.log(userObject);
-    setUser(userObject); // use redux and store this locally
+    setUser(userObject);
+
+    // store credentials in mongodb dependent if already added or not (handled in endpoint)
     dispatch(
-      updateUserAsync({
+      addUserAsync({
         userName: userObject.name,
         userProfile: userObject.picture,
         userEmail: userObject.email,
         userRating: [],
-        userOrders: ['6'],
+        userOrders: ['99'],
         googleId: userObject.sub,
       })
     );
     document.getElementById('signInDiv').hidden = true;
+
+    dispatch(getUserByIdAsync());
     setName(userObject.name); // google fullname
     setAvatar(userObject.picture); // google pic
     setId(userObject.sub); // google id
@@ -89,7 +93,9 @@ const HeaderTray = () => {
       document.getElementById('signInDiv'),
       { theme: 'filled_blue', size: 'large', type: 'standard' } // customization attributes
     );
-    window.google.accounts.id.prompt(); // also display the One Tap dialog
+    document.getElementById('signInDiv').addEventListener('click', () => {
+      window.google.accounts.id.prompt(); // also display the One Tap dialog
+    });
   }, []);
 
   // We will change this arr to a json arr in future to add urls and corresponding icons

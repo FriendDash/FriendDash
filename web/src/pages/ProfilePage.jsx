@@ -115,7 +115,7 @@ const ProfilePage = () => {
 
   return (
     <Box>
-      <Header />
+      {/* <Header /> */}
 
       {Object.keys(user).length > 1 ? (
         <>
