@@ -13,9 +13,9 @@ import { useDispatch } from 'react-redux';
 import { updateOrderAsync } from '../redux/orders/thunk';
 
 const mockUpdateOrder = {
+  _id: '12313221313131',
   restaurant: 'Subway',
-  creatorFirstName: 'Johhny',
-  creatorLastName: 'Hacks',
+  creatorName: 'Johhny Hacks',
   pickupLocation: '5751 Student Union Blvd',
   pickupTime: '6:30pm',
   orderId: 1,

@@ -23,9 +23,9 @@ const getOrders = async () => {
   return response.json();
 };
 
-const removeOrder = async orderId => {
+const removeOrder = async _id => {
   const response = await fetch(
-    `http://localhost:5000/orders/remove/${orderId}`,
+    `http://localhost:5000/orders/remove/${_id}`,
     {
       method: 'DELETE',
     }
@@ -38,7 +38,7 @@ const removeOrder = async orderId => {
 
 const updateOrder = async order => {
   const response = await fetch(
-    `http://localhost:5000/orders/update/${order.orderId}`,
+    `http://localhost:5000/orders/update/${order._id}`,
     {
       method: 'PUT',
       headers: {

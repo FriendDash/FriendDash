@@ -2,13 +2,15 @@ const express = require('express');
 const router = express.Router();
 const { v4: uuid } = require('uuid');
 
+let Order = require('../model/order.model');
+
 // Repo Referenced: https://github.com/svmah/cs455-express-demo
+// Repo Referenced: https://github.com/MrBenC88/CPSC455-Assign2_3_4-RecipeSite/blob/main/server/routes/recipes.js
 
 let orders = [
   {
     restaurant: 'Subway',
-    creatorFirstName: 'Johhny',
-    creatorLastName: 'Hacks',
+    creatorName: 'Johhny Hacks',
     pickupLocation: '5751 Student Union Blvd',
     pickupTime: '6:30pm',
     maxSize: 4,
@@ -28,8 +30,7 @@ let orders = [
   },
   {
     restaurant: 'Pizza Pizza',
-    creatorFirstName: 'Hacker',
-    creatorLastName: 'Rank',
+    creatorName: 'Hacker Rank',
     pickupLocation: '5751 Student Union Blvd',
     pickupTime: '7:00pm',
     maxSize: 4,
@@ -46,8 +47,7 @@ let orders = [
 
   {
     restaurant: 'Nori Bento & Udon',
-    creatorFirstName: 'Coder',
-    creatorLastName: 'Ility',
+    creatorName: 'Coder Ility',
     pickupLocation: '5751 Student Union Blvd',
     pickupTime: '7:10pm',
     maxSize: 4,
@@ -67,8 +67,7 @@ let orders = [
   },
   {
     restaurant: 'McDonalds',
-    creatorFirstName: 'Codey',
-    creatorLastName: 'Monkey',
+    creatorName: 'Codey Monkey',
     pickupLocation: '5751 Student Union Blvd',
     pickupTime: '7:20pm',
     maxSize: 4,
@@ -111,57 +110,71 @@ let orders = [
   },
 ];
 
-/* GET orders listing. */
+/* GET ALL orders listing. */
 router.get('/', function (req, res, next) {
-  return res.send(orders);
+  Order.find()
+    .then(orders => res.json(orders)) //
+    .catch(err => res.status(400).json('Error: ' + err));
 });
 
+// GET A SINGLE ORDER BY MONGODB ID (_ID)
 router.get('/:orderId', function (req, res, next) {
-  const foundOrder = orders.find(order => order.orderId == req.params.orderId);
-
-  if (!foundOrder) return res.status(404).send({ message: 'order not found' });
-
-  return res.send(foundOrder);
+  Order.findById(req.params.orderId) // find it by id
+    .then(order => res.send(order)) //then return as json ; else return error
+    .catch(err => res.status(400).json('Error: ' + err));
 });
 
+//  POST ONE recipe
 router.post('/add', function (req, res, next) {
   if (
     !req.body.restaurant ||
-    !req.body.creatorFirstName ||
-    !req.body.creatorLastName ||
+    !req.body.creatorName ||
     !req.body.creatorUserId
   ) {
     return res.status(400).send({ message: 'order post req missing info' });
   }
-  // const order = { id: uuid(), name: req.body.name };
-  const order = {
-    restaurant: req.body.restaurant,
-    creatorFirstName: req.body.creatorFirstName,
-    creatorLastName: req.body.creatorLastName,
-    pickupLocation: req.body.pickupLocation,
-    pickupTime: req.body.pickupTime,
-    orderId: req.body.orderId,
-    creatorUserId: req.body.creatorUserId,
-    maxSize: req.body.maxSize,
-    orderStatus: 'new',
-    orderDetails: [],
-  };
-  orders.push(order);
-  return res.send(order);
+
+  const restaurant = req.body.restaurant;
+  const creatorName = req.body.creatorName;
+  const pickupLocation = req.body.pickupLocation;
+  const pickupTime = req.body.pickupTime;
+  const maxSize = req.body.maxSize;
+  const orderId = req.body.orderId;
+  const creatorUserId = req.body.creatorUserId;
+  const orderStatus = 'new';
+  const orderDetails = [];
+
+  const newOrder = new Order({
+    restaurant,
+    creatorName,
+    pickupLocation,
+    pickupTime,
+    maxSize,
+    orderId,
+    creatorUserId,
+    orderStatus,
+    orderDetails,
+  });
+
+  newOrder
+    .save() // save the new order  to the database
+    .then(order => res.json(order))
+    .catch(err => res.status(400).json('Error: ' + err));
 });
 
+//  DELETE ONE recipe by MONGODB ID (_ID)
 router.delete('/remove/:orderId', function (req, res, next) {
   if (!req.params.orderId) {
     return res.status(400).send({ message: 'order post req missing info' });
   }
 
-  orders = orders.filter(
-    entry => entry.orderId.toString() !== req.params.orderId
-  );
-  console.log(orders);
-  res.send('ok');
+  Order.findByIdAndDelete(req.params.orderId)
+    .then(() => res.json(`Order with id ${req.params.orderId} deleted!`))
+    .catch(err => res.status(404).json('Error: ' + err));
 });
 
+// UPDATE ONE recipe by ID
+// THE ID IN THIS CASE IS USING THE MONGODB ID RETURNED _id
 router.put('/update/:orderId', function (req, res, next) {
   if (
     !req.body
@@ -173,13 +186,22 @@ router.put('/update/:orderId', function (req, res, next) {
     return res.status(400).send({ message: 'order post req missing info' });
   }
 
-  for (entry in orders) {
-    console.log(req.body.orderId + ' | ' + orders[entry].orderId);
-    if (parseInt(orders[entry].orderId) === parseInt(req.params.orderId)) {
-      orders[entry].orderDetails = req.body.orderDetails;
-    }
-  }
-  console.log(orders);
-  return res.send(orders);
+  const body = req.body;
+  const order = {
+    restaurant: req.body.restaurant,
+    creatorName: req.body.creatorName,
+    pickupLocation: req.body.pickupLocation,
+    pickupTime: req.body.pickupTime,
+    maxSize: req.body.maxSize,
+    orderId: req.body.orderId,
+    creatorUserId: req.body.creatorUserId,
+    orderStatus: req.body.orderStatus,
+    orderDetails: req.body.orderDetails,
+  };
+
+  Order.findByIdAndUpdate(req.params.orderId, order, { new: true })
+    .then(updatedOrder => res.json(updatedOrder))
+    .catch(err => res.status(400).json('Error: ' + err));
 });
+
 module.exports = router;

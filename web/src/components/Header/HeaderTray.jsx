@@ -53,7 +53,16 @@ const HeaderTray = () => {
     let userObject = jwt_decode(res.credential);
     console.log(userObject);
     setUser(userObject); // use redux and store this locally
-    dispatch(updateUserAsync({userName: userObject.name, userProfile: userObject.picture, userEmail: userObject.email, userId: userObject.sub, userRating: [], userOrders: ['6']}));
+    dispatch(
+      updateUserAsync({
+        userName: userObject.name,
+        userProfile: userObject.picture,
+        userEmail: userObject.email,
+        userRating: [],
+        userOrders: ['6'],
+        googleId: userObject.sub,
+      })
+    );
     document.getElementById('signInDiv').hidden = true;
     setName(userObject.name); // google fullname
     setAvatar(userObject.picture); // google pic

@@ -16,7 +16,7 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
-import  NotFound  from '../components/NotFound';
+import NotFound from '../components/NotFound';
 
 // Ref Dynamic Routing: https://reacttraining.com/blog/react-router-v5-1/
 
@@ -26,7 +26,7 @@ const userMock = {
   userEmail: 'default1@gmail.com',
   userRating: [4, 5, 2, 3, 5],
   userOrders: ['1', '2', '3'],
-  userId: 1,
+  googleId: '123231',
 };
 
 const emptyUser = {
@@ -35,8 +35,8 @@ const emptyUser = {
   userEmail: '',
   userRating: [],
   userOrders: [],
-  userId: '',
-}
+  googleId: 'sad33aas',
+};
 
 const orderItems = [
   {
@@ -96,7 +96,6 @@ const ProfilePage = () => {
       const json = await res.json();
       console.log(json);
       if (res.status == '200') {
-
         setUser(json);
       }
     })();
@@ -120,60 +119,64 @@ const ProfilePage = () => {
 
       {Object.keys(user).length > 1 ? (
         <>
-      <Box
-        marginTop="6%"
-        align="center"
-        p="30px"
-        bg="gray.300"
-        // w={{ lg: '600px', md: '600px', base: '100%' }}
-        w="100%"
-        h="300px"
-        borderRadius="10px"
-      >
-        {' '}
-        <Avatar
-          size="2xl"
-          name={user.userName}
-          src={user.userProfile}
-        />
-        <Heading size="xl" pt="9px">
-          {user.userName}
-        </Heading>
-        <Heading size="l" pt="9px">
-          Average User Rating:{' '}
-          {user.userRating.reduce((a, b) => a + b, 0) /
-            user.userRating.length}
-          <br />
-          User ID: {id}
-          <br />
-          Total Orders: {user.userOrders.length}
-        </Heading>
-      </Box>
-      <Box
-        align="center"
-        p="30px"
-        bg="gray.200"
-        // w={{ lg: '600px', md: '600px', base: '100%' }}
-        w="100%"
-        h="100%"
-        borderRadius="10px"
-        overflowY="auto"
-      >
-        <Heading size="lg" pt="9px">
-          Orders
-        </Heading>
+          <Box
+            marginTop="6%"
+            align="center"
+            p="30px"
+            bg="gray.300"
+            // w={{ lg: '600px', md: '600px', base: '100%' }}
+            w="100%"
+            h="300px"
+            borderRadius="10px"
+          >
+            {' '}
+            <Avatar size="2xl" name={user.userName} src={user.userProfile} />
+            <Heading size="xl" pt="9px">
+              {user.userName}
+            </Heading>
+            <Heading size="l" pt="9px">
+              Average User Rating:{' '}
+              {user.userRating.reduce((a, b) => a + b, 0) /
+                user.userRating.length}
+              <br />
+              User ID: {id}
+              <br />
+              Total Orders: {user.userOrders.length}
+            </Heading>
+          </Box>
+          <Box
+            align="center"
+            p="30px"
+            bg="gray.200"
+            // w={{ lg: '600px', md: '600px', base: '100%' }}
+            w="100%"
+            h="100%"
+            borderRadius="10px"
+            overflowY="auto"
+          >
+            <Heading size="lg" pt="9px">
+              Orders
+            </Heading>
 
-        {orderItems.map((entry, index) => {
-          return (
-            <Box key={index} backgroundColor="blue.100" padding="20px" margin="10px">
-              {entry.menuItem} x {entry.quantity} @ ${entry.price}
-            </Box>
-          );
-        })}
-      </Box></>) :(<NotFound element={"User"} />)}
+            {orderItems.map((entry, index) => {
+              return (
+                <Box
+                  key={index}
+                  backgroundColor="blue.100"
+                  padding="20px"
+                  margin="10px"
+                >
+                  {entry.menuItem} x {entry.quantity} @ ${entry.price}
+                </Box>
+              );
+            })}
+          </Box>
+        </>
+      ) : (
+        <NotFound element={'User'} />
+      )}
     </Box>
-  )
-
-}
+  );
+};
 
 export default ProfilePage;
