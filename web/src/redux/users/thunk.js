@@ -15,10 +15,11 @@ export const getUsersAsync = createAsyncThunk(
   }
 );
 
+// get by googleID
 export const getUserByIdAsync = createAsyncThunk(
   actionTypes.GET_USER_BY_ID,
-  async _id => {
-    return await getUserById(_id);
+  async googleID => {
+    return await getUserById(googleID);
   }
 );
 

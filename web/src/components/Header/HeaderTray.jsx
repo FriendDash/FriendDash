@@ -25,72 +25,47 @@ import {
   IoMdPerson,
 } from 'react-icons/io';
 
-import { HamburgerIcon, CalendarIcon } from '@chakra-ui/icons';
-import { useEffect, useState } from 'react';
-import jwt_decode from 'jwt-decode';
-import { useDispatch, useSelector } from 'react-redux';
-import { getUsersAsync, updateUserAsync } from '../../redux/users/thunk';
+import { HamburgerIcon } from '@chakra-ui/icons';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const HeaderTray = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [user, setUser] = useState({});
-  const [name, setName] = useState('Foodie');
-  const [avatar, setAvatar] = useState('');
-  const [id, setId] = useState('');
+
+  const signedOutUserObject = {
+    createdAt: '',
+    googleId: '0',
+    updatedAt: '',
+    userEmail: '',
+    userName: 'Foodie',
+    userOrders: [],
+    userProfile: '',
+    userRating: [],
+  };
+
+  const [user, setUser] = useState(() => {
+    // getting stored value from localStorage
+    const saved = localStorage.getItem('userSession_FriendDash');
+    const initialValue = JSON.parse(saved);
+    return initialValue || signedOutUserObject;
+  });
 
   const dispatch = useDispatch();
-
-  // Refs:
-  // https://developers.google.com/identity/gsi/web/guides/display-button#javascript
-  // https://stackoverflow.com/questions/65234862/how-to-define-variable-google-when-using-google-one-tap-javascript-api
-  // https://www.youtube.com/watch?v=roxC8SMs7HU&t=0s
-  // https://developers.google.com/identity/gsi/web/guides/verify-google-id-token
-
-  // Ref: icon https://react-icons.github.io/react-icons/search?q=iom
-
-  const handleCredentialResponse = res => {
-    console.log('Encoded JWT ID token: ' + res.credential);
-    let userObject = jwt_decode(res.credential);
-    console.log(userObject);
-    setUser(userObject); // use redux and store this locally
-    dispatch(
-      updateUserAsync({
-        userName: userObject.name,
-        userProfile: userObject.picture,
-        userEmail: userObject.email,
-        userRating: [],
-        userOrders: ['6'],
-        googleId: userObject.sub,
-      })
-    );
-    document.getElementById('signInDiv').hidden = true;
-    setName(userObject.name); // google fullname
-    setAvatar(userObject.picture); // google pic
-    setId(userObject.sub); // google id
-  };
+  const nav = useNavigate();
 
   const handleSignOut = () => {
-    setUser({});
-    document.getElementById('signInDiv').hidden = false;
+    localStorage.setItem(
+      'userSession_FriendDash',
+      JSON.stringify(signedOutUserObject)
+    );
+    setUser(signedOutUserObject);
     onClose();
-    setName('Foodie');
-    setAvatar('');
-    setId('');
   };
 
-  useEffect(() => {
-    // global google
-    window.google.accounts.id.initialize({
-      client_id:
-        '635249974359-roi2pf1k7cirel6f972pm15ra4duocbo.apps.googleusercontent.com',
-      callback: handleCredentialResponse,
-    });
-    window.google.accounts.id.renderButton(
-      document.getElementById('signInDiv'),
-      { theme: 'filled_blue', size: 'large', type: 'standard' } // customization attributes
-    );
-    window.google.accounts.id.prompt(); // also display the One Tap dialog
-  }, []);
+  const handleSignIn = () => {
+    nav('/login');
+  };
 
   // We will change this arr to a json arr in future to add urls and corresponding icons
   const menuItems = [
@@ -118,16 +93,15 @@ const HeaderTray = () => {
               <Text fontSize="xl" as="b">
                 FriendDash |
               </Text>
-              {user && (
-                <Text fontSize="xl" paddingRight="20px" as="b">
-                  Hello {name}!
-                </Text>
-              )}
+
+              <Text fontSize="xl" paddingRight="20px" as="b">
+                Hello {user.userName}!
+              </Text>
             </HStack>
           </a>
         </HStack>
         <div id="signInDiv"></div>
-        {Object.keys(user).length > 0 && (
+        {user.userName !== 'Foodie' ? (
           <HStack
             p="10px"
             onClick={handleSignOut}
@@ -136,6 +110,11 @@ const HeaderTray = () => {
             <Icon as={IoMdPower} w={6} h={6} />
             <Text fontSize="20px">Logout</Text>
           </HStack>
+        ) : (
+          <HStack p="10px" onClick={handleSignIn} style={{ cursor: 'pointer' }}>
+            <Icon as={IoMdPower} w={6} h={6} />
+            <Text fontSize="20px">Login</Text>
+          </HStack>
         )}
       </HStack>
       <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
@@ -143,10 +122,10 @@ const HeaderTray = () => {
         <DrawerContent>
           <DrawerHeader borderBottomWidth="1px">
             <HStack>
-              <Avatar name={name} size="lg" src={avatar} />
+              <Avatar name={user.userName} size="lg" src={user.userProfile} />
               <Box>
-                <Text>{name}</Text>
-                <Link to={`/profile/${id}`}>
+                <Text>{user.userName}</Text>
+                <Link to={`/profile/${user.googleId}`}>
                   <Text fontSize="md">View Profile</Text>
                 </Link>
               </Box>
@@ -176,22 +155,7 @@ const HeaderTray = () => {
               })}
             </Box>
           </DrawerBody>
-          <DrawerFooter>
-            <Box w="100%" p="1px">
-              <hr />
-              {/*  This handles logout*/}
-              {Object.keys(user).length > 0 && (
-                <HStack
-                  p="10px"
-                  onClick={handleSignOut}
-                  style={{ cursor: 'pointer' }}
-                >
-                  <Icon as={IoMdPower} w={6} h={6} />
-                  <Text fontSize="20px">Logout</Text>
-                </HStack>
-              )}
-            </Box>
-          </DrawerFooter>
+          {/* <DrawerFooter></DrawerFooter> */}
         </DrawerContent>
       </Drawer>
     </>

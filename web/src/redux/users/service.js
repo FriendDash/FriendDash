@@ -33,8 +33,8 @@ const removeUser = async _id => {
   }
 };
 
-const getUserById = async _id => {
-  const response = await fetch(`http://localhost:5000/users/${_id}`, {
+const getUserById = async googleID => {
+  const response = await fetch(`http://localhost:5000/users/${googleID}`, {
     method: 'GET',
   });
   return response.json();

@@ -1,18 +1,8 @@
 import Header from '../components/Header/Header';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Profile from '../components/Profile';
-import { Link, useParams } from 'react-router-dom';
-import {
-  Box,
-  Heading,
-  Button,
-  Image,
-  Text,
-  VStack,
-  Avatar,
-} from '@chakra-ui/react';
-import { getUserByIdAsync } from '../redux/users/thunk';
-import { useDispatch } from 'react-redux';
+
+import { useParams } from 'react-router-dom';
+import { Box, Heading, Avatar } from '@chakra-ui/react';
+
 import { useEffect } from 'react';
 import { useState } from 'react';
 
@@ -20,23 +10,23 @@ import NotFound from '../components/NotFound';
 
 // Ref Dynamic Routing: https://reacttraining.com/blog/react-router-v5-1/
 
-const userMock = {
-  userName: 'Steven Zhao',
-  userProfile: 'https://i.imgur.com/GxUEUe0.jpeg',
-  userEmail: 'default1@gmail.com',
-  userRating: [4, 5, 2, 3, 5],
-  userOrders: ['1', '2', '3'],
-  googleId: '123231',
-};
+// const userMock = {
+//   userName: 'Steven Zhao',
+//   userProfile: 'https://i.imgur.com/GxUEUe0.jpeg',
+//   userEmail: 'default1@gmail.com',
+//   userRating: [4, 5, 2, 3, 5],
+//   userOrders: ['1', '2', '3'],
+//   googleId: '123231',
+// };
 
-const emptyUser = {
-  userName: '',
-  userProfile: '',
-  userEmail: '',
-  userRating: [],
-  userOrders: [],
-  googleId: 'sad33aas',
-};
+// const emptyUser = {
+//   userName: '',
+//   userProfile: '',
+//   userEmail: '',
+//   userRating: [],
+//   userOrders: [],
+//   googleId: 'sad33aas',
+// };
 
 const orderItems = [
   {
@@ -95,23 +85,11 @@ const ProfilePage = () => {
       const res = await fetch(`http://localhost:5000/users/${id}`);
       const json = await res.json();
       console.log(json);
-      if (res.status == '200') {
+      if (res.status === 200) {
         setUser(json);
       }
     })();
   }, []);
-
-  // get id from url
-  // do fetch/get req from db for this user id
-  // show user profile info and ratings
-
-  //   <Box align="center">
-  //   {' '}
-  //   <Box marginTop="10%" align="center">
-  //     <Heading>Welcome Wanderer!</Heading>
-  //   </Box>
-  //   <Login />
-  // </Box>
 
   return (
     <Box>

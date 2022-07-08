@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 
 let User = require('../model/user.model');
-const { v4: uuid } = require('uuid');
 
 // Repo Referenced: https://github.com/svmah/cs455-express-demo
 
@@ -49,30 +48,53 @@ router.get('/', function (req, res, next) {
 });
 
 // GET A SINGLE ORDER BY MONGODB ID (_ID)
-router.get('/:userId', function (req, res, next) {
+router.get('/mongo/:userId', function (req, res, next) {
   User.findById(req.params.userId) // find it by id
     .then(user => res.send(user)) //then return as json ; else return error
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+// GET A SINGLE ORDER BY googleid
+router.get('/:googleId', function (req, res, next) {
+  User.findOne({ googleId: req.params.googleId })
+    .then(user => res.send(user)) //then return as json ; else return error
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
 router.post('/add', function (req, res, next) {
-  if (!req.body.userEmail || !req.body.userName) {
+  console.log('Add route');
+  if (!req.body.userEmail || !req.body.userName || !req.body.googleId) {
     return res.status(400).send({ message: 'user post req missing info' });
   }
 
-  const user = new User({
-    userName: req.body.userName,
-    userProfile: req.body.userProfile,
-    userEmail: req.body.userEmail,
-    userRating: [],
-    userOrders: [],
-    googleId: uuid(),
-  });
+  User.findOne({ googleId: req.body.googleId })
+    .select('_id')
+    .lean()
+    .then(result => {
+      console.log('finding match');
+      if (result) {
+        // user exists...
 
-  user
-    .save()
-    .then(user => res.json(user))
-    .catch(err => res.status(400).json('Error: ' + err));
+        User.findOne({ googleId: req.body.googleId }) // find it by id
+          .then(user => res.send(user)) //then return as json ; else return error
+          .catch(err => res.status(400).json('Error: ' + err));
+      } else {
+        // user does not exist
+        const user = new User({
+          userName: req.body.userName,
+          userProfile: req.body.userProfile,
+          userEmail: req.body.userEmail,
+          userRating: [],
+          userOrders: [],
+          googleId: req.body.googleId,
+        });
+
+        user
+          .save()
+          .then(user => res.json(user))
+          .catch(err => res.status(400).json('Error: ' + err));
+      }
+    });
 });
 
 router.delete('/remove/:userId', function (req, res, next) {
