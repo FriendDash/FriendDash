@@ -1,7 +1,20 @@
 import Header from '../components/Header/Header';
 
 import { useParams } from 'react-router-dom';
-import { Box, Heading, Avatar } from '@chakra-ui/react';
+import {
+  Box,
+  Heading,
+  Avatar,
+  Stat,
+  StatLabel,
+  StatNumber,
+  StatHelpText,
+  StatArrow,
+  StatGroup,
+  Button,
+  useToast,
+  useClipboard,
+} from '@chakra-ui/react';
 
 import { useEffect } from 'react';
 import { useState } from 'react';
@@ -80,6 +93,9 @@ const ProfilePage = () => {
   let { id } = useParams();
   const [user, setUser] = useState({});
 
+  const { hasCopied, onCopy } = useClipboard(window.location.href);
+  const toast = useToast();
+
   useEffect(() => {
     (async () => {
       const res = await fetch(`http://localhost:5000/users/${id}`);
@@ -104,7 +120,7 @@ const ProfilePage = () => {
             bg="gray.300"
             // w={{ lg: '600px', md: '600px', base: '100%' }}
             w="100%"
-            h="300px"
+            h="400px"
             borderRadius="10px"
           >
             {' '}
@@ -112,15 +128,45 @@ const ProfilePage = () => {
             <Heading size="xl" pt="9px">
               {user.userName}
             </Heading>
-            <Heading size="l" pt="9px">
-              Average User Rating:{' '}
-              {user.userRating.reduce((a, b) => a + b, 0) /
-                user.userRating.length}
-              <br />
-              User ID: {id}
-              <br />
-              Total Orders: {user.userOrders.length}
+            <Heading size="sm" pt="9px">
+              Joined: <br /> {new Date(user.createdAt).toLocaleString()}{' '}
             </Heading>
+            <StatGroup p="14px">
+              <Stat>
+                <StatLabel>Average User Rating</StatLabel>
+                <StatNumber>
+                  {user.userRating.reduce((a, b) => a + b, 0) /
+                    user.userRating.length}
+                </StatNumber>
+              </Stat>
+              <Stat>
+                <StatLabel>UserID</StatLabel>
+                <StatNumber>{user.googleId}</StatNumber>
+              </Stat>
+              <Stat>
+                <StatLabel>Total Orders</StatLabel>
+                <StatNumber>{user.userOrders.length}</StatNumber>
+              </Stat>
+            </StatGroup>
+            <Button
+              ml={0}
+              colorScheme="linkedin"
+              size="sm"
+              variant="outline"
+              onClick={() => {
+                onCopy();
+                toast({
+                  title: 'Share Profile',
+                  description: `We've copied the profile URL to your clipboard. ${window.location.href}`,
+                  status: 'success',
+                  duration: 9000,
+                  isClosable: true,
+                  position: 'bottom',
+                });
+              }}
+            >
+              Share Profile
+            </Button>
           </Box>
           <Box
             align="center"
