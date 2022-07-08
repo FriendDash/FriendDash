@@ -33,12 +33,6 @@ import { useNavigate } from 'react-router-dom';
 const HeaderTray = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const [user, setUser] = useState(() => {
-    // getting stored value from localStorage
-    const saved = localStorage.getItem('userSession_FriendDash');
-    const initialValue = JSON.parse(saved);
-    return initialValue || signedOutUserObject;
-  });
   const signedOutUserObject = {
     createdAt: '',
     googleId: '0',
@@ -49,6 +43,13 @@ const HeaderTray = () => {
     userProfile: '',
     userRating: [],
   };
+
+  const [user, setUser] = useState(() => {
+    // getting stored value from localStorage
+    const saved = localStorage.getItem('userSession_FriendDash');
+    const initialValue = JSON.parse(saved);
+    return initialValue || signedOutUserObject;
+  });
 
   const dispatch = useDispatch();
   const nav = useNavigate();
