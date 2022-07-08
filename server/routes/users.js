@@ -48,8 +48,15 @@ router.get('/', function (req, res, next) {
 });
 
 // GET A SINGLE ORDER BY MONGODB ID (_ID)
-router.get('/:userId', function (req, res, next) {
+router.get('/mongo/:userId', function (req, res, next) {
   User.findById(req.params.userId) // find it by id
+    .then(user => res.send(user)) //then return as json ; else return error
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
+// GET A SINGLE ORDER BY googleid
+router.get('/:googleId', function (req, res, next) {
+  User.findOne({ googleId: req.params.googleId })
     .then(user => res.send(user)) //then return as json ; else return error
     .catch(err => res.status(400).json('Error: ' + err));
 });

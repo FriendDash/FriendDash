@@ -5,10 +5,10 @@ import usersReducer from './users/reducer';
 const reducer = combineReducers({
   orders: ordersReducer,
   users: usersReducer,
-})
+});
 export const store = configureStore({
   reducer: {
-    reducer
+    reducer,
   },
   devTools: true,
 });

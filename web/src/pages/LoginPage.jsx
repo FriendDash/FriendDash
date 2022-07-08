@@ -4,7 +4,7 @@ const LoginPage = () => {
   return (
     <Box align="center">
       <Box marginTop="10%" align="center">
-        <Heading>Welcome Wanderer!</Heading>
+        <Heading>Welcome to FriendDash!</Heading>
       </Box>
       <Login />
     </Box>
