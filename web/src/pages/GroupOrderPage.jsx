@@ -33,6 +33,31 @@ const GroupOrderPage = () => {
     })();
   }, []);
 
+  const getStatusMessage = (status) => {
+    if (status === 'open'){
+      return (
+        <Box backgroundColor={'lightgreen'} rounded="5px" paddingLeft={"10px"}>
+          <Heading size={"lg"}>OPEN</Heading>
+          <Text>You can modify this order at this time</Text>
+        </Box>
+      )
+    } else if (status === 'closed') {
+      return (
+        <Box backgroundColor={'red'} rounded="5px" paddingLeft={"10px"}>
+          <Heading size={"lg"}>CLOSED</Heading>
+          <Text>Order in progress, no more changes can be made!</Text>
+        </Box>
+      )
+    } else if (status === 'completed') {
+      return (
+        <Box backgroundColor={'lightblue'} rounded="5px" paddingLeft={"10px"}>
+          <Heading size={"lg"}>COMPLETED</Heading>
+          <Text>Order completed!</Text>
+        </Box>
+      )
+    }
+  };
+
   return (
     <VStack>
       <Header />
@@ -86,7 +111,7 @@ const GroupOrderPage = () => {
                 objectFit="cover"
               />
 
-              <HStack mt="10px" h="60px">
+              <HStack mt="10px">
                 <Heading>{groupOrder.restaurant}</Heading>
                 <HStack
                   border="1px solid gray"
@@ -106,6 +131,9 @@ const GroupOrderPage = () => {
                     <Text fontWeight="semibold">{groupOrder.pickupTime}</Text>
                   </Box>
                 </HStack>
+                <Box flexGrow={1} rounded="5px" h="100%">
+                  {getStatusMessage(groupOrder.orderStatus)}
+                </Box>
               </HStack>
 
               {/* Render all currently added orders as cards */}

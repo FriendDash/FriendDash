@@ -141,7 +141,7 @@ router.post('/add', function (req, res, next) {
   const maxSize = req.body.maxSize;
   const orderId = req.body.orderId;
   const creatorUserId = req.body.creatorUserId;
-  const orderStatus = 'new';
+  const orderStatus = 'open';
   const orderDetails = [];
 
   const newOrder = new Order({
