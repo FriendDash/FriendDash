@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Heading } from '@chakra-ui/react';
 import jwt_decode from 'jwt-decode';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,8 +6,7 @@ import { addUserAsync } from '../redux/users/thunk';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  let userFromReduxStore = useSelector(state => state.reducer.users.list);
-
+  const [getUser, setGetUser] = useState({});
   const dispatch = useDispatch();
   const nav = useNavigate();
 
@@ -25,30 +24,49 @@ const Login = () => {
     console.log(userObject);
 
     // store credentials in mongodb dependent if already added or not (handled in endpoint)
-    dispatch(
-      addUserAsync({
-        userName: userObject.name,
-        userProfile: userObject.picture,
-        userEmail: userObject.email,
-        userRating: [],
-        userOrders: ['99'],
-        googleId: userObject.sub,
-      })
-    );
+    // dispatch(
+    //   addUserAsync({
+    //     userName: userObject.name,
+    //     userProfile: userObject.picture,
+    //     userEmail: userObject.email,
+    //     userRating: [],
+    //     userOrders: ['99'],
+    //     googleId: userObject.sub,
+    //   })
+    // );
+    const newUser = {
+      userName: userObject.name,
+      userProfile: userObject.picture,
+      userEmail: userObject.email,
+      userRating: [],
+      userOrders: ['99'],
+      googleId: userObject.sub,
+    };
+    (async () => {
+      const response = await fetch('http://localhost:5000/users/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newUser),
+      });
+
+      const data = await response.json();
+
+      setGetUser(data);
+    })();
   };
 
   useEffect(() => {
     // store response of google obj into localStorage
     // Ref: https://blog.logrocket.com/using-localstorage-react-hooks/
-    console.log(userFromReduxStore);
-    if (userFromReduxStore.length) {
-      localStorage.setItem(
-        'userSession_FriendDash',
-        JSON.stringify(userFromReduxStore[0])
-      );
+    console.log(JSON.stringify(getUser));
+    if (Object.keys(getUser).length > 1) {
+      console.log('arrived in check');
+      localStorage.setItem('userSession_FriendDash', JSON.stringify(getUser));
       nav('/');
     }
-  }, [nav, userFromReduxStore]);
+  }, [nav, getUser]);
 
   useEffect(() => {
     // global google
