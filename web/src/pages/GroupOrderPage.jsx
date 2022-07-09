@@ -83,7 +83,7 @@ const GroupOrderPage = () => {
                     Go Back
                   </Button>
                   <Button
-                    disabled={isOrderFull}
+                    disabled={isOrderFull || groupOrder.orderStatus !== 'open'}
                     w="130px"
                     onClick={() => navigate('/menu')}
                   >
