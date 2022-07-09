@@ -9,6 +9,7 @@ import {
   Button,
   Spacer,
   useDisclosure,
+  Tag,
 } from '@chakra-ui/react';
 import GroupCard from './GroupCard';
 import ViewOrderModal from '../ViewOrderModal';
@@ -26,6 +27,13 @@ const restarauntImageMapping = {
     'https://doordash-static.s3.amazonaws.com/media/store/header/437107.png',
 };
 
+const orderStatusColorMapping = {
+  open: 'whatsapp',
+  closed: 'red',
+  completed: 'teal',
+  inProgress: 'orange',
+};
+
 export default chakra(function GroupOrderCard({ className, data }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -39,7 +47,20 @@ export default chakra(function GroupOrderCard({ className, data }) {
           borderRadius="10px"
           objectFit="cover"
         />
-        <Heading size="md">{data.restaurant}</Heading>
+        <HStack justifyContent="space-between">
+          <Heading size="md">{data.restaurant}</Heading>
+          {data.orderStatus && (
+            <Tag
+              colorScheme={orderStatusColorMapping[data.orderStatus]}
+              borderWidth="0.5px"
+              borderColor="blackAlpha.500"
+              textTransform="capitalize"
+            >
+              {data.orderStatus}
+            </Tag>
+          )}
+        </HStack>
+
         <HStack w="100%">
           <HStack>
             <Text>Pickup Time:</Text>
