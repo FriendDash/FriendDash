@@ -93,7 +93,10 @@ const AccountsPage = () => {
                   placeholder="Username"
                   defaultValue={user.userName}
                 />
-                <FormLabel htmlFor="Email">Email</FormLabel>
+
+                <FormLabel pt=" 10px" htmlFor="Email">
+                  Email
+                </FormLabel>
                 <Input
                   id="Email"
                   placeholder="Email"
