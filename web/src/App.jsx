@@ -10,6 +10,7 @@ import RestaurantMenuPage from './pages/RestaurantMenuPage';
 import ProfilePage from './pages/ProfilePage';
 import GroupOrderPage from './pages/GroupOrderPage';
 import AccountsPage from './pages/AccountPage';
+import OrdersPage from './pages/OrdersPage';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
           <Route exact path="/dashboard" element={<Dashboard />} />
           <Route exact path="/login" element={<LoginPage />} />
           <Route exact path="/account" element={<AccountsPage />} />
+          <Route exact path="/orders" element={<OrdersPage />} />
           <Route exact path="/menu" element={<RestaurantMenuPage />} />
           <Route path="/profile/:id" element={<ProfilePage />} />
           <Route path="/group/:id" element={<GroupOrderPage />} />
