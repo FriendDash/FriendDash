@@ -1,10 +1,11 @@
 import {
+  chakra,
   Heading,
   Divider,
 } from '@chakra-ui/react';
 import RestaurantMenuItem from './RestaurantMenuItem';
 
-const RestaurantMenuSection = props => {
+export default chakra(function RestaurantMenuSection(props){
   return (
     <div>
       <Divider />
@@ -17,6 +18,4 @@ const RestaurantMenuSection = props => {
       <br/>
     </div>
   );
-};
-
-export default RestaurantMenuSection;
+});

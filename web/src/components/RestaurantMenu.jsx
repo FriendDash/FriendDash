@@ -1,11 +1,11 @@
-import { Box, Heading, IconButton } from '@chakra-ui/react';
+import { Box, Heading, chakra, IconButton } from '@chakra-ui/react';
 import SampleMenu from '../mocks/restuarantMenuMock.json';
 import RestaurantMenuSection from './RestaurantMenuSection';
 import ConfirmOrderPopup from './ConfirmOrderPopup';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import React, { useState } from 'react';
 
-const RestaurantMenu = () => {
+export default chakra(function RestaurantMenu(){
   const [starters, setStarters] = useState([]);
   const [mains, setMains] = useState([]);
   const [desserts, setDesserts] = useState([]);
@@ -59,6 +59,4 @@ const RestaurantMenu = () => {
       </Box>
     </Box>
   );
-};
-
-export default RestaurantMenu;
+});
