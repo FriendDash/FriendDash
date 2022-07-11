@@ -12,11 +12,13 @@ import {
   Text,
   Image,
   Divider,
+  Select,
 } from '@chakra-ui/react';
 import Header from '../components/Header/Header';
 
 import { getOrdersAsync } from '../redux/orders/thunk';
 import { useSelector, useDispatch } from 'react-redux';
+import GroupOrderManageCard from '../components/GroupCard/GroupOrderManageCard';
 
 const OrdersPage = () => {
   // getOrders contains filter results of orders where the associated googleId is either the creatorUserId or orderDetails.orderUserId
@@ -76,6 +78,7 @@ const OrdersPage = () => {
       <VStack mt="68px">
         <Heading>Created by You</Heading>
         <Box w="800px" bg="pink.400">
+          <GroupOrderManageCard />
           {creatorOrders.map(order => (
             <VStack border="1px solid yellow" my="20px">
               <Text>Restaurant: {order.restaurant}</Text>
@@ -83,6 +86,11 @@ const OrdersPage = () => {
               <Text>Order ID: {order.orderId}</Text>
               <Text>Creator ID: {order.creatorUserId}</Text>
               <Text>Order Status: {order.orderStatus}</Text>
+
+              <Box>
+                <Text color="orange">Edit Order Status</Text>
+                <Select></Select>
+              </Box>
             </VStack>
           ))}
         </Box>

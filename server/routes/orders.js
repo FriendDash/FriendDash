@@ -218,4 +218,49 @@ router.put('/update/:orderId', function (req, res, next) {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+//updateStatus with the orderId (mongodb _id from the /orders route)
+// body has to be in this format:
+// {
+//   "orderStatus": "closed"
+// }
+router.put('/updateStatus/:orderId', function (req, res, next) {
+  if (!req.body.orderStatus) {
+    return res.status(400).send({ message: 'order post req missing info' });
+  }
+
+  const body = req.body;
+
+  Order.findByIdAndUpdate(
+    req.params.orderId,
+    { orderStatus: req.body.orderStatus },
+    { new: true }
+  )
+    .then(updatedOrder => res.json(updatedOrder))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
+// Update orderDetails to remove user using the orderId (googleId)
+router.delete('/removeUser/:orderId/:googleId', function (req, res, next) {
+  if (!req.params.orderId || !req.params.googleId) {
+    return res.status(400).send({ message: 'order req missing params' });
+  }
+
+  Order.findByIdAndUpdate(
+    { _id: req.params.orderId },
+    {
+      $pull: {
+        orderDetails: { orderUserId: req.params.googleId },
+      },
+    },
+    { new: true },
+    function (err, data) {
+      console.log(err, data);
+    }
+  );
+
+  return res.status(200).json({
+    message: `${req.params.googleId} removed from order: ${req.params.orderId}`,
+  });
+});
+
 module.exports = router;
