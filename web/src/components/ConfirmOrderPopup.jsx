@@ -24,6 +24,7 @@ const mockUpdateOrder = {
   orderDetails: [
     {
       orderUserId: 1,
+      userName: 'hello',
       orderItems: [
         { menuItem: 'Classic Foot Long', price: 8, quantity: 2 },
         { menuItem: 'Doritos', price: 2, quantity: 1 },
@@ -49,6 +50,7 @@ export default function ConfirmOrderPopup(props) {
   const confirmOrderClick = () => {
     const newOrderItem = {
       orderUserId: 1234,
+      userName: 'get username from localstorage',
       orderItems: completeOrder,
     };
     mockUpdateOrder.orderDetails.push(newOrderItem);

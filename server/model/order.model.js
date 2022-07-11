@@ -22,6 +22,10 @@ const orderDetailsSchema = new Schema({
     type: String,
     required: true,
   },
+  // username is from the /users
+  userName: {
+    type: String,
+  },
   orderItems: {
     type: [orderItemsSchema],
   },

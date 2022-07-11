@@ -19,6 +19,7 @@ import Header from '../components/Header/Header';
 import { getOrdersAsync } from '../redux/orders/thunk';
 import { useSelector, useDispatch } from 'react-redux';
 import GroupOrderManageCard from '../components/GroupCard/GroupOrderManageCard';
+import ContentContainer from '../components/ContentContainer';
 
 const OrdersPage = () => {
   // getOrders contains filter results of orders where the associated googleId is either the creatorUserId or orderDetails.orderUserId
@@ -73,45 +74,30 @@ const OrdersPage = () => {
   }, []);
 
   return (
-    <Box>
+    <VStack>
       <Header />
-      <VStack mt="68px">
-        <Heading>Created by You</Heading>
-        <Box w="800px" bg="pink.400">
-          <GroupOrderManageCard />
-          {creatorOrders.map(order => (
-            <VStack border="1px solid yellow" my="20px">
-              <Text>Restaurant: {order.restaurant}</Text>
-              <Text>Creator Name: {order.creatorName}</Text>
-              <Text>Order ID: {order.orderId}</Text>
-              <Text>Creator ID: {order.creatorUserId}</Text>
-              <Text>Order Status: {order.orderStatus}</Text>
+      <Box paddingTop="50px">
+        <ContentContainer>
+          <Heading textAlign="center" my="20px">
+            Created By You
+          </Heading>
+          <VStack spacing="20px">
+            {creatorOrders.map(order => (
+              <GroupOrderManageCard groupOrder={order} isCreator={true} />
+            ))}
+          </VStack>
+          <Heading textAlign="center" my="20px">
+            Orders You Are Part Of
+          </Heading>
 
-              <Box>
-                <Text color="orange">Edit Order Status</Text>
-                <Select></Select>
-              </Box>
-            </VStack>
-          ))}
-        </Box>
-        <Heading>Orders You Are Part of</Heading>
-        <Box w="800px" bg="pink.400">
-          {otherOrders.map(order => (
-            <VStack border="1px solid yellow" my="20px">
-              <Text>Restaurant: {order.restaurant}</Text>
-              <Text>Creator Name: {order.creatorName}</Text>
-              <Text>Order ID: {order.orderId}</Text>
-              <Text>Creator ID: {order.creatorUserId}</Text>
-              <Text>Order Status: {order.orderStatus}</Text>
-              {order.orderDetails.map(entry => (
-                <Text color="red">{entry.orderUserId}</Text>
-              ))}
-            </VStack>
-          ))}
-        </Box>
-        {/* <pre>{JSON.stringify(getOrders, null, 2)}</pre> */}
-      </VStack>
-    </Box>
+          <VStack spacing="20px">
+            {otherOrders.map(order => (
+              <GroupOrderManageCard groupOrder={order} isCreator={false} />
+            ))}
+          </VStack>
+        </ContentContainer>
+      </Box>
+    </VStack>
   );
 };
 

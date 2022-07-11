@@ -15,7 +15,7 @@ import {
   Divider,
 } from '@chakra-ui/react';
 import ContentContainer from '../components/ContentContainer';
-import { restarauntImageMapping } from '../components/ViewOrderModal';
+import { restaurantImageMapping } from '../utils/RestaurantImageMapping';
 import MemberOrderDetail from '../components/Order/MemberOrderDetail';
 
 const GroupOrderPage = () => {
@@ -33,28 +33,28 @@ const GroupOrderPage = () => {
     })();
   }, []);
 
-  const getStatusMessage = (status) => {
-    if (status === 'open'){
+  const getStatusMessage = status => {
+    if (status === 'open') {
       return (
-        <Box backgroundColor={'lightgreen'} rounded="5px" paddingLeft={"10px"}>
-          <Heading size={"lg"}>OPEN</Heading>
+        <Box backgroundColor={'lightgreen'} rounded="5px" paddingLeft={'10px'}>
+          <Heading size={'lg'}>OPEN</Heading>
           <Text>You can modify this order at this time</Text>
         </Box>
-      )
+      );
     } else if (status === 'closed') {
       return (
-        <Box backgroundColor={'red'} rounded="5px" paddingLeft={"10px"}>
-          <Heading size={"lg"}>CLOSED</Heading>
+        <Box backgroundColor={'red'} rounded="5px" paddingLeft={'10px'}>
+          <Heading size={'lg'}>CLOSED</Heading>
           <Text>Order in progress, no more changes can be made!</Text>
         </Box>
-      )
+      );
     } else if (status === 'completed') {
       return (
-        <Box backgroundColor={'lightblue'} rounded="5px" paddingLeft={"10px"}>
-          <Heading size={"lg"}>COMPLETED</Heading>
+        <Box backgroundColor={'lightblue'} rounded="5px" paddingLeft={'10px'}>
+          <Heading size={'lg'}>COMPLETED</Heading>
           <Text>Order completed!</Text>
         </Box>
-      )
+      );
     }
   };
 
@@ -102,7 +102,7 @@ const GroupOrderPage = () => {
               )}
 
               <Image
-                src={restarauntImageMapping[groupOrder.restaurant]}
+                src={restaurantImageMapping[groupOrder.restaurant]}
                 mt="10px"
                 h="100px"
                 w="1000px"

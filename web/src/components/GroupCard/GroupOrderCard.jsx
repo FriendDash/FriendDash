@@ -16,7 +16,6 @@ import ViewOrderModal from '../ViewOrderModal';
 import StatusTag from './../StatusTag';
 
 import { restaurantImageMapping } from '../../utils/RestaurantImageMapping';
-import { orderStatusColorMapping } from '../../utils/OrderStatusMapping';
 
 export default chakra(function GroupOrderCard({ className, data }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
