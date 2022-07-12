@@ -10,15 +10,12 @@ import {
   Button,
   Spacer,
   useDisclosure,
-  Tag,
 } from '@chakra-ui/react';
-import GroupCard from './GroupCard';
-import ViewOrderModal from '../ViewOrderModal';
 import { useNavigate } from 'react-router';
 
 import { restaurantImageMapping } from '../../utils/RestaurantImageMapping';
 import StatusTag from '../StatusTag';
-import ManageOrderModal from '../ManageOrderModal';
+import ManageOrderModal from './ManageOrderModal';
 
 export default chakra(function GroupOrderManageCard({
   className,
@@ -93,5 +90,3 @@ export default chakra(function GroupOrderManageCard({
     </Flex>
   );
 });
-
-const EditOrder = () => {};

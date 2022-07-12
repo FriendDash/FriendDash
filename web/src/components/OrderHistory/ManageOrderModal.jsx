@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { removeOrderAsync } from '../redux/orders/thunk';
+import React, { useState } from 'react';
 import {
   chakra,
   Box,
@@ -13,17 +11,14 @@ import {
   ModalBody,
   ModalCloseButton,
   Heading,
-  HStack,
   Text,
-  Image,
   VStack,
-  useDisclosure,
   Select,
   useToast,
-  Spacer,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import ConfirmationModal from './ConfirmationModal';
+
+import OrderDetailUser from './OrderDetailUser';
 
 export default chakra(function ManageOrderModal({
   className,
@@ -33,12 +28,6 @@ export default chakra(function ManageOrderModal({
 }) {
   const navigate = useNavigate();
   const toast = useToast();
-
-  const {
-    isOpen: isConfirmationOpen,
-    onOpen: onConfirmationOpen,
-    onClose: onConfirmationClose,
-  } = useDisclosure();
 
   const [orderStatus, setOrderStatus] = useState(data.orderStatus);
 
@@ -115,33 +104,12 @@ export default chakra(function ManageOrderModal({
 
             <Heading size="sm">Members</Heading>
             <VStack w="100%" alignItems="flex-start">
-              {data.orderDetails.map(order => (
-                <HStack w="100%" bg="gray.100" p="5px" rounded="10px">
-                  <Button
-                    colorScheme="teal"
-                    variant="link"
-                    pl="10px"
-                    pr="10px"
-                    onClick={() => navigate(`/profile/${order.orderUserId}`)}
-                  >
-                    {/* Change to username instead */}
-                    {order.orderUserId}
-                  </Button>
-                  <Spacer />
-                  <Button colorScheme="red" onClick={onConfirmationOpen}>
-                    Remove User
-                  </Button>
-
-                  {/* TODO: Bug that make the modal render same information for eveything */}
-                  <ConfirmRemoveUserModal
-                    isOpen={isConfirmationOpen}
-                    onClose={onConfirmationClose}
-                    title={`Please confirm to remove user: ${order._id} from this order. This action cannot be undone.`}
-                    confirmButton={'Confirm'}
-                    cancelButton={'Cancel'}
-                    userId={order._id}
-                  />
-                </HStack>
+              {data.orderDetails.map(userOrder => (
+                <OrderDetailUser
+                  key={data._id}
+                  userOrder={userOrder}
+                  groupId={data._id}
+                />
               ))}
             </VStack>
           </VStack>

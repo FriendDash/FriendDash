@@ -1,24 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-import { useNavigate, useParams } from 'react-router-dom';
-import {
-  Box,
-  VStack,
-  Heading,
-  HStack,
-  Spinner,
-  Button,
-  Spacer,
-  Text,
-  Image,
-  Divider,
-  Select,
-} from '@chakra-ui/react';
+import { Box, VStack, Heading } from '@chakra-ui/react';
 import Header from '../components/Header/Header';
-
-import { getOrdersAsync } from '../redux/orders/thunk';
-import { useSelector, useDispatch } from 'react-redux';
-import GroupOrderManageCard from '../components/GroupCard/GroupOrderManageCard';
+import GroupOrderManageCard from '../components/OrderHistory/GroupOrderManageCard';
 import ContentContainer from '../components/ContentContainer';
 
 const OrdersPage = () => {
@@ -83,7 +67,11 @@ const OrdersPage = () => {
           </Heading>
           <VStack spacing="20px">
             {creatorOrders.map(order => (
-              <GroupOrderManageCard groupOrder={order} isCreator={true} />
+              <GroupOrderManageCard
+                key={order._id}
+                groupOrder={order}
+                isCreator={true}
+              />
             ))}
           </VStack>
           <Heading textAlign="center" my="20px">
@@ -92,7 +80,11 @@ const OrdersPage = () => {
 
           <VStack spacing="20px">
             {otherOrders.map(order => (
-              <GroupOrderManageCard groupOrder={order} isCreator={false} />
+              <GroupOrderManageCard
+                key={order._id}
+                groupOrder={order}
+                isCreator={false}
+              />
             ))}
           </VStack>
         </ContentContainer>
