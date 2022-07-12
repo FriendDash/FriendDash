@@ -104,7 +104,7 @@ const DashboardPage = () => {
                 Completed
               </Checkbox>
             </HStack>
-            <Select placeholder='Sort By' w='20%' onChange={(e) => setSortBy(e.target.value)}>
+            <Select placeholder='Sort By' w='fit-content' onChange={(e) => setSortBy(e.target.value)}>
               <option value='name asc'>Restaurant Name A-Z</option>
               <option value='name desc'>Restaurant Name Z-A</option>
               <option value='time asc'>Pickup Time Earliest</option>
