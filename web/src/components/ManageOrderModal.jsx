@@ -20,6 +20,7 @@ import {
   useDisclosure,
   Select,
   useToast,
+  Spacer,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import ConfirmationModal from './ConfirmationModal';
@@ -30,7 +31,7 @@ export default chakra(function ManageOrderModal({
   isOpen,
   onClose,
 }) {
-  const nav = useNavigate();
+  const navigate = useNavigate();
   const toast = useToast();
 
   const {
@@ -68,7 +69,7 @@ export default chakra(function ManageOrderModal({
           position: 'bottom',
         });
         onClose();
-        nav(0);
+        navigate(0);
       }
     })();
   };
@@ -81,17 +82,6 @@ export default chakra(function ManageOrderModal({
         <ModalCloseButton />
 
         <ModalBody pt="0px">
-          <HStack marginBottom={'10px'}>
-            <ConfirmationModal
-              isOpen={isConfirmationOpen}
-              onClose={onConfirmationClose}
-              className={className}
-              title={'Confirm delete group order? This cannot be undone'}
-              confirmButton={'CONFIRM'}
-              cancelButton={'CANCEL'}
-              //   onConfirm={deleteOrder}
-            />
-          </HStack>
           <VStack alignItems="flex-start">
             <Box>
               <Heading size="sm">Restaurant:</Heading>
@@ -109,6 +99,10 @@ export default chakra(function ManageOrderModal({
               <Heading size="sm">Pick Up Time:</Heading>
               <Text>{data.pickupTime}</Text>
             </Box>
+            <Box>
+              <Heading size="sm">OrderId:</Heading>
+              <Text>{data._id}</Text>
+            </Box>
             <Heading size="sm">Order Status:</Heading>
             <Select
               variant="outline"
@@ -118,6 +112,38 @@ export default chakra(function ManageOrderModal({
               <option value="completed">Completed</option>
               <option value="inProgress">In Progress</option>
             </Select>
+
+            <Heading size="sm">Members</Heading>
+            <VStack w="100%" alignItems="flex-start">
+              {data.orderDetails.map(order => (
+                <HStack w="100%" bg="gray.100" p="5px" rounded="10px">
+                  <Button
+                    colorScheme="teal"
+                    variant="link"
+                    pl="10px"
+                    pr="10px"
+                    onClick={() => navigate(`/profile/${order.orderUserId}`)}
+                  >
+                    {/* Change to username instead */}
+                    {order.orderUserId}
+                  </Button>
+                  <Spacer />
+                  <Button colorScheme="red" onClick={onConfirmationOpen}>
+                    Remove User
+                  </Button>
+
+                  {/* TODO: Bug that make the modal render same information for eveything */}
+                  <ConfirmRemoveUserModal
+                    isOpen={isConfirmationOpen}
+                    onClose={onConfirmationClose}
+                    title={`Please confirm to remove user: ${order._id} from this order. This action cannot be undone.`}
+                    confirmButton={'Confirm'}
+                    cancelButton={'Cancel'}
+                    userId={order._id}
+                  />
+                </HStack>
+              ))}
+            </VStack>
           </VStack>
         </ModalBody>
 
@@ -133,3 +159,57 @@ export default chakra(function ManageOrderModal({
     </Modal>
   );
 });
+
+const ConfirmRemoveUserModal = ({
+  title,
+  confirmButton,
+  cancelButton,
+  isOpen,
+  onClose,
+  userId,
+}) => {
+  // Remove user from order on confirmation
+  const removeUser = userId => {
+    // function to remove
+    // const orderId = data._id;
+    // (async () => {
+    //   const response = await fetch(
+    //     `http://localhost:5000/removeUser/${orderId}/${userId}`,
+    //     {
+    //       method: 'DELETE',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //     }
+    //   );
+    //   const dataRes = await response.json();
+    //   if (dataRes) {
+    //     onConfirmationClose();
+    //     onClose();
+    //     navigate(0);
+    //   }
+    // })();
+    console.log(userId);
+  };
+
+  return (
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <ModalOverlay />
+      <ModalContent marginTop={'20%'}>
+        <ModalHeader>{title}</ModalHeader>
+        <ModalFooter>
+          <Button colorScheme="blue" mr={3} w="110px" onClick={onClose}>
+            {cancelButton}
+          </Button>
+          <Button
+            colorScheme="teal"
+            w="110px"
+            onClick={() => removeUser(userId)}
+          >
+            {confirmButton}
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
+  );
+};
