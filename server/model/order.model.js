@@ -16,16 +16,22 @@ const orderItemsSchema = new Schema({
   },
 });
 
+// orderUserId is googleid
 const orderDetailsSchema = new Schema({
   orderUserId: {
-    type: Number,
+    type: String,
     required: true,
+  },
+  // username is from the /users
+  userName: {
+    type: String,
   },
   orderItems: {
     type: [orderItemsSchema],
   },
 });
 
+//creatorUserId is googleID
 const orderSchema = new Schema(
   {
     restaurant: {
@@ -49,7 +55,7 @@ const orderSchema = new Schema(
       type: Number,
     },
     creatorUserId: {
-      type: Number,
+      type: String,
     },
     orderStatus: {
       type: String,

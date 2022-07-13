@@ -7,10 +7,20 @@ import {
   AlertDialogHeader,
   AlertDialogContent,
   AlertDialogOverlay,
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateOrderAsync } from '../redux/orders/thunk';
+import { useNavigate } from "react-router-dom";
 
 const mockUpdateOrder = {
   _id: '12313221313131',
@@ -24,6 +34,7 @@ const mockUpdateOrder = {
   orderDetails: [
     {
       orderUserId: 1,
+      userName: 'hello',
       orderItems: [
         { menuItem: 'Classic Foot Long', price: 8, quantity: 2 },
         { menuItem: 'Doritos', price: 2, quantity: 1 },
@@ -40,6 +51,13 @@ export default function ConfirmOrderPopup(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef();
   const completeOrder = [...starters, ...mains, ...desserts];
+  const navigate = useNavigate();
+
+  const onConfirm = () => {
+    onClose();
+    // TODO: implement the proper navigation for closing group order
+    navigate("/group/62b8b11e8d7b3c29a9b69a69");
+  }
 
   const openPopUp = () => {
     combineOrders(starters, mains, desserts);
@@ -49,11 +67,12 @@ export default function ConfirmOrderPopup(props) {
   const confirmOrderClick = () => {
     const newOrderItem = {
       orderUserId: 1234,
+      userName: 'get username from localstorage',
       orderItems: completeOrder,
     };
     mockUpdateOrder.orderDetails.push(newOrderItem);
     dispatch(updateOrderAsync(mockUpdateOrder));
-    onClose();
+    onConfirm();
   };
 
   return (
@@ -80,17 +99,49 @@ export default function ConfirmOrderPopup(props) {
 
             <AlertDialogBody>
               <Heading size="sm">Order Summary</Heading>
-              {completeOrder.map((e, i) => {
-                return (
-                  <p key={i}>
-                    Item Name: {e.menuItem} - Quantity: {e.quantity}
-                  </p>
-                );
-              })}
+              <TableContainer>
+                <Table size="sm">
+                  <Thead>
+                    <Tr>
+                      <Th>Item Name</Th>
+                      <Th>Quantity</Th>
+                      <Th isNumeric>Price</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {completeOrder.map((e, i) => {
+                      return (
+                        <Tr>
+                          <Td>{e.menuItem}</Td>
+                          <Td>{e.quantity}</Td>
+                          <Td isNumeric>${e.price}</Td>
+                        </Tr>
+                      );
+                    })}
+                  </Tbody>
+                  <Tfoot>
+                    <Tr>
+                      <Th> </Th>
+                      <h3>
+                        <b>TOTAL COST:</b>
+                      </h3>
+                      <h3 isNumeric>
+                        <b>
+                        $
+                        {completeOrder.map((e) => e.price).reduce(
+                          (previousValue, currentValue) =>
+                            previousValue + currentValue,
+                          0
+                        )}
+                        </b>
+                      </h3>
+                    </Tr>
+                  </Tfoot>
+                </Table>
+              </TableContainer>
               <br />
-              {/* TODO: Add logic for caluclating summary prices */}
-              Are you sure you want to add to the group order? You can't undo
-              this action afterwards.
+              Are you sure you want to add to the group order? You can't make
+              any changes afterwards.
             </AlertDialogBody>
 
             <AlertDialogFooter>
