@@ -145,7 +145,7 @@ const Home = () => {
         p="35px"
         // w={{ lg: '600px', md: '600px', base: '100%' }}
         w="100%"
-        h="400px"
+        h="100%"
         borderRadius="10px"
         bg="gray.100"
       >
