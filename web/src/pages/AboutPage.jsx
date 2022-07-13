@@ -25,28 +25,31 @@ import {
   AccordionIcon,
 } from '@chakra-ui/react';
 
-import ContentContainer from '../components/ContentContainer';
-
 const faqArray = [
   {
-    question: 'question1',
-    answer: 'answer1',
+    question: 'How do I create a new group?',
+    answer:
+      'First, you need to ensure that you are logged in! You can login by clicking on the login button on the top right corner or navigating to /login. On the /dashboard, you will be able to search for the order you wish to join and join it by clicking View Order then Join Order.',
   },
   {
-    question: 'question2',
-    answer: 'answer2',
+    question: 'How do I join an order?',
+    answer:
+      'First, you need to ensure that you are logged in! You can login by clicking on the login button on the top right corner or navigating to /login. On the dashboard, click the + icon on a card called "Create Group Order". Fill in the order details and click "Create Group".',
   },
   {
-    question: 'question3',
-    answer: 'answer3',
+    question: 'I wish to delete my account. How do I delete it?',
+    answer:
+      'Login and click the icon on the left of the ramen found in the top navigation bar. Click on Account. In your account, you can click on delete in order to delete your account and all information associated with your account.',
   },
   {
-    question: 'question4',
-    answer: 'answer4',
+    question: 'How do I view my profile?',
+    answer:
+      'Login and click on the icon on the left of the ramen found in the top navigation bar. Click on "View Profile".',
   },
   {
-    question: 'question5',
-    answer: 'answer5',
+    question: 'How do I manage my orders?',
+    answer:
+      'Login and click on the icon on the left of the ramen found in the top navigation bar. Click on "Orders".',
   },
 ];
 
