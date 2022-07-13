@@ -11,6 +11,7 @@ import ProfilePage from './pages/ProfilePage';
 import GroupOrderPage from './pages/GroupOrderPage';
 import AccountsPage from './pages/AccountPage';
 import OrdersPage from './pages/OrdersPage';
+import PaymentPage from './pages/PaymentPage';
 
 import './App.css';
 
@@ -28,6 +29,7 @@ const App = () => {
           <Route exact path="/menu" element={<RestaurantMenuPage />} />
           <Route path="/profile/:id" element={<ProfilePage />} />
           <Route path="/group/:id" element={<GroupOrderPage />} />
+          <Route exact path="/payment" element={<PaymentPage />} />
         </Routes>
       </BrowserRouter>
     </ChakraProvider>
