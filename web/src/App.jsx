@@ -12,6 +12,8 @@ import GroupOrderPage from './pages/GroupOrderPage';
 import AccountsPage from './pages/AccountPage';
 import OrdersPage from './pages/OrdersPage';
 
+import './App.css';
+
 const App = () => {
   return (
     <ChakraProvider theme={theme}>

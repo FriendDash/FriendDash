@@ -13,12 +13,16 @@ import {
   Heading,
   Text,
   VStack,
-  Select,
   useToast,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
 import OrderDetailUser from './OrderDetailUser';
+import { ChevronDownIcon } from '@chakra-ui/icons';
 
 export default chakra(function ManageOrderModal({
   className,
@@ -88,29 +92,71 @@ export default chakra(function ManageOrderModal({
               <Heading size="sm">Pick Up Time:</Heading>
               <Text>{data.pickupTime}</Text>
             </Box>
-            <Box>
-              <Heading size="sm">OrderId:</Heading>
-              <Text>{data._id}</Text>
-            </Box>
             <Heading size="sm">Order Status:</Heading>
-            <Select
-              variant="outline"
-              onChange={e => setOrderStatus(e.target.value)}
-            >
-              <option value="open">Open</option>
-              <option value="completed">Completed</option>
-              <option value="inProgress">In Progress</option>
-            </Select>
+            <Menu>
+              <MenuButton
+                w="100%"
+                as={Button}
+                textAlign="start"
+                rightIcon={<ChevronDownIcon />}
+                textTransform="capitalize"
+              >
+                {orderStatus}
+              </MenuButton>
+              <MenuList w="100%">
+                <MenuItem
+                  w="400px"
+                  value="open"
+                  onClick={() => setOrderStatus('open')}
+                >
+                  Open
+                </MenuItem>
+                <MenuItem
+                  w="400px"
+                  value="completed"
+                  onClick={() => setOrderStatus('completed')}
+                >
+                  Completed
+                </MenuItem>
+                <MenuItem
+                  w="400px"
+                  value="inProgress"
+                  onClick={() => setOrderStatus('inProgress')}
+                >
+                  In Progress
+                </MenuItem>
+                <MenuItem
+                  w="400px"
+                  value="closed"
+                  onClick={() => setOrderStatus('closed')}
+                >
+                  Closed
+                </MenuItem>
+              </MenuList>
+            </Menu>
 
             <Heading size="sm">Members</Heading>
-            <VStack w="100%" alignItems="flex-start">
-              {data.orderDetails.map(userOrder => (
-                <OrderDetailUser
-                  key={data._id}
-                  userOrder={userOrder}
-                  groupId={data._id}
-                />
-              ))}
+            <VStack
+              w="100%"
+              alignItems="flex-start"
+              maxHeight="160px"
+              overflowY="auto"
+            >
+              {data.orderDetails.length ? (
+                data.orderDetails.map(userOrder => (
+                  <OrderDetailUser
+                    key={data._id}
+                    userOrder={userOrder}
+                    groupId={data._id}
+                  />
+                ))
+              ) : (
+                <Box bg="red.100" rounded="20px" w="100%">
+                  <Text textAlign="center" p="10px" fontWeight="600">
+                    No Members in Order
+                  </Text>
+                </Box>
+              )}
             </VStack>
           </VStack>
         </ModalBody>
@@ -127,57 +173,3 @@ export default chakra(function ManageOrderModal({
     </Modal>
   );
 });
-
-const ConfirmRemoveUserModal = ({
-  title,
-  confirmButton,
-  cancelButton,
-  isOpen,
-  onClose,
-  userId,
-}) => {
-  // Remove user from order on confirmation
-  const removeUser = userId => {
-    // function to remove
-    // const orderId = data._id;
-    // (async () => {
-    //   const response = await fetch(
-    //     `http://localhost:5000/removeUser/${orderId}/${userId}`,
-    //     {
-    //       method: 'DELETE',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //     }
-    //   );
-    //   const dataRes = await response.json();
-    //   if (dataRes) {
-    //     onConfirmationClose();
-    //     onClose();
-    //     navigate(0);
-    //   }
-    // })();
-    console.log(userId);
-  };
-
-  return (
-    <Modal isOpen={isOpen} onClose={onClose}>
-      <ModalOverlay />
-      <ModalContent marginTop={'20%'}>
-        <ModalHeader>{title}</ModalHeader>
-        <ModalFooter>
-          <Button colorScheme="blue" mr={3} w="110px" onClick={onClose}>
-            {cancelButton}
-          </Button>
-          <Button
-            colorScheme="teal"
-            w="110px"
-            onClick={() => removeUser(userId)}
-          >
-            {confirmButton}
-          </Button>
-        </ModalFooter>
-      </ModalContent>
-    </Modal>
-  );
-};
