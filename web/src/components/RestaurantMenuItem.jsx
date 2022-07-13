@@ -1,4 +1,5 @@
 import {
+  chakra,
   Heading,
   Text,
   NumberInput,
@@ -8,7 +9,7 @@ import {
   NumberDecrementStepper,
 } from '@chakra-ui/react';
 
-const RestaurantMenuItem = ({ menuItem, setOrderItem, quantityGTZero, orderSoFar }) => {
+export default chakra(function RestaurantMenuItem({ menuItem, setOrderItem, quantityGTZero, orderSoFar }){
   const handleChange = (newOrderItem) => {
     const foundItemIndex = orderSoFar.findIndex((item) => item.menuItem === newOrderItem.menuItem);
     if (foundItemIndex === -1) {
@@ -34,6 +35,4 @@ const RestaurantMenuItem = ({ menuItem, setOrderItem, quantityGTZero, orderSoFar
       </NumberInput>
     </span>
   );
-};
-
-export default RestaurantMenuItem;
+});
