@@ -85,7 +85,7 @@ const GroupOrderPage = () => {
                   <Button
                     disabled={isOrderFull || groupOrder.orderStatus !== 'open'}
                     w="130px"
-                    onClick={() => navigate('/menu')}
+                    onClick={() => navigate(`/menu/${id}`)}
                   >
                     Add to Order
                   </Button>
