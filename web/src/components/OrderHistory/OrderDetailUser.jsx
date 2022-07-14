@@ -49,10 +49,10 @@ export default chakra(function OrderDetailUser({
         pr="10px"
         onClick={() => navigate(`/profile/${userOrder.orderUserId}`)}
       >
-        {userOrder.orderUserId}
+        {userOrder.userName}
       </Button>
       <Spacer />
-      <Button colorScheme="red" onClick={onConfirmationOpen}>
+      <Button colorScheme="red" onClick={onConfirmationOpen} w="130px">
         Remove User
       </Button>
 

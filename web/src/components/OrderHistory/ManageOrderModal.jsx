@@ -25,7 +25,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 
 import OrderDetailUser from './OrderDetailUser';
-import { ChevronDownIcon } from '@chakra-ui/icons';
+import { DeleteIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import ConfirmationModal from '../ConfirmationModal';
 
 export default chakra(function ManageOrderModal({
@@ -101,14 +101,14 @@ export default chakra(function ManageOrderModal({
               <Text>{data.pickupTime}</Text>
             </Box>
             <Heading size="sm">Order Status:</Heading>
-            <HStack w="100%">
+            <HStack w="100%" pr="5px">
               <Menu>
                 <MenuButton
                   as={Button}
                   textAlign="start"
                   rightIcon={<ChevronDownIcon />}
                   textTransform="capitalize"
-                  w="225px"
+                  w="calc(100% - 130px)"
                 >
                   {orderStatus}
                 </MenuButton>
@@ -137,7 +137,7 @@ export default chakra(function ManageOrderModal({
                 </MenuList>
               </Menu>
 
-              <Button colorScheme="teal" w="110px" onClick={handleSavePUTReq}>
+              <Button colorScheme="teal" w="130px" onClick={handleSavePUTReq}>
                 Save
               </Button>
             </HStack>
@@ -169,7 +169,11 @@ export default chakra(function ManageOrderModal({
         </ModalBody>
 
         <ModalFooter justifyContent="center">
-          <Button colorScheme="red" onClick={onConfirmationOpen}>
+          <Button
+            leftIcon={<DeleteIcon />}
+            colorScheme="red"
+            onClick={onConfirmationOpen}
+          >
             Delete Order
           </Button>
           <ConfirmationModal
