@@ -20,7 +20,6 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import ConfirmationModal from './ConfirmationModal';
 
 import { restaurantImageMapping } from '../utils/RestaurantImageMapping';
 
@@ -31,17 +30,6 @@ export default chakra(function ViewOrderModal({
   onClose,
 }) {
   const navigate = useNavigate();
-  const {
-    isOpen: isConfirmationOpen,
-    onOpen: onConfirmationOpen,
-    onClose: onConfirmationClose,
-  } = useDisclosure();
-  const dispatch = useDispatch();
-  const deleteOrder = () => {
-    dispatch(removeOrderAsync(data._id));
-    onConfirmationClose();
-    onClose();
-  };
   return (
     <Modal isOpen={isOpen} onClose={onClose} className={className}>
       <ModalOverlay />
@@ -50,25 +38,6 @@ export default chakra(function ViewOrderModal({
         <ModalCloseButton />
 
         <ModalBody pt="0px">
-          <HStack marginBottom={'10px'}>
-            <Button
-              colorScheme="red"
-              marginRight={'0'}
-              marginLeft={'auto'}
-              onClick={onConfirmationOpen}
-            >
-              Delete Order
-            </Button>
-            <ConfirmationModal
-              isOpen={isConfirmationOpen}
-              onClose={onConfirmationClose}
-              className={className}
-              title={'Confirm delete group order? This cannot be undone'}
-              confirmButton={'CONFIRM'}
-              cancelButton={'CANCEL'}
-              onConfirm={deleteOrder}
-            />
-          </HStack>
           <VStack>
             <Image
               src={restaurantImageMapping[data.restaurant]}
