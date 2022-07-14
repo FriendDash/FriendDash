@@ -14,6 +14,7 @@ export default chakra(function OrderDetailUser({
   className,
   userOrder,
   groupId,
+  creatorUserId,
 }) {
   const {
     isOpen: isConfirmationOpen,
@@ -34,12 +35,24 @@ export default chakra(function OrderDetailUser({
         }
       );
       const dataRes = await response.json();
-      if (dataRes) {
-        onConfirmationClose();
-        navigate(0);
+    })();
+
+    // delete order from userOrders
+    (async () => {
+      const response = await fetch(
+        `http://localhost:5000/users/removeOrder/${userId}/${groupId}`,
+        {
+          method: 'DELETE',
+        }
+      );
+
+      if (response.status == '200') {
+        console.log('successful update to user 200 check');
       }
     })();
-    console.log(`http://localhost:5000/orders/removeUser/${groupId}/${userId}`);
+
+    onConfirmationClose();
+    navigate(0);
   };
 
   return (
@@ -61,7 +74,7 @@ export default chakra(function OrderDetailUser({
       <ConfirmationModal
         isOpen={isConfirmationOpen}
         onClose={onConfirmationClose}
-        title={`Please confirm to remove user: ${userOrder.orderUserId} from this order. This action cannot be undone.`}
+        title={`Please confirm to remove ${userOrder.userName} from this order. This action cannot be undone.`}
         confirmButton={'Confirm'}
         cancelButton={'Cancel'}
         onConfirm={() => removeUser(userOrder.orderUserId)}

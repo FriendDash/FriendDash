@@ -64,7 +64,7 @@ const OrdersPage = () => {
               />
             ))}
           </VStack>
-          <Heading textAlign="center" my="20px">
+          <Heading textAlign="center" mt="60px" mb="20px">
             Orders You Are Part Of
           </Heading>
 
@@ -74,6 +74,7 @@ const OrdersPage = () => {
                 key={order._id}
                 groupOrder={order}
                 isCreator={false}
+                userId={user.googleId}
               />
             ))}
           </VStack>

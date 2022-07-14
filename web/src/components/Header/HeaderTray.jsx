@@ -27,7 +27,6 @@ import {
 
 import { HamburgerIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import ToggleColor from '../ToggleColor';
 

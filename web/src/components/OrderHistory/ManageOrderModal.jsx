@@ -114,7 +114,7 @@ export default chakra(function ManageOrderModal({
                 >
                   {orderStatus}
                 </MenuButton>
-                <MenuList>
+                <MenuList w="260px">
                   <MenuItem value="open" onClick={() => setOrderStatus('open')}>
                     Open
                   </MenuItem>
@@ -157,6 +157,7 @@ export default chakra(function ManageOrderModal({
                     key={data._id}
                     userOrder={userOrder}
                     groupId={data._id}
+                    creatorUserId={data.creatorUserId}
                   />
                 ))
               ) : (
