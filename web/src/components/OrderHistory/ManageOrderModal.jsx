@@ -21,6 +21,7 @@ import {
   MenuItem,
   HStack,
   useDisclosure,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
@@ -50,6 +51,7 @@ export default chakra(function ManageOrderModal({
   };
 
   const [orderStatus, setOrderStatus] = useState(data.orderStatus);
+  const bg = useColorModeValue('red.100', 'red.700');
 
   const handleSavePUTReq = () => {
     const newOrderStatus = {
@@ -158,7 +160,7 @@ export default chakra(function ManageOrderModal({
                   />
                 ))
               ) : (
-                <Box bg="red.100" rounded="20px" w="100%">
+                <Box bg={bg} rounded="20px" w="100%">
                   <Text textAlign="center" p="10px" fontWeight="600">
                     No Members in Order
                   </Text>

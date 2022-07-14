@@ -5,6 +5,7 @@ import {
   HStack,
   useDisclosure,
   Spacer,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import ConfirmationModal from '../ConfirmationModal';
@@ -19,6 +20,7 @@ export default chakra(function OrderDetailUser({
     onOpen: onConfirmationOpen,
     onClose: onConfirmationClose,
   } = useDisclosure();
+  const bg = useColorModeValue('gray.100', 'gray.700');
 
   const navigate = useNavigate();
 
@@ -41,7 +43,7 @@ export default chakra(function OrderDetailUser({
   };
 
   return (
-    <HStack w="100%" bg="gray.100" p="5px" rounded="10px" className={className}>
+    <HStack w="100%" bg={bg} p="5px" rounded="10px" className={className}>
       <Button
         colorScheme="teal"
         variant="link"

@@ -23,6 +23,7 @@ import {
   AccordionButton,
   AccordionPanel,
   AccordionIcon,
+  useColorModeValue,
 } from '@chakra-ui/react';
 
 const faqArray = [
@@ -54,14 +55,16 @@ const faqArray = [
 ];
 
 const Home = () => {
+  const bg = useColorModeValue('gray.300', 'gray.700');
+
   return (
     <div>
       <Header />
       <Box
-        marginTop="3%"
+        marginTop="4%"
         align="center"
         p="30px"
-        bg="gray.300"
+        bg={bg}
         // w={{ lg: '600px', md: '600px', base: '100%' }}
         w="100%"
         h="400px"
@@ -147,7 +150,7 @@ const Home = () => {
         w="100%"
         h="100%"
         borderRadius="10px"
-        bg="gray.100"
+        bg={bg}
       >
         <Heading size="2xl" mt="25px" textAlign="center">
           Frequently Asked Questions

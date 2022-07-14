@@ -1,10 +1,12 @@
 import { Box, HStack, chakra } from '@chakra-ui/react';
+import { useColorModeValue } from '@chakra-ui/react';
 
 import HeaderTray from './HeaderTray';
 const Header = ({ className }) => {
+  const bg = useColorModeValue('gray.100', 'black.200');
   return (
     <Box
-      bgColor="gray.100"
+      bgColor={bg}
       p="7px"
       w="100%"
       position="fixed"

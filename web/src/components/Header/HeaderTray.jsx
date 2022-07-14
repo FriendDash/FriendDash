@@ -92,7 +92,7 @@ const HeaderTray = () => {
           </a>
         </HStack>
         <HStack>
-          <ToggleColor />
+          {/* <ToggleColor /> */}
           {user.userName !== 'Foodie' ? (
             <HStack
               p="10px"

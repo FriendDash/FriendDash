@@ -14,6 +14,7 @@ import {
   Button,
   useToast,
   useClipboard,
+  useColorModeValue,
 } from '@chakra-ui/react';
 
 import { useEffect } from 'react';
@@ -95,6 +96,8 @@ const ProfilePage = () => {
 
   const { hasCopied, onCopy } = useClipboard(window.location.href);
   const toast = useToast();
+  const bg = useColorModeValue('gray.300', 'black.200');
+  const bg2 = useColorModeValue('blue.100', 'gray.500');
 
   useEffect(() => {
     (async () => {
@@ -114,10 +117,10 @@ const ProfilePage = () => {
       {Object.keys(user).length > 1 ? (
         <>
           <Box
-            marginTop="6%"
+            marginTop="4%"
             align="center"
             p="30px"
-            bg="gray.300"
+            bg={bg}
             // w={{ lg: '600px', md: '600px', base: '100%' }}
             w="100%"
             h="400px"
@@ -171,7 +174,7 @@ const ProfilePage = () => {
           <Box
             align="center"
             p="30px"
-            bg="gray.200"
+            bg={bg}
             // w={{ lg: '600px', md: '600px', base: '100%' }}
             w="100%"
             h="100%"
@@ -186,7 +189,7 @@ const ProfilePage = () => {
               return (
                 <Box
                   key={index}
-                  backgroundColor="blue.100"
+                  backgroundColor={bg2}
                   padding="20px"
                   margin="10px"
                 >

@@ -14,8 +14,10 @@ import {
   FormControl,
   FormLabel,
   Input,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
+import ToggleColor from '../components/ToggleColor';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { removeUserAsync } from '../redux/users/thunk';
@@ -27,6 +29,7 @@ const AccountsPage = () => {
   const dispatch = useDispatch();
   const nav = useNavigate();
   const toast = useToast();
+  const bg = useColorModeValue('gray.100', 'gray.700');
 
   const [user, setUser] = useState(() => {
     // getting stored value from localStorage
@@ -60,7 +63,7 @@ const AccountsPage = () => {
               marginTop="6%"
               align="left"
               p="35px"
-              bg="gray.300"
+              bg={bg}
               // w={{ lg: '600px', md: '600px', base: '100%' }}
               w="100%"
               h="100px"
@@ -71,7 +74,7 @@ const AccountsPage = () => {
             <Box
               align="left"
               p="35px"
-              bg="gray.100"
+              bg={bg}
               // w={{ lg: '600px', md: '600px', base: '100%' }}
               w="100%"
               h="100%"
@@ -94,7 +97,6 @@ const AccountsPage = () => {
                   defaultValue={user.userEmail}
                 />
               </FormControl>
-
               {user.userName !== 'Foodie' && (
                 <Box align="right" w="100%" pt="20px">
                   <Button
@@ -113,7 +115,8 @@ const AccountsPage = () => {
                     Delete Account
                   </Button>
                 </Box>
-              )}
+              )}{' '}
+              <ToggleColor />
             </Box>
           </>
         ) : (
