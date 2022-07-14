@@ -15,7 +15,7 @@ import {
   Th,
   Td,
   TableCaption,
-  TableContainer,
+  TableContainer,useToast
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -23,31 +23,69 @@ import { updateOrderAsync } from '../redux/orders/thunk';
 import { useNavigate } from "react-router-dom";
 
 const mockUpdateOrder = {
-  _id: '12313221313131',
-  restaurant: 'Subway',
-  creatorName: 'Johhny Hacks',
-  pickupLocation: '5751 Student Union Blvd',
-  pickupTime: '6:30pm',
-  orderId: 1,
-  creatorUserId: 1,
-  orderStatus: 'open',
-  orderDetails: [
+  "restaurant": "McDonald",
+  "creatorName": "Avocado",
+  "pickupLocation": "5751 Student Union Blvd",
+  "pickupTime": "7:20pm",
+  "maxSize": 4,
+  "_id": 492817489172489,
+  "creatorUserId": 4,
+  "orderStatus": "open",
+  "orderDetails": [
     {
-      orderUserId: 1,
-      userName: 'hello',
-      orderItems: [
-        { menuItem: 'Classic Foot Long', price: 8, quantity: 2 },
-        { menuItem: 'Doritos', price: 2, quantity: 1 },
-        { menuItem: 'Sprite', price: 3, quantity: 1 },
-      ],
+      "orderUserId": "1",
+      "orderItems": [
+        { "menuItem": "Big Mac", "price": 7, "quantity": 1 },
+        { "menuItem": "Fries (Large)", "price": 4, "quantity": 1 },
+        { "menuItem": "Coca Cola", "price": 2, "quantity": 1 }
+      ]
     },
-  ],
+    {
+      "orderUserId": "3",
+      "orderItems": [
+        { "menuItem": "Big Mac", "price": 7, "quantity": 1 },
+        { "menuItem": "Fries (Large)", "price": 4, "quantity": 1 },
+        { "menuItem": "Coca Cola", "price": 2, "quantity": 1 }
+      ]
+    },
+    {
+      "orderUserId": "2",
+      "orderItems": [
+        { "menuItem": "Big Mac", "price": 7, "quantity": 1 },
+        { "menuItem": "Fries (Large)", "price": 4, "quantity": 1 },
+        { "menuItem": "Coca Cola", "price": 2, "quantity": 1 }
+      ]
+    },
+    {
+      "orderUserId": "113225255095763637104",
+      "orderItems": [{ "menuItem": "Cheeseburger", "price": 3, "quantity": 1 }]
+    }
+  ]
 };
 
 export default function ConfirmOrderPopup(props) {
   const dispatch = useDispatch();
+  const toast = useToast()
 
-  const { combineOrders, starters, mains, desserts } = props;
+  const signedOutUserObject = {
+    createdAt: '',
+    googleId: '0',
+    updatedAt: '',
+    userEmail: '',
+    userName: 'Foodie',
+    userOrders: [],
+    userProfile: '',
+    userRating: [],
+  };
+
+  const [user, setUser] = useState(() => {
+    // getting stored value from localStorage
+    const saved = localStorage.getItem('userSession_FriendDash');
+    const initialValue = JSON.parse(saved);
+    return initialValue || signedOutUserObject;
+  });
+
+  const { groupOrder, combineOrders, starters, mains, desserts } = props;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef();
   const completeOrder = [...starters, ...mains, ...desserts];
@@ -56,7 +94,7 @@ export default function ConfirmOrderPopup(props) {
   const onConfirm = () => {
     onClose();
     // TODO: implement the proper navigation for closing group order
-    navigate("/group/62b8b11e8d7b3c29a9b69a69");
+    navigate(`/group/${groupOrder._id}`);
   }
 
   const openPopUp = () => {
@@ -66,12 +104,56 @@ export default function ConfirmOrderPopup(props) {
 
   const confirmOrderClick = () => {
     const newOrderItem = {
-      orderUserId: 1234,
-      userName: 'get username from localstorage',
+      orderUserId: user.googleId,
+      userName: user.userName,
       orderItems: completeOrder,
     };
-    mockUpdateOrder.orderDetails.push(newOrderItem);
-    dispatch(updateOrderAsync(mockUpdateOrder));
+    // mockUpdateOrder.orderDetails.push(newOrderItem);
+    // dispatch(updateOrderAsync(mockUpdateOrder));
+
+    // PUT req to main order
+    (async () => {
+      const response = await fetch(`http://localhost:5000/orders/updateOrderDetails/${groupOrder._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newOrderItem),
+      });
+
+      if (response.status == '200')
+      {
+        console.log("inside 200 check");
+        toast({
+          title: 'Order Added.',
+          description: "We've added your order for you.",
+          status: 'success',
+          duration: 9000,
+          position: "bottom",
+          isClosable: true,
+        })
+      }
+      
+    })();
+
+
+    // PUT req user
+    (async () => {
+      const response = await fetch(`http://localhost:5000/users/updateUserOrders/${user.googleId}/${groupOrder._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.status == '200')
+      {
+        console.log("successful update to user 200 check");
+
+      }
+      
+    })();
+
     onConfirm();
   };
 
@@ -111,10 +193,10 @@ export default function ConfirmOrderPopup(props) {
                   <Tbody>
                     {completeOrder.map((e, i) => {
                       return (
-                        <Tr>
+                        <Tr key = {i}>
                           <Td>{e.menuItem}</Td>
                           <Td>{e.quantity}</Td>
-                          <Td isNumeric>${e.price}</Td>
+                          <Td isNumeric>${e.price} x {e.quantity}</Td>
                         </Tr>
                       );
                     })}
@@ -122,19 +204,19 @@ export default function ConfirmOrderPopup(props) {
                   <Tfoot>
                     <Tr>
                       <Th> </Th>
-                      <h3>
+                      <Th>
                         <b>TOTAL COST:</b>
-                      </h3>
-                      <h3 isNumeric>
+                      </Th>
+                      <Th isNumeric>
                         <b>
                         $
-                        {completeOrder.map((e) => e.price).reduce(
+                        {completeOrder.map((e, index) => e.price).reduce(
                           (previousValue, currentValue) =>
                             previousValue + currentValue,
                           0
                         )}
                         </b>
-                      </h3>
+                      </Th>
                     </Tr>
                   </Tfoot>
                 </Table>
