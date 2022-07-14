@@ -18,7 +18,7 @@ import {
 
 import { addOrderAsync } from '../redux/orders/thunk';
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { signedOutUserObject } from '../utils/SignedOutUserObject';
 
@@ -68,7 +68,6 @@ export default chakra(function CreateGroupForm({ className, isOpen, onClose }) {
   }, []);
 
   const handleSubmitToServer = () => {
-    const rand = 1 + Math.random() * (100 - 1);
     let newGroup = {
       restaurant: restaurantName,
       creatorName: user.userName,
