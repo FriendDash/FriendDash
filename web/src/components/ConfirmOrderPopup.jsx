@@ -108,8 +108,6 @@ export default function ConfirmOrderPopup(props) {
       userName: user.userName,
       orderItems: completeOrder,
     };
-    // mockUpdateOrder.orderDetails.push(newOrderItem);
-    // dispatch(updateOrderAsync(mockUpdateOrder));
 
     // PUT req to main order
     (async () => {
@@ -196,7 +194,7 @@ export default function ConfirmOrderPopup(props) {
                         <Tr key = {i}>
                           <Td>{e.menuItem}</Td>
                           <Td>{e.quantity}</Td>
-                          <Td isNumeric>${e.price} x {e.quantity}</Td>
+                          <Td isNumeric>${e.price} x {e.quantity} = ${e.price * e.quantity}</Td>
                         </Tr>
                       );
                     })}
@@ -210,9 +208,9 @@ export default function ConfirmOrderPopup(props) {
                       <Th isNumeric>
                         <b>
                         $
-                        {completeOrder.map((e, index) => e.price).reduce(
-                          (previousValue, currentValue) =>
-                            previousValue + currentValue,
+                        {completeOrder.reduce(
+                          (previousValue, currentElement) =>
+                            previousValue + currentElement.price*currentElement.quantity,
                           0
                         )}
                         </b>
