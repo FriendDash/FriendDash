@@ -11,11 +11,12 @@ import {
   Spacer,
   useDisclosure,
 } from '@chakra-ui/react';
-import { useNavigate } from 'react-router';
+import { Navigate, useNavigate } from 'react-router';
 
 import { restaurantImageMapping } from '../../utils/RestaurantImageMapping';
 import StatusTag from '../StatusTag';
 import ManageOrderModal from './ManageOrderModal';
+import ConfirmationModal from '../ConfirmationModal';
 
 export default chakra(function GroupOrderManageCard({
   className,
@@ -24,17 +25,21 @@ export default chakra(function GroupOrderManageCard({
 }) {
   const nav = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isConfirmationOpen,
+    onOpen: onConfirmationOpen,
+    onClose: onConfirmationClose,
+  } = useDisclosure();
 
   const handleViewOrder = () => {
     nav(`/group/${groupOrder._id}`);
   };
 
-  const handleManageOrder = () => {
-    // popup component that shows deatils order information and can edit
-  };
-
   const handleLeaveOrder = () => {
-    // popup component to confirm
+    // leave order from order -> orderDetails
+    // leave order from user -> ordersArray
+
+    nav(0);
   };
 
   return (
@@ -79,12 +84,21 @@ export default chakra(function GroupOrderManageCard({
               Manage Order
             </Button>
           ) : (
-            <Button w="150px" colorScheme="red" onClick={handleManageOrder}>
+            <Button w="150px" colorScheme="red" onClick={onConfirmationOpen}>
               Leave Order
             </Button>
           )}
         </VStack>
       </HStack>
+
+      <ConfirmationModal
+        isOpen={isConfirmationOpen}
+        onClose={onConfirmationClose}
+        title={`Remove yourself from this order? This action cannot be undone.`}
+        confirmButton={'Confirm'}
+        cancelButton={'Cancel'}
+        onConfirm={handleLeaveOrder}
+      />
 
       <ManageOrderModal isOpen={isOpen} onClose={onClose} data={groupOrder} />
     </Flex>

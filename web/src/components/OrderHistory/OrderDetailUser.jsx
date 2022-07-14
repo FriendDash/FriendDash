@@ -59,7 +59,7 @@ export default chakra(function OrderDetailUser({
       <ConfirmationModal
         isOpen={isConfirmationOpen}
         onClose={onConfirmationClose}
-        title={`Please confirm to remove user: ${userOrder.orderUserId} from this order. This action cannot be undone.`}
+        title={`Please confirm to remove ${userOrder.userName} from this order. This action cannot be undone.`}
         confirmButton={'Confirm'}
         cancelButton={'Cancel'}
         onConfirm={() => removeUser(userOrder.orderUserId)}
