@@ -36,8 +36,6 @@ export default chakra(function RestaurantMenu(){
 
   return (
     <Box>
-        {id}
-      <br/>
       <Box
         p="30px"
         w={{ lg: '950px', md: '600px', base: '100%' }}
