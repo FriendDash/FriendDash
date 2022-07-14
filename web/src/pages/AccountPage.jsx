@@ -21,21 +21,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { removeUserAsync } from '../redux/users/thunk';
 import { useNavigate } from 'react-router-dom';
 import NotFound from '../components/NotFound';
+import { signedOutUserObject } from '../utils/SignedOutUserObject';
 
 const AccountsPage = () => {
   const dispatch = useDispatch();
   const nav = useNavigate();
   const toast = useToast();
-  const signedOutUserObject = {
-    createdAt: '',
-    googleId: '0',
-    updatedAt: '',
-    userEmail: '',
-    userName: 'Foodie',
-    userOrders: [],
-    userProfile: '',
-    userRating: [],
-  };
 
   const [user, setUser] = useState(() => {
     // getting stored value from localStorage

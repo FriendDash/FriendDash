@@ -20,6 +20,8 @@ import { addOrderAsync } from '../redux/orders/thunk';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { signedOutUserObject } from '../utils/SignedOutUserObject';
+
 export default chakra(function CreateGroupForm({ className, isOpen, onClose }) {
   const [restaurantName, setRestaurantName] = useState('');
   const [time, setTime] = useState(new Date());
@@ -28,7 +30,14 @@ export default chakra(function CreateGroupForm({ className, isOpen, onClose }) {
   const [lat, setLat] = useState('');
   const [long, setLong] = useState('');
   const [mapsAPIResponse, setMapsAPIResponse] = useState({});
-  const name = 'Dan Abrahmov';
+  // const name = 'Dan Abrahmov';
+
+  const [user, setUser] = useState(() => {
+    // getting stored value from localStorage
+    const saved = localStorage.getItem('userSession_FriendDash');
+    const initialValue = JSON.parse(saved);
+    return initialValue || signedOutUserObject;
+  });
 
   const dispatch = useDispatch();
   const orderCreatedToast = useToast({
@@ -62,12 +71,11 @@ export default chakra(function CreateGroupForm({ className, isOpen, onClose }) {
     const rand = 1 + Math.random() * (100 - 1);
     let newGroup = {
       restaurant: restaurantName,
-      creatorName: name,
+      creatorName: user.userName,
       pickupLocation: pickupLocation,
       pickupTime: time,
       maxSize: groupMembers,
-      orderId: rand,
-      creatorUserId: rand,
+      creatorUserId: user.googleId,
     };
     if (restaurantName.trim() === '' || time === '' || pickupLocation === '') {
       alert('You must not submit an empty form.');

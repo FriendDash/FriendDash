@@ -5,10 +5,11 @@ import Header from '../components/Header/Header';
 import GroupOrderManageCard from '../components/OrderHistory/GroupOrderManageCard';
 import ContentContainer from '../components/ContentContainer';
 
+import { signedOutUserObject } from '../utils/SignedOutUserObject';
+
 const OrdersPage = () => {
   // getOrders contains filter results of orders where the associated googleId is either the creatorUserId or orderDetails.orderUserId
   const [getOrders, setGetOrders] = useState([]);
-
   const [creatorOrders, setCreatorOrders] = useState([]);
   const [otherOrders, setOtherOrders] = useState([]);
 
@@ -26,17 +27,6 @@ const OrdersPage = () => {
     setCreatorOrders(creator);
     setOtherOrders(other);
   }, [getOrders]);
-
-  const signedOutUserObject = {
-    createdAt: '',
-    googleId: '0',
-    updatedAt: '',
-    userEmail: '',
-    userName: 'Foodie',
-    userOrders: [],
-    userProfile: '',
-    userRating: [],
-  };
 
   const [user, setUser] = useState(() => {
     // getting stored value from localStorage

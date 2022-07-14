@@ -153,7 +153,6 @@ router.post('/add', function (req, res, next) {
   const pickupLocation = req.body.pickupLocation;
   const pickupTime = req.body.pickupTime;
   const maxSize = req.body.maxSize;
-  const orderId = req.body.orderId;
   const creatorUserId = req.body.creatorUserId;
   const orderStatus = 'open';
   const orderDetails = req.body.orderDetails;
@@ -164,7 +163,6 @@ router.post('/add', function (req, res, next) {
     pickupLocation,
     pickupTime,
     maxSize,
-    orderId,
     creatorUserId,
     orderStatus,
     orderDetails,
@@ -207,7 +205,6 @@ router.put('/update/:orderId', function (req, res, next) {
     pickupLocation: req.body.pickupLocation,
     pickupTime: req.body.pickupTime,
     maxSize: req.body.maxSize,
-    orderId: req.body.orderId,
     creatorUserId: req.body.creatorUserId,
     orderStatus: req.body.orderStatus,
     orderDetails: req.body.orderDetails,

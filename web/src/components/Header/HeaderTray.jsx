@@ -30,19 +30,10 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
+import { signedOutUserObject } from '../../utils/SignedOutUserObject';
+
 const HeaderTray = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const signedOutUserObject = {
-    createdAt: '',
-    googleId: '0',
-    updatedAt: '',
-    userEmail: '',
-    userName: 'Foodie',
-    userOrders: [],
-    userProfile: '',
-    userRating: [],
-  };
 
   const [user, setUser] = useState(() => {
     // getting stored value from localStorage
@@ -51,7 +42,6 @@ const HeaderTray = () => {
     return initialValue || signedOutUserObject;
   });
 
-  const dispatch = useDispatch();
   const nav = useNavigate();
 
   const handleSignOut = () => {

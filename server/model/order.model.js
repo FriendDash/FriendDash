@@ -51,9 +51,6 @@ const orderSchema = new Schema(
     maxSize: {
       type: Number,
     },
-    orderId: {
-      type: Number,
-    },
     creatorUserId: {
       type: String,
     },
