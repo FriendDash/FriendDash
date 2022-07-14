@@ -27,6 +27,11 @@ export default chakra(function GroupOrderManageCard({
 }) {
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isConfirmationOpen,
+    onOpen: onConfirmationOpen,
+    onClose: onConfirmationClose,
+  } = useDisclosure();
   const bg = useColorModeValue('gray.50', 'gray.700');
 
   const handleViewOrder = () => {
