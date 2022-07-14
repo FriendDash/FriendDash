@@ -236,7 +236,6 @@ router.put('/updateStatus/:orderId', function (req, res, next) {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-
 //updateOrderDetails with the orderId (mongodb _id from the /orders route)
 // body has to be in this format:
 // {
@@ -251,16 +250,14 @@ router.put('/updateOrderDetails/:orderId', function (req, res, next) {
 
   const body = req.body;
 
-  Order.findByIdAndUpdate(
-    req.params.orderId,
-    { $push: { orderDetails: body  } }
-  )
-    .then(updatedOrder => res.status(200).send({ message: 'Successfully updated order!' }))
+  Order.findByIdAndUpdate(req.params.orderId, { $push: { orderDetails: body } })
+    .then(updatedOrder =>
+      res.status(200).send({ message: 'Successfully updated order!' })
+    )
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-
-// Update orderDetails to remove user using the orderId (googleId)
+// Update orderDetails to remove user using the orderUserId (googleId)
 router.delete('/removeUser/:orderId/:googleId', function (req, res, next) {
   if (!req.params.orderId || !req.params.googleId) {
     return res.status(400).send({ message: 'order req missing params' });

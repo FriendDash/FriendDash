@@ -155,6 +155,7 @@ export default chakra(function ManageOrderModal({
                     key={data._id}
                     userOrder={userOrder}
                     groupId={data._id}
+                    creatorUserId={data.creatorUserId}
                   />
                 ))
               ) : (
