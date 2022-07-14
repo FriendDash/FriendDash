@@ -10,6 +10,10 @@ import Header from '../components/Header/Header';
 
 
 const PaymentPage = () => {
+    const onClickAddCard = () => {
+        console.log('hi');
+    }
+
     return (
         <Box>
             <Header />
@@ -29,11 +33,17 @@ const PaymentPage = () => {
                         </HStack>
                     </Box>
                 </VStack>
-                <HStack display={'flex'} justifyContent={'center'}>
-                    <Heading my="20px">
+                <VStack>
+                    <Heading textAlign='center' my='20px'>
                         Add a Payment Method
                     </Heading>
-                </HStack>
+                    <Box borderColor={'black'} borderStyle='solid' borderWidth={'2px'}>
+                        <HStack cursor={'pointer'} padding='10px' margin={'10px'} borderColor='gray' borderStyle='solid' borderWidth={'2px'} onClick={onClickAddCard}>
+                            <Image width={'50px'} src='https://cdn3.iconfinder.com/data/icons/leto-finance-money-1/64/credit_card_new_add_plus-256.png' alt='Add credit card'/>
+                            <Text>Add a new credit/debit card</Text>
+                        </HStack>
+                    </Box>
+                </VStack>
             </Box>
         </Box>
     );
