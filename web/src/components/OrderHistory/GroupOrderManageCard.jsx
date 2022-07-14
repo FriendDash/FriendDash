@@ -10,6 +10,7 @@ import {
   Button,
   Spacer,
   useDisclosure,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router';
 
@@ -26,11 +27,7 @@ export default chakra(function GroupOrderManageCard({
 }) {
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const {
-    isOpen: isConfirmationOpen,
-    onOpen: onConfirmationOpen,
-    onClose: onConfirmationClose,
-  } = useDisclosure();
+  const bg = useColorModeValue('gray.50', 'gray.700');
 
   const handleViewOrder = () => {
     navigate(`/group/${groupOrder._id}`);
@@ -69,7 +66,7 @@ export default chakra(function GroupOrderManageCard({
   };
 
   return (
-    <Flex w="800px" className={className} h="150px" bg="gray.50" rounded="10px">
+    <Flex w="800px" className={className} h="150px" bg={bg} rounded="10px">
       <HStack w="100%">
         <Image
           src={restaurantImageMapping[groupOrder.restaurant]}

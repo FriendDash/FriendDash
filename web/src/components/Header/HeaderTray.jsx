@@ -28,6 +28,7 @@ import {
 import { HamburgerIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ToggleColor from '../ToggleColor';
 
 import { signedOutUserObject } from '../../utils/SignedOutUserObject';
 
@@ -89,22 +90,28 @@ const HeaderTray = () => {
             </HStack>
           </a>
         </HStack>
-        <div id="signInDiv"></div>
-        {user.userName !== 'Foodie' ? (
-          <HStack
-            p="10px"
-            onClick={handleSignOut}
-            style={{ cursor: 'pointer' }}
-          >
-            <Icon as={IoMdPower} w={6} h={6} />
-            <Text fontSize="20px">Logout</Text>
-          </HStack>
-        ) : (
-          <HStack p="10px" onClick={handleSignIn} style={{ cursor: 'pointer' }}>
-            <Icon as={IoMdPower} w={6} h={6} />
-            <Text fontSize="20px">Login</Text>
-          </HStack>
-        )}
+        <HStack>
+          {/* <ToggleColor /> */}
+          {user.userName !== 'Foodie' ? (
+            <HStack
+              p="10px"
+              onClick={handleSignOut}
+              style={{ cursor: 'pointer' }}
+            >
+              <Icon as={IoMdPower} w={6} h={6} />
+              <Text fontSize="20px">Logout</Text>
+            </HStack>
+          ) : (
+            <HStack
+              p="10px"
+              onClick={handleSignIn}
+              style={{ cursor: 'pointer' }}
+            >
+              <Icon as={IoMdPower} w={6} h={6} />
+              <Text fontSize="20px">Login</Text>
+            </HStack>
+          )}
+        </HStack>
       </HStack>
       <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
