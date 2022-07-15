@@ -7,7 +7,6 @@ import {
   VStack,
   Heading,
   HStack,
-  Spinner,
   Button,
   Spacer,
   Text,
@@ -17,6 +16,7 @@ import {
 import ContentContainer from '../components/ContentContainer';
 import { restaurantImageMapping } from '../utils/RestaurantImageMapping';
 import MemberOrderDetail from '../components/Order/MemberOrderDetail';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const GroupOrderPage = () => {
   const [groupOrder, setGroupOrder] = useState();
@@ -140,13 +140,7 @@ const GroupOrderPage = () => {
               <MemberOrderDetail mt="20px" groupOrder={groupOrder} />
             </Box>
           ) : (
-            <Spinner
-              thickness="8px"
-              speed="0.8s"
-              emptyColor="gray.200"
-              color="blue.500"
-              boxSize="300px"
-            />
+            <LoadingSpinner />
           )}
         </VStack>
       </ContentContainer>
