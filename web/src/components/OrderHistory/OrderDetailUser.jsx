@@ -21,7 +21,7 @@ export default chakra(function OrderDetailUser({
     onOpen: onConfirmationOpen,
     onClose: onConfirmationClose,
   } = useDisclosure();
-  const bg = useColorModeValue('gray.100', 'gray.700');
+  const bg = useColorModeValue('gray.100', 'gray.600');
 
   const navigate = useNavigate();
 

@@ -13,6 +13,7 @@ const colorMapping = {
   1: 'pink.700',
   2: 'yellow.700',
   3: 'blue.600',
+  4: 'purple.600',
 };
 
 export default chakra(function MemberOrderDetail({ className, groupOrder }) {

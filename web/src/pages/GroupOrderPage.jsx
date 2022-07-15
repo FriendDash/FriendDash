@@ -36,22 +36,22 @@ const GroupOrderPage = () => {
   const getStatusMessage = status => {
     if (status === 'open') {
       return (
-        <Box backgroundColor={'lightgreen'} rounded="5px" paddingLeft={'10px'}>
-          <Heading size={'lg'}>OPEN</Heading>
+        <Box backgroundColor="green.400" rounded="10px" paddingLeft="10px">
+          <Heading size="md">Open</Heading>
           <Text>You can modify this order at this time</Text>
         </Box>
       );
     } else if (status === 'closed') {
       return (
-        <Box backgroundColor={'red'} rounded="5px" paddingLeft={'10px'}>
-          <Heading size={'lg'}>CLOSED</Heading>
+        <Box backgroundColor="red.600" rounded="10px" paddingLeft="10px">
+          <Heading size="md">Closed</Heading>
           <Text>Order in progress, no more changes can be made!</Text>
         </Box>
       );
     } else if (status === 'completed') {
       return (
-        <Box backgroundColor={'lightblue'} rounded="5px" paddingLeft={'10px'}>
-          <Heading size={'lg'}>COMPLETED</Heading>
+        <Box backgroundColor="teal.400" rounded="10px" paddingLeft="10px">
+          <Heading size="md">Completed</Heading>
           <Text>Order completed!</Text>
         </Box>
       );
@@ -105,7 +105,7 @@ const GroupOrderPage = () => {
                 src={restaurantImageMapping[groupOrder.restaurant]}
                 mt="10px"
                 h="100px"
-                w="1000px"
+                w="1120px"
                 maxW="100%"
                 borderRadius="10px"
                 objectFit="cover"
