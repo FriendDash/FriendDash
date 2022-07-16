@@ -10,6 +10,7 @@ require('dotenv').config();
 const indexRouter = require('./routes/index');
 const ordersRouter = require('./routes/orders');
 const usersRouter = require('./routes/users');
+const stripeRouter = require('./routes/stripe');
 
 var app = express();
 app.use(cors());
@@ -36,5 +37,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/orders', ordersRouter);
 app.use('/users', usersRouter);
+app.use('/stripe', stripeRouter);
 
 module.exports = app;

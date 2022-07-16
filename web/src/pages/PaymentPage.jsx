@@ -4,15 +4,15 @@ import {
     HStack,
     VStack,
     Image,
-    Text
+    Text,
+    Button
 } from '@chakra-ui/react';
 import Header from '../components/Header/Header';
+import {loadStripe} from '@stripe/stripe-js';
 
+const stripePromise = loadStripe('pk_test_51LLIiwFJkD2X0rrAKxtioD3RGqsz0yyNWgJdZVGqkjjjOzGIrRY0E2EjLoLqBCjKj6TqtQ5nyLAZEOKTYF3PpXdO00ClHs67Du');
 
 const PaymentPage = () => {
-    const onClickAddCard = () => {
-        console.log('hi');
-    }
 
     return (
         <Box>
@@ -37,12 +37,12 @@ const PaymentPage = () => {
                     <Heading textAlign='center' my='20px'>
                         Add a Payment Method
                     </Heading>
-                    <Box borderColor={'black'} borderStyle='solid' borderWidth={'2px'}>
-                        <HStack cursor={'pointer'} padding='10px' margin={'10px'} borderColor='gray' borderStyle='solid' borderWidth={'2px'} onClick={onClickAddCard}>
+                    <form action='http://localhost:5000/stripe/create-checkout-session' method='POST'>
+                        <Button cursor={'pointer'} padding='30px' borderColor='gray' borderStyle='solid' borderWidth={'2px'} type='submit'>
                             <Image width={'50px'} src='https://cdn3.iconfinder.com/data/icons/leto-finance-money-1/64/credit_card_new_add_plus-256.png' alt='Add credit card'/>
                             <Text>Add a new credit/debit card</Text>
-                        </HStack>
-                    </Box>
+                        </Button>
+                    </form>
                 </VStack>
             </Box>
         </Box>
