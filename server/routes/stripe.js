@@ -4,6 +4,9 @@ const router = express.Router();
 const stripe = require('stripe')(process.env.STRIPE_SK);
 
 router.post('/:stripeId/create-checkout-session', async (req, res) => {
+    if (!req.params.stripeId) {
+        return res.status(400).send('Bad id given');
+    }
     const session = await stripe.checkout.sessions.create({
         mode: 'setup',
         payment_method_types: ['card'],
@@ -19,7 +22,11 @@ router.get('/success', async (req, res) => {
     res.redirect('http://localhost:3000/payment');
 })
 
+
 router.get('/paymentMethods/:stripeId', async (req, res) => {
+    if (req.params.stripeId === undefined) {
+        return res.status(400).send('Bad id given');
+    }
     const paymentMethods = await stripe.customers.listPaymentMethods(
         req.params.stripeId,
         {type: 'card'}
