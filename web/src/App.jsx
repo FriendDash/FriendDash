@@ -12,6 +12,7 @@ import GroupOrderPage from './pages/GroupOrderPage';
 import AccountsPage from './pages/AccountPage';
 import AboutPage from './pages/AboutPage';
 import OrdersPage from './pages/OrdersPage';
+import PaymentPage from './pages/PaymentPage';
 import './App.css';
 import RatingPopup from './components/RatingPopup';
 
@@ -30,6 +31,7 @@ const App = () => {
           <Route path="/menu/:id" element={<RestaurantMenuPage />} />
           <Route path="/profile/:id" element={<ProfilePage />} />
           <Route path="/group/:id" element={<GroupOrderPage />} />
+          <Route exact path="/payment" element={<PaymentPage />} />
           <Route exact path="/help" element={<AboutPage />} />
           <Route exact path="/rating" element={<RatingPopup />} />
         </Routes>

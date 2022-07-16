@@ -4,6 +4,7 @@ const router = express.Router();
 let User = require('../model/user.model');
 
 // Repo Referenced: https://github.com/svmah/cs455-express-demo
+const stripe = require('stripe')(process.env.STRIPE_SK);
 
 let users = [
   {
@@ -70,7 +71,7 @@ router.post('/add', function (req, res, next) {
   User.findOne({ googleId: req.body.googleId })
     .select('_id')
     .lean()
-    .then(result => {
+    .then(async result => {
       console.log('finding match');
       if (result) {
         // user exists...
@@ -80,6 +81,10 @@ router.post('/add', function (req, res, next) {
           .catch(err => res.status(400).json('Error: ' + err));
       } else {
         // user does not exist
+        const customer = await stripe.customers.create({
+          email: req.body.userEmail,
+          name: req.body.userName
+        });
         const user = new User({
           userName: req.body.userName,
           userProfile: req.body.userProfile,
@@ -87,11 +92,11 @@ router.post('/add', function (req, res, next) {
           userRating: [],
           userOrders: [],
           googleId: req.body.googleId,
+          stripeId: customer.id
         });
-
-        user
-          .save()
-          .then(user => res.json(user))
+        
+        user.save()
+          .then(user => res.send(user)) //then return as json ; else return error
           .catch(err => res.status(400).json('Error: ' + err));
       }
     });
