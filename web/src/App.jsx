@@ -13,6 +13,7 @@ import AccountsPage from './pages/AccountPage';
 import AboutPage from './pages/AboutPage';
 import OrdersPage from './pages/OrdersPage';
 import './App.css';
+import RatingPopup from './components/RatingPopup';
 
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
           <Route path="/profile/:id" element={<ProfilePage />} />
           <Route path="/group/:id" element={<GroupOrderPage />} />
           <Route exact path="/help" element={<AboutPage />} />
+          <Route exact path="/rating" element={<RatingPopup />} />
         </Routes>
       </BrowserRouter>
     </ChakraProvider>

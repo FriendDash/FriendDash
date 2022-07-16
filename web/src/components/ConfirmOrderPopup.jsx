@@ -14,54 +14,12 @@ import {
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,useToast
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateOrderAsync } from '../redux/orders/thunk';
 import { useNavigate } from "react-router-dom";
 
-const mockUpdateOrder = {
-  "restaurant": "McDonald",
-  "creatorName": "Avocado",
-  "pickupLocation": "5751 Student Union Blvd",
-  "pickupTime": "7:20pm",
-  "maxSize": 4,
-  "_id": 492817489172489,
-  "creatorUserId": 4,
-  "orderStatus": "open",
-  "orderDetails": [
-    {
-      "orderUserId": "1",
-      "orderItems": [
-        { "menuItem": "Big Mac", "price": 7, "quantity": 1 },
-        { "menuItem": "Fries (Large)", "price": 4, "quantity": 1 },
-        { "menuItem": "Coca Cola", "price": 2, "quantity": 1 }
-      ]
-    },
-    {
-      "orderUserId": "3",
-      "orderItems": [
-        { "menuItem": "Big Mac", "price": 7, "quantity": 1 },
-        { "menuItem": "Fries (Large)", "price": 4, "quantity": 1 },
-        { "menuItem": "Coca Cola", "price": 2, "quantity": 1 }
-      ]
-    },
-    {
-      "orderUserId": "2",
-      "orderItems": [
-        { "menuItem": "Big Mac", "price": 7, "quantity": 1 },
-        { "menuItem": "Fries (Large)", "price": 4, "quantity": 1 },
-        { "menuItem": "Coca Cola", "price": 2, "quantity": 1 }
-      ]
-    },
-    {
-      "orderUserId": "113225255095763637104",
-      "orderItems": [{ "menuItem": "Cheeseburger", "price": 3, "quantity": 1 }]
-    }
-  ]
-};
 
 export default function ConfirmOrderPopup(props) {
   const dispatch = useDispatch();
