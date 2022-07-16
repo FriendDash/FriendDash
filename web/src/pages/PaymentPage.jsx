@@ -23,8 +23,14 @@ const PaymentPage = () => {
                     method: 'GET',
                 });
                 const json = await res.json();
-                setPaymentMethods(json.data);
-                setStripeConnected(true);
+                if (res.status == 200) {
+                    setPaymentMethods(json.data);
+                    setStripeConnected(true);
+                } else {
+                    setStripeConnected(false);
+                }
+            } else {
+                setStripeConnected(false);
             }
         }
         getPaymentMethods();
