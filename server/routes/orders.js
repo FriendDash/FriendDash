@@ -153,7 +153,6 @@ router.post('/add', function (req, res, next) {
   const pickupLocation = req.body.pickupLocation;
   const pickupTime = req.body.pickupTime;
   const maxSize = req.body.maxSize;
-  const orderId = req.body.orderId;
   const creatorUserId = req.body.creatorUserId;
   const orderStatus = 'open';
   const orderDetails = req.body.orderDetails;
@@ -164,7 +163,6 @@ router.post('/add', function (req, res, next) {
     pickupLocation,
     pickupTime,
     maxSize,
-    orderId,
     creatorUserId,
     orderStatus,
     orderDetails,
@@ -207,7 +205,6 @@ router.put('/update/:orderId', function (req, res, next) {
     pickupLocation: req.body.pickupLocation,
     pickupTime: req.body.pickupTime,
     maxSize: req.body.maxSize,
-    orderId: req.body.orderId,
     creatorUserId: req.body.creatorUserId,
     orderStatus: req.body.orderStatus,
     orderDetails: req.body.orderDetails,
@@ -239,7 +236,28 @@ router.put('/updateStatus/:orderId', function (req, res, next) {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-// Update orderDetails to remove user using the orderId (googleId)
+//updateOrderDetails with the orderId (mongodb _id from the /orders route)
+// body has to be in this format:
+// {
+//   orderUserId: user.googleId,
+//   userName: user.userName,
+//   orderItems: completeOrder,
+// }
+router.put('/updateOrderDetails/:orderId', function (req, res, next) {
+  if (!req.params.orderId) {
+    return res.status(400).send({ message: 'orderId param req missing info' });
+  }
+
+  const body = req.body;
+
+  Order.findByIdAndUpdate(req.params.orderId, { $push: { orderDetails: body } })
+    .then(updatedOrder =>
+      res.status(200).send({ message: 'Successfully updated order!' })
+    )
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
+// Update orderDetails to remove user using the orderUserId (googleId)
 router.delete('/removeUser/:orderId/:googleId', function (req, res, next) {
   if (!req.params.orderId || !req.params.googleId) {
     return res.status(400).send({ message: 'order req missing params' });

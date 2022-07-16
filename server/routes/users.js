@@ -112,6 +112,44 @@ router.delete('/remove/:userId', function (req, res, next) {
     .catch(err => res.status(404).json('Error: ' + err));
 });
 
+//updateUserOrders with the googleId (googleId from the /orders route)
+// no body
+router.put('/updateUserOrders/:googleId/:orderId', function (req, res, next) {
+  if (!req.params.googleId || !req.params.orderId) {
+    return res
+      .status(400)
+      .send({ message: 'googleId or orderId param req missing info' });
+  }
+
+  User.findOneAndUpdate(
+    { googleId: req.params.googleId },
+    { $push: { userOrders: req.params.orderId } }
+  )
+    .then(u =>
+      res.status(200).send({ message: 'Successfully updated userOrders!' })
+    )
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
+// updateUserRating with the googleId (googleId from the /orders route)
+// no body
+router.put('/updateUserRating/:googleId/:rating', function (req, res, next) {
+  if (!req.params.googleId || !req.params.rating) {
+    return res
+      .status(400)
+      .send({ message: 'googleId or rating param req missing info' });
+  }
+
+  User.findOneAndUpdate(
+    { googleId: req.params.googleId },
+    { $push: { userRating: req.params.rating } }
+  )
+    .then(u =>
+      res.status(200).send({ message: 'Successfully updated rating!' })
+    )
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
 // uses mongodb _id
 router.put('/update/:userId/', function (req, res, next) {
   if (!req.body.userName || !req.body.userEmail || !req.body.userOrders) {
@@ -129,6 +167,31 @@ router.put('/update/:userId/', function (req, res, next) {
 
   User.findByIdAndUpdate(req.params.userId, user, { new: true })
     .then(updatedUser => res.json(updatedUser))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
+// remove orderId from userOrders of a user with their googleId (googleId)
+// no body
+router.delete('/removeOrder/:googleId/:orderId', function (req, res, next) {
+  if (!req.params.googleId || !req.params.orderId) {
+    return res
+      .status(400)
+      .send({ message: 'googleId or orderId param req missing info' });
+  }
+
+  User.findOneAndUpdate(
+    { googleId: req.params.googleId },
+    {
+      $pull: {
+        userOrders: req.params.orderId,
+      },
+    }
+  )
+    .then(u =>
+      res
+        .status(200)
+        .send({ message: 'Successfully removed order from user Orders!' })
+    )
     .catch(err => res.status(400).json('Error: ' + err));
 });
 

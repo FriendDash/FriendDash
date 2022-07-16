@@ -1,17 +1,28 @@
-import { chakra, Box, Heading, HStack, Text, Circle } from '@chakra-ui/react';
+import {
+  chakra,
+  Box,
+  Heading,
+  HStack,
+  Text,
+  Circle,
+  useColorModeValue,
+} from '@chakra-ui/react';
 
 const colorMapping = {
   0: 'green.600',
   1: 'pink.700',
   2: 'yellow.700',
   3: 'blue.600',
+  4: 'purple.600',
 };
 
 export default chakra(function MemberOrderDetail({ className, groupOrder }) {
+  const bg = useColorModeValue('gray.200', 'gray.700');
+
   return (
     <HStack className={className} spacing="30px">
       {groupOrder.orderDetails.map((order, i) => (
-        <Box key={i} h="300px" w="200px" bg="gray.200" rounded="20px">
+        <Box key={i} h="300px" w="200px" bg={bg} rounded="20px">
           <Box alignItems="flex-start">
             <Heading
               size="md"

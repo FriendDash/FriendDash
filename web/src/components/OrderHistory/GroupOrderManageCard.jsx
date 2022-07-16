@@ -10,35 +10,68 @@ import {
   Button,
   Spacer,
   useDisclosure,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router';
 
 import { restaurantImageMapping } from '../../utils/RestaurantImageMapping';
 import StatusTag from '../StatusTag';
 import ManageOrderModal from './ManageOrderModal';
+import ConfirmationModal from '../ConfirmationModal';
 
 export default chakra(function GroupOrderManageCard({
   className,
   groupOrder,
   isCreator,
+  userId,
 }) {
-  const nav = useNavigate();
+  const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isConfirmationOpen,
+    onOpen: onConfirmationOpen,
+    onClose: onConfirmationClose,
+  } = useDisclosure();
+  const bg = useColorModeValue('gray.50', 'gray.700');
 
   const handleViewOrder = () => {
-    nav(`/group/${groupOrder._id}`);
+    navigate(`/group/${groupOrder._id}`);
   };
 
-  const handleManageOrder = () => {
-    // popup component that shows deatils order information and can edit
-  };
+  const removeUser = userId => {
+    // leave order from order -> orderDetails
+    // leave order from user -> ordersArray
 
-  const handleLeaveOrder = () => {
-    // popup component to confirm
+    (async () => {
+      const response = await fetch(
+        `http://localhost:5000/orders/removeUser/${groupOrder._id}/${userId}`,
+        {
+          method: 'DELETE',
+        }
+      );
+      const dataRes = await response.json();
+    })();
+
+    // delete order from userOrders
+    (async () => {
+      const response = await fetch(
+        `http://localhost:5000/users/removeOrder/${userId}/${groupOrder._id}`,
+        {
+          method: 'DELETE',
+        }
+      );
+
+      if (response.status == '200') {
+        console.log('successful update to user 200 check');
+      }
+    })();
+
+    onConfirmationClose();
+    navigate(0);
   };
 
   return (
-    <Flex w="800px" className={className} h="150px" bg="gray.50" rounded="10px">
+    <Flex w="800px" className={className} h="150px" bg={bg} rounded="10px">
       <HStack w="100%">
         <Image
           src={restaurantImageMapping[groupOrder.restaurant]}
@@ -79,12 +112,21 @@ export default chakra(function GroupOrderManageCard({
               Manage Order
             </Button>
           ) : (
-            <Button w="150px" colorScheme="red" onClick={handleManageOrder}>
+            <Button w="150px" colorScheme="red" onClick={onConfirmationOpen}>
               Leave Order
             </Button>
           )}
         </VStack>
       </HStack>
+
+      <ConfirmationModal
+        isOpen={isConfirmationOpen}
+        onClose={onConfirmationClose}
+        title={`Remove yourself from this order? This action cannot be undone.`}
+        confirmButton={'Confirm'}
+        cancelButton={'Cancel'}
+        onConfirm={() => removeUser(userId)}
+      />
 
       <ManageOrderModal isOpen={isOpen} onClose={onClose} data={groupOrder} />
     </Flex>

@@ -18,7 +18,9 @@ import {
 
 import { addOrderAsync } from '../redux/orders/thunk';
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+
+import { signedOutUserObject } from '../utils/SignedOutUserObject';
 
 export default chakra(function CreateGroupForm({ className, isOpen, onClose }) {
   const [restaurantName, setRestaurantName] = useState('');
@@ -28,7 +30,14 @@ export default chakra(function CreateGroupForm({ className, isOpen, onClose }) {
   const [lat, setLat] = useState('');
   const [long, setLong] = useState('');
   const [mapsAPIResponse, setMapsAPIResponse] = useState({});
-  const name = 'Dan Abrahmov';
+  // const name = 'Dan Abrahmov';
+
+  const [user, setUser] = useState(() => {
+    // getting stored value from localStorage
+    const saved = localStorage.getItem('userSession_FriendDash');
+    const initialValue = JSON.parse(saved);
+    return initialValue || signedOutUserObject;
+  });
 
   const dispatch = useDispatch();
   const orderCreatedToast = useToast({
@@ -59,15 +68,13 @@ export default chakra(function CreateGroupForm({ className, isOpen, onClose }) {
   }, []);
 
   const handleSubmitToServer = () => {
-    const rand = 1 + Math.random() * (100 - 1);
     let newGroup = {
       restaurant: restaurantName,
-      creatorName: name,
+      creatorName: user.userName,
       pickupLocation: pickupLocation,
       pickupTime: time,
       maxSize: groupMembers,
-      orderId: rand,
-      creatorUserId: rand,
+      creatorUserId: user.googleId,
     };
     if (restaurantName.trim() === '' || time === '' || pickupLocation === '') {
       alert('You must not submit an empty form.');
@@ -105,7 +112,7 @@ export default chakra(function CreateGroupForm({ className, isOpen, onClose }) {
         }
       })();
     } else {
-      setPickupLocation('6245 Agronomy Road, Vancouver, BC V6T 1Z4');
+      setPickupLocation('6245 Agronomy Road');
     }
   };
   return (
@@ -171,12 +178,22 @@ export default chakra(function CreateGroupForm({ className, isOpen, onClose }) {
             </Select>
           </FormControl>
         </ModalBody>
-        <ModalFooter display={'flex'} justifyContent="space-between">
-          <Button type="Submit" onClick={handleSubmitToServer}>
-            Create Group
-          </Button>
-          <Button type="Cancel" onClick={onClose}>
+        <ModalFooter>
+          <Button
+            type="Cancel"
+            colorScheme="blue"
+            onClick={onClose}
+            w="130px"
+            mr="15px"
+          >
             Cancel
+          </Button>
+          <Button
+            colorScheme="teal"
+            type="Submit"
+            onClick={handleSubmitToServer}
+          >
+            Create Group
           </Button>
         </ModalFooter>
       </ModalContent>

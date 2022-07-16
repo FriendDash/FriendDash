@@ -10,10 +10,12 @@ import RestaurantMenuPage from './pages/RestaurantMenuPage';
 import ProfilePage from './pages/ProfilePage';
 import GroupOrderPage from './pages/GroupOrderPage';
 import AccountsPage from './pages/AccountPage';
+import AboutPage from './pages/AboutPage';
 import OrdersPage from './pages/OrdersPage';
 import PaymentPage from './pages/PaymentPage';
-
 import './App.css';
+import RatingPopup from './components/RatingPopup';
+
 
 const App = () => {
   return (
@@ -26,10 +28,12 @@ const App = () => {
           <Route exact path="/login" element={<LoginPage />} />
           <Route exact path="/account" element={<AccountsPage />} />
           <Route exact path="/orders" element={<OrdersPage />} />
-          <Route exact path="/menu" element={<RestaurantMenuPage />} />
+          <Route path="/menu/:id" element={<RestaurantMenuPage />} />
           <Route path="/profile/:id" element={<ProfilePage />} />
           <Route path="/group/:id" element={<GroupOrderPage />} />
           <Route exact path="/payment" element={<PaymentPage />} />
+          <Route exact path="/help" element={<AboutPage />} />
+          <Route exact path="/rating" element={<RatingPopup />} />
         </Routes>
       </BrowserRouter>
     </ChakraProvider>

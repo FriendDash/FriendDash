@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { removeOrderAsync } from '../../redux/orders/thunk';
 import {
   chakra,
   Box,
@@ -13,16 +15,19 @@ import {
   Heading,
   Text,
   VStack,
-  useToast,
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
+  HStack,
+  useDisclosure,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
 import OrderDetailUser from './OrderDetailUser';
-import { ChevronDownIcon } from '@chakra-ui/icons';
+import { DeleteIcon, ChevronDownIcon } from '@chakra-ui/icons';
+import ConfirmationModal from '../ConfirmationModal';
 
 export default chakra(function ManageOrderModal({
   className,
@@ -31,9 +36,22 @@ export default chakra(function ManageOrderModal({
   onClose,
 }) {
   const navigate = useNavigate();
-  const toast = useToast();
+
+  const {
+    isOpen: isConfirmationOpen,
+    onOpen: onConfirmationOpen,
+    onClose: onConfirmationClose,
+  } = useDisclosure();
+  const dispatch = useDispatch();
+  const deleteOrder = () => {
+    dispatch(removeOrderAsync(data._id));
+    onConfirmationClose();
+    onClose();
+    navigate(0);
+  };
 
   const [orderStatus, setOrderStatus] = useState(data.orderStatus);
+  const bg = useColorModeValue('red.100', 'red.700');
 
   const handleSavePUTReq = () => {
     const newOrderStatus = {
@@ -53,14 +71,6 @@ export default chakra(function ManageOrderModal({
 
       const dataRes = await response.json();
       if (dataRes) {
-        toast({
-          title: 'Order Status updated.',
-          description: "We've updated your order status.",
-          status: 'success',
-          duration: 9000,
-          isClosable: true,
-          position: 'bottom',
-        });
         onClose();
         navigate(0);
       }
@@ -93,47 +103,46 @@ export default chakra(function ManageOrderModal({
               <Text>{data.pickupTime}</Text>
             </Box>
             <Heading size="sm">Order Status:</Heading>
-            <Menu>
-              <MenuButton
-                w="100%"
-                as={Button}
-                textAlign="start"
-                rightIcon={<ChevronDownIcon />}
-                textTransform="capitalize"
-              >
-                {orderStatus}
-              </MenuButton>
-              <MenuList w="100%">
-                <MenuItem
-                  w="400px"
-                  value="open"
-                  onClick={() => setOrderStatus('open')}
+            <HStack w="100%" pr="5px">
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  textAlign="start"
+                  rightIcon={<ChevronDownIcon />}
+                  textTransform="capitalize"
+                  w="calc(100% - 130px)"
                 >
-                  Open
-                </MenuItem>
-                <MenuItem
-                  w="400px"
-                  value="completed"
-                  onClick={() => setOrderStatus('completed')}
-                >
-                  Completed
-                </MenuItem>
-                <MenuItem
-                  w="400px"
-                  value="inProgress"
-                  onClick={() => setOrderStatus('inProgress')}
-                >
-                  In Progress
-                </MenuItem>
-                <MenuItem
-                  w="400px"
-                  value="closed"
-                  onClick={() => setOrderStatus('closed')}
-                >
-                  Closed
-                </MenuItem>
-              </MenuList>
-            </Menu>
+                  {orderStatus}
+                </MenuButton>
+                <MenuList w="260px">
+                  <MenuItem value="open" onClick={() => setOrderStatus('open')}>
+                    Open
+                  </MenuItem>
+                  <MenuItem
+                    value="completed"
+                    onClick={() => setOrderStatus('completed')}
+                  >
+                    Completed
+                  </MenuItem>
+                  <MenuItem
+                    value="inProgress"
+                    onClick={() => setOrderStatus('inProgress')}
+                  >
+                    In Progress
+                  </MenuItem>
+                  <MenuItem
+                    value="closed"
+                    onClick={() => setOrderStatus('closed')}
+                  >
+                    Closed
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+
+              <Button colorScheme="teal" w="130px" onClick={handleSavePUTReq}>
+                Save
+              </Button>
+            </HStack>
 
             <Heading size="sm">Members</Heading>
             <VStack
@@ -148,10 +157,11 @@ export default chakra(function ManageOrderModal({
                     key={data._id}
                     userOrder={userOrder}
                     groupId={data._id}
+                    creatorUserId={data.creatorUserId}
                   />
                 ))
               ) : (
-                <Box bg="red.100" rounded="20px" w="100%">
+                <Box bg={bg} rounded="20px" w="100%">
                   <Text textAlign="center" p="10px" fontWeight="600">
                     No Members in Order
                   </Text>
@@ -161,13 +171,22 @@ export default chakra(function ManageOrderModal({
           </VStack>
         </ModalBody>
 
-        <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={onClose} w="110px">
-            Close
+        <ModalFooter justifyContent="center">
+          <Button
+            leftIcon={<DeleteIcon />}
+            colorScheme="red"
+            onClick={onConfirmationOpen}
+          >
+            Delete Order
           </Button>
-          <Button colorScheme="teal" w="110px" onClick={handleSavePUTReq}>
-            Save
-          </Button>
+          <ConfirmationModal
+            isOpen={isConfirmationOpen}
+            onClose={onConfirmationClose}
+            title={'Confirm delete group order? This cannot be undone'}
+            confirmButton={'Confirm'}
+            cancelButton={'Cancel'}
+            onConfirm={deleteOrder}
+          />
         </ModalFooter>
       </ModalContent>
     </Modal>
