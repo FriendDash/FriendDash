@@ -112,7 +112,7 @@ export default chakra(function CreateGroupForm({ className, isOpen, onClose }) {
         }
       })();
     } else {
-      setPickupLocation('6245 Agronomy Road, Vancouver, BC V6T 1Z4');
+      setPickupLocation('6245 Agronomy Road');
     }
   };
   return (
@@ -178,12 +178,22 @@ export default chakra(function CreateGroupForm({ className, isOpen, onClose }) {
             </Select>
           </FormControl>
         </ModalBody>
-        <ModalFooter display={'flex'} justifyContent="space-between">
-          <Button type="Submit" onClick={handleSubmitToServer}>
-            Create Group
-          </Button>
-          <Button type="Cancel" onClick={onClose}>
+        <ModalFooter>
+          <Button
+            type="Cancel"
+            colorScheme="blue"
+            onClick={onClose}
+            w="130px"
+            mr="15px"
+          >
             Cancel
+          </Button>
+          <Button
+            colorScheme="teal"
+            type="Submit"
+            onClick={handleSubmitToServer}
+          >
+            Create Group
           </Button>
         </ModalFooter>
       </ModalContent>
