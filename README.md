@@ -1,4 +1,8 @@
 # FriendDash
+Welcome to the FriendDash frontend repo! The repo contains all our client side code.
+
+Frontend: https://github.com/EZWin-Clap/FriendDash
+Backend: https://github.com/EZWin-Clap/FriendDash-DB
 
 ## Contributors
 - Benjamin Cheung - mrbenc88
