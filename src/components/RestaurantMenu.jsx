@@ -6,13 +6,12 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-export default chakra(function RestaurantMenu(){
+export default chakra(function RestaurantMenu() {
   const [starters, setStarters] = useState([]);
   const [mains, setMains] = useState([]);
   const [desserts, setDesserts] = useState([]);
   const [completeOrder, setCompleteOrder] = useState([]);
   const [groupOrder, setGroupOrder] = useState();
-
 
   // id is the groupOrderId that we wish to update.
   let { id } = useParams();
@@ -21,13 +20,15 @@ export default chakra(function RestaurantMenu(){
     setCompleteOrder(completedOrder);
   };
 
-  const quantityGTZero = (items) => {
-    return items.filter((item) => item.quantity > 0);
-  }
+  const quantityGTZero = items => {
+    return items.filter(item => item.quantity > 0);
+  };
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(`http://localhost:5000/orders/${id}`);
+      const res = await fetch(
+        `https://frienddash-db.herokuapp.com/orders/${id}`
+      );
       const json = await res.json();
 
       setGroupOrder(json);
@@ -69,7 +70,13 @@ export default chakra(function RestaurantMenu(){
           orderSoFar={desserts}
           setOrderItem={setDesserts}
         />
-        <ConfirmOrderPopup groupOrder={groupOrder} combineOrders={combineOrders} starters={starters} mains={mains} desserts={desserts} />
+        <ConfirmOrderPopup
+          groupOrder={groupOrder}
+          combineOrders={combineOrders}
+          starters={starters}
+          mains={mains}
+          desserts={desserts}
+        />
       </Box>
     </Box>
   );

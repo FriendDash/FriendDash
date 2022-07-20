@@ -14,16 +14,16 @@ import {
   Tr,
   Th,
   Td,
-  TableContainer,useToast
+  TableContainer,
+  useToast,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from "react-router-dom";
-
+import { useNavigate } from 'react-router-dom';
 
 export default function ConfirmOrderPopup(props) {
   const dispatch = useDispatch();
-  const toast = useToast()
+  const toast = useToast();
 
   const signedOutUserObject = {
     createdAt: '',
@@ -53,7 +53,7 @@ export default function ConfirmOrderPopup(props) {
     onClose();
     // TODO: implement the proper navigation for closing group order
     navigate(`/group/${groupOrder._id}`);
-  }
+  };
 
   const openPopUp = () => {
     combineOrders(starters, mains, desserts);
@@ -69,45 +69,45 @@ export default function ConfirmOrderPopup(props) {
 
     // PUT req to main order
     (async () => {
-      const response = await fetch(`http://localhost:5000/orders/updateOrderDetails/${groupOrder._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newOrderItem),
-      });
+      const response = await fetch(
+        `https://frienddash-db.herokuapp.com/orders/updateOrderDetails/${groupOrder._id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newOrderItem),
+        }
+      );
 
-      if (response.status == '200')
-      {
-        console.log("inside 200 check");
+      if (response.status == '200') {
+        console.log('inside 200 check');
         toast({
           title: 'Order Added.',
           description: "We've added your order for you.",
           status: 'success',
           duration: 9000,
-          position: "bottom",
+          position: 'bottom',
           isClosable: true,
-        })
+        });
       }
-      
     })();
-
 
     // PUT req user
     (async () => {
-      const response = await fetch(`http://localhost:5000/users/updateUserOrders/${user.googleId}/${groupOrder._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await fetch(
+        `https://frienddash-db.herokuapp.com/users/updateUserOrders/${user.googleId}/${groupOrder._id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
 
-      if (response.status == '200')
-      {
-        console.log("successful update to user 200 check");
-
+      if (response.status == '200') {
+        console.log('successful update to user 200 check');
       }
-      
     })();
 
     onConfirm();
@@ -149,10 +149,12 @@ export default function ConfirmOrderPopup(props) {
                   <Tbody>
                     {completeOrder.map((e, i) => {
                       return (
-                        <Tr key = {i}>
+                        <Tr key={i}>
                           <Td>{e.menuItem}</Td>
                           <Td>{e.quantity}</Td>
-                          <Td isNumeric>${e.price} x {e.quantity} = ${e.price * e.quantity}</Td>
+                          <Td isNumeric>
+                            ${e.price} x {e.quantity} = ${e.price * e.quantity}
+                          </Td>
                         </Tr>
                       );
                     })}
@@ -165,12 +167,13 @@ export default function ConfirmOrderPopup(props) {
                       </Th>
                       <Th isNumeric>
                         <b>
-                        $
-                        {completeOrder.reduce(
-                          (previousValue, currentElement) =>
-                            previousValue + currentElement.price*currentElement.quantity,
-                          0
-                        )}
+                          $
+                          {completeOrder.reduce(
+                            (previousValue, currentElement) =>
+                              previousValue +
+                              currentElement.price * currentElement.quantity,
+                            0
+                          )}
                         </b>
                       </Th>
                     </Tr>

@@ -43,13 +43,16 @@ const Login = () => {
       googleId: userObject.sub,
     };
     (async () => {
-      const response = await fetch('http://localhost:5000/users/add', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newUser),
-      });
+      const response = await fetch(
+        'https://frienddash-db.herokuapp.com/users/add',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newUser),
+        }
+      );
 
       const data = await response.json();
 

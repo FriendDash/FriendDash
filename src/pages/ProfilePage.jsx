@@ -101,7 +101,9 @@ const ProfilePage = () => {
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(`http://localhost:5000/users/${id}`);
+      const res = await fetch(
+        `https://frienddash-db.herokuapp.com/users/${id}`
+      );
       const json = await res.json();
       console.log(json);
       if (res.status === 200) {

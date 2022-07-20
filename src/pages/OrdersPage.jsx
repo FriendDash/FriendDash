@@ -39,7 +39,7 @@ const OrdersPage = () => {
   useEffect(() => {
     (async () => {
       const res = await fetch(
-        `http://localhost:5000/orders/getUserOrders/${user.googleId}`
+        `https://frienddash-db.herokuapp.com/orders/getUserOrders/${user.googleId}`
       );
       const json = await res.json();
 
