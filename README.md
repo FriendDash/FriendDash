@@ -1,6 +1,6 @@
 # FriendDash
 
-Welcome to the FriendDash front-end repo! The repo contains all our client side code.
+Welcome to the FriendDash frontend repo! The repo contains all our client side code.
 
 Try it out at https://frienddash.herokuapp.com/
 
