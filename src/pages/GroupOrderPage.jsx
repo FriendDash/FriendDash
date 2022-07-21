@@ -26,7 +26,9 @@ const GroupOrderPage = () => {
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(`http://localhost:5000/orders/${id}`);
+      const res = await fetch(
+        `https://frienddash-db.herokuapp.com/orders/${id}`
+      );
       const json = await res.json();
 
       setGroupOrder(json);

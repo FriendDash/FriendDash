@@ -59,7 +59,7 @@ export default chakra(function ManageOrderModal({
     };
     (async () => {
       const response = await fetch(
-        `http://localhost:5000/orders/updateStatus/${data._id}`,
+        `https://frienddash-db.herokuapp.com/orders/updateStatus/${data._id}`,
         {
           method: 'PUT',
           headers: {
