@@ -19,7 +19,7 @@ import MainLogo from './../../assets/main-logo.png';
 import {
   IoMdPower,
   IoMdListBox,
-  IoMdStar,
+  IoIosRestaurant,
   IoIosCard,
   IoMdHelpCircle,
   IoMdPerson,
@@ -59,12 +59,12 @@ const HeaderTray = () => {
 
   // We will change this arr to a json arr in future to add urls and corresponding icons
   const menuItems = [
+    { tabName: 'Dashboard', url: '/dashboard', icon: IoMdListBox },
     {
       tabName: 'Orders',
       url: '/orders',
-      icon: IoMdListBox,
+      icon: IoIosRestaurant,
     },
-    { tabName: 'Favorites', url: '/fav', icon: IoMdStar },
     { tabName: 'Payment', url: '/payment', icon: IoIosCard },
     { tabName: 'Help', url: '/help', icon: IoMdHelpCircle },
     { tabName: 'Account', url: '/account', icon: IoMdPerson },
