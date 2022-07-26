@@ -36,9 +36,7 @@ FriendDash will store order history, user reputation/ratings, user profiles/acco
 - Profile Tracking with notifications that are specific / Push notifications email/SMS)
 - Reputation system
 - Group leader application system (Approve/Deny Group Joiners)
-- Group leader admin panel and settings
 - Public API
-- Dark mode
 - Payment system (UI only)
 
 ## Project Task Requirements:
@@ -59,7 +57,7 @@ FriendDash will store order history, user reputation/ratings, user profiles/acco
 **Standard**
 
 - Order and group history
-- Map displaying restaurants in the area (for the group creator)
+- Group leader admin panel and settings
 - Searchbar and sorting functionality
 - Confirmations on certain buttons
 
@@ -72,6 +70,7 @@ FriendDash will store order history, user reputation/ratings, user profiles/acco
 - Group leader can accept or deny members from joining
 - Push/SMS notifications
 - Payment system
+- Dark mode
 
 ---
 
