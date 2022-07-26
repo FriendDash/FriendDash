@@ -1,0 +1,44 @@
+{
+  "name": "Nori Bento & Udon",
+  "starters": [
+    {
+      "dishName": "Spring rOll",
+      "price": 12,
+      "description": "Deep fried filled with minced vegetables and pork."
+    },
+    {
+      "dishName": "Chicken Karaage",
+      "price": 10,
+      "description": "Golden deep fried chicken served with Japanese mayo"
+    }
+  ],
+  "mains": [
+    {
+      "dishName": "Kimchi Mentaiko",
+      "price": 15,
+      "description": "udon noodles, mentaiko, poached egg, fried onions, green onions, nori, kimchi, mentaiko sauce."
+    },
+    {
+      "dishName": "Tan Tan",
+      "price": 16,
+      "description": "udon noodles, minced pork, poached egg, fried onions, green onions, nori, tan tan sauce."
+    },
+    {
+      "dishName": "Curry Pan",
+      "price": 13,
+      "description": "udon noodles, minced pork, poached egg, fried onions, green onions, nori, Japanese curry sauce."
+    }
+  ],
+  "desserts": [
+    {
+      "dishName": "Lychee Coconut Cream Puffs",
+      "price": 6,
+      "description": "Gorgeous cream puffs filled with lychee cream and a disk of lychee coconut jelly."
+    },
+    {
+      "dishName": "Green Tea Ice Cream",
+      "price": 6,
+      "description": "Matcha filled Japenese ice cream."
+    }
+  ]
+}
