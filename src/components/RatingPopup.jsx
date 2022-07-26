@@ -1,4 +1,5 @@
 import {
+  chakra,
   Center,
   Button,
   Heading,
@@ -37,7 +38,7 @@ export default chakra(function RatingPopup(props) {
     // PUT req user
     (async () => {
       const response = await fetch(
-        `https://frienddash-db.herokuapp.com/users/updateUserRating/${props.googleId}/${rating}`,
+        `https://frienddash-db.herokuapp.com/users/updateUserRating/${props.groupCreatorUserId}/${rating}`,
         {
           method: 'PUT',
           headers: {
@@ -50,7 +51,7 @@ export default chakra(function RatingPopup(props) {
         console.log('inside 200 check');
         toast({
           title: 'Rating Submitted.',
-          description: "Thank you for rating your group leader!",
+          description: `Thank you for rating ${props.groupCreatorName}!`,
           status: 'success',
           duration: 9000,
           position: 'bottom',
@@ -63,17 +64,11 @@ export default chakra(function RatingPopup(props) {
 
   return (
     <>
-      <Center>
-        <Heading size="lg" ml="18px" pt="9px">
-          Open Rating
-        </Heading>
-      </Center>
-      <Center>
-        <IconButton
+        <Button
           aria-label="Customer checkout"
-          icon={<TbStars />}
+          w="130px"
           onClick={openPopUp}
-        />
+        >Rate Order</Button>
 
         <AlertDialog
           isOpen={isOpen}
@@ -83,12 +78,12 @@ export default chakra(function RatingPopup(props) {
           <AlertDialogOverlay>
             <AlertDialogContent>
               <AlertDialogHeader fontSize="lg" fontWeight="bold">
-                Rate your group leader:
+                Rate your group leader {props.groupCreatorName}:
               </AlertDialogHeader>
 
               <AlertDialogBody>
                 <Heading size="md">
-                  How did your order leader do? <br />1 = Terrible, 5 = Great!
+                  How did {props.groupCreatorName} do? <br />1 = Terrible, 5 = Great!
                 </Heading>
                 <RatingStars
                   size={48}
@@ -112,7 +107,7 @@ export default chakra(function RatingPopup(props) {
             </AlertDialogContent>
           </AlertDialogOverlay>
         </AlertDialog>
-      </Center>
+
     </>
   );
 })
