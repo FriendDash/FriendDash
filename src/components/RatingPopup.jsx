@@ -7,7 +7,6 @@ import {
 } from '@chakra-ui/react';
 import { TbStars } from 'react-icons/tb';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import RatingStars from './RatingStars';
 import {
   AlertDialog,
@@ -21,24 +20,6 @@ import {
 
 export default function RatingPopup(props) {
   const toast = useToast();
-
-  const signedOutUserObject = {
-    createdAt: '',
-    googleId: '0',
-    updatedAt: '',
-    userEmail: '',
-    userName: 'Foodie',
-    userOrders: [],
-    userProfile: '',
-    userRating: [],
-  };
-
-  const [user, setUser] = useState(() => {
-    // getting stored value from localStorage
-    const saved = localStorage.getItem('userSession_FriendDash');
-    const initialValue = JSON.parse(saved);
-    return initialValue || signedOutUserObject;
-  });
 
   const [rating, setRating] = useState(0);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -56,7 +37,7 @@ export default function RatingPopup(props) {
     // PUT req user
     (async () => {
       const response = await fetch(
-        `https://frienddash-db.herokuapp.com/users/updateUserRating/${user.googleId}/${rating}`,
+        `https://frienddash-db.herokuapp.com/users/updateUserRating/${props.googleId}/${rating}`,
         {
           method: 'PUT',
           headers: {
@@ -68,8 +49,8 @@ export default function RatingPopup(props) {
       if (response.status == '200') {
         console.log('inside 200 check');
         toast({
-          title: 'Order Added.',
-          description: "We've added your order for you.",
+          title: 'Rating Submitted.',
+          description: "Thank you for rating your group leader!",
           status: 'success',
           duration: 9000,
           position: 'bottom',
