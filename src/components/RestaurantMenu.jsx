@@ -1,17 +1,25 @@
 import { Box, Heading, chakra, IconButton } from '@chakra-ui/react';
-import SampleMenu from '../mocks/restuarantMenuMock.json';
+import currentMenu2 from '../mocks/restuarantMenuMock.json';
+import McDonaldsMenu from '../mocks/McDonalds.json';
+import NoriMenu from '../mocks/Nori.json';
+import PizzaPizzaMenu from '../mocks/PizzaPizza.json';
+import SubwayMenu from '../mocks/Subway.json';
 import RestaurantMenuSection from './RestaurantMenuSection';
 import ConfirmOrderPopup from './ConfirmOrderPopup';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-export default chakra(function RestaurantMenu() {
+export default chakra(function RestaurantMenu(props) {
   const [starters, setStarters] = useState([]);
   const [mains, setMains] = useState([]);
   const [desserts, setDesserts] = useState([]);
   const [completeOrder, setCompleteOrder] = useState([]);
   const [groupOrder, setGroupOrder] = useState();
+
+  const [currentMenu, setCurrentMenu] = useState(currentMenu2)
+  const [restaurantName, setRestaurantName] = useState('')
+
 
   // id is the groupOrderId that we wish to update.
   let { id } = useParams();
@@ -32,8 +40,25 @@ export default chakra(function RestaurantMenu() {
       const json = await res.json();
 
       setGroupOrder(json);
+      switch (json.restaurant){
+        case "McDonalds":
+            setCurrentMenu(McDonaldsMenu);
+            break;
+        case "Pizza Pizza":
+            setCurrentMenu(PizzaPizzaMenu);
+            break;
+        case "Subway":
+            setCurrentMenu(SubwayMenu); 
+            break;
+        case "Nori Bento & Udon":
+            setCurrentMenu(NoriMenu); 
+            break;
+      }
+
     })();
   }, []);
+  
+
 
   return (
     <Box>
@@ -47,25 +72,25 @@ export default chakra(function RestaurantMenu() {
         marginTop="10px"
       >
         <Heading size="xl" ml="18px" pt="9px">
-          {SampleMenu.name} Menu:
+          {currentMenu.name} Menu:
         </Heading>
         <RestaurantMenuSection
           sectionName="Starters"
-          menuItems={SampleMenu.starters}
+          menuItems={currentMenu.starters}
           quantityGTZero={quantityGTZero}
           orderSoFar={starters}
           setOrderItem={setStarters}
         />
         <RestaurantMenuSection
           sectionName="Mains"
-          menuItems={SampleMenu.mains}
+          menuItems={currentMenu.mains}
           quantityGTZero={quantityGTZero}
           orderSoFar={mains}
           setOrderItem={setMains}
         />
         <RestaurantMenuSection
           sectionName="Desserts"
-          menuItems={SampleMenu.desserts}
+          menuItems={currentMenu.desserts}
           quantityGTZero={quantityGTZero}
           orderSoFar={desserts}
           setOrderItem={setDesserts}

@@ -1,0 +1,49 @@
+{
+  "name": "Pizza Pizza",
+  "starters": [
+    {
+      "dishName": "Breadsticks",
+      "price": 8,
+      "description": "Super soft, buttery garlic breadsticks made from scratch."
+    },
+    {
+      "dishName": "Garlic Bread",
+      "price": 6,
+      "description": "Toasty, buttery, herby, covered in a dusting of salty parmesan cheese, piping hot and fresh out of the oven—our homemade garlic bread recipe is everything."
+    }
+  ],
+  "mains": [
+    {
+      "dishName": "Cheese Pizza - Large",
+      "price": 18,
+      "description": "A classic cheese pizza, the ultimate crowd-pleaser."
+    },
+    {
+      "dishName": "Pepperoni Pizza - Large",
+      "price": 21,
+      "description": "Topped with traditional slow-dried and cured Montreal pepperoni, this pizza is an instant classic."
+    },
+    {
+      "dishName": "Vegetarian Pizza - Large",
+      "price": 17,
+      "description": "This mouthwatering vegetarian pizza recipe features tomatoes, bell pepper, artichoke, spinach and more."
+    },
+    {
+      "dishName": "Creamy Chicken Linguine",
+      "price": 25,
+      "description": "Tender strips of chicken browned in oil, butter and garlic are arranged over hot pasta and topped with a sumptuous sauce of cream, milk, onions."
+    }
+  ],
+  "desserts": [
+    {
+      "dishName": "Chocolate Brownie",
+      "price": 5,
+      "description": "Original Chocolate - The Classic Tray bake."
+    },
+    {
+      "dishName": "Vanilla Ice Cream",
+      "price": 5,
+      "description": "Classic vanilla flavoured ice cream."
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "name": "McDonalds",
+  "starters": [
+    {
+      "dishName": "Large French Fries",
+      "price": 6,
+      "description": "McDonald's World Famous Fries® are made with premium potatoes such as the Russet Burbank and the Shepody."
+    },
+    {
+      "dishName": "Poutine",
+      "price": 10,
+      "description": "Rich and tasty gravy? Melty, mouth-watering cheese curds? On our World Famous Fries? You better believe it!"
+    }
+  ],
+  "mains": [
+    {
+      "dishName": "Hamburger",
+      "price": 2,
+      "description": "The comforting taste of the juicy and delicious 100% Canadian beef burger, topped with tangy pickles, ketchup, mustard and the sweet bite of onion, all on a freshly toasted bun. Just like you remember."
+    },
+    {
+      "dishName": "McChicken",
+      "price": 6,
+      "description": "Breaded seasoned chicken and crisp lettuce, topped with our Mayo-Style Sauce. Some ingredients are just meant to be together."
+    },
+    {
+      "dishName": "6-piece McNuggets",
+      "price": 8,
+      "description": "No artificial flavours, colours or preservatives. Made with 100% seasoned chicken breast, the Chicken McNuggets you crave are still simply delicious."
+    }
+  ],
+  "desserts": [
+    {
+      "dishName": "Brownie RMHC Cookie",
+      "price": 2,
+      "description": "Part brownie. Part cookie. All delicious. Enjoy a decadent brownie cookie that’s soft on the inside, crunchy on the outside, and delicious all around."
+    },
+    {
+      "dishName": "Apple Slices",
+      "price": 2,
+      "description": "A crisp and delicious snack, prepared for fruit lovers on the go."
+    },
+    {
+      "dishName": "Blueberry Muffin",
+      "price": 2,
+      "description": "A perfect companion to coffee; a quick-and-easy mid-morning or afternoon treat. With a choice of five delectable flavours including Banana Chocolate Chunk, Blueberry, Carrot, Fruit ‘n Fibre and Cranberry Orange. Enjoy one today!"
+    }
+  ]
+}
