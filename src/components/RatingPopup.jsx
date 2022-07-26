@@ -18,7 +18,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 
-export default function RatingPopup(props) {
+export default chakra(function RatingPopup(props) {
   const toast = useToast();
 
   const [rating, setRating] = useState(0);
@@ -115,4 +115,4 @@ export default function RatingPopup(props) {
       </Center>
     </>
   );
-}
+})
