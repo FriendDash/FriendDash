@@ -17,9 +17,18 @@ import ContentContainer from '../components/ContentContainer';
 import { restaurantImageMapping } from '../utils/RestaurantImageMapping';
 import MemberOrderDetail from '../components/Order/MemberOrderDetail';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { signedOutUserObject } from '../utils/SignedOutUserObject';
+import RatingPopup  from '../components/RatingPopup';
 
 const GroupOrderPage = () => {
   const [groupOrder, setGroupOrder] = useState();
+  const [user, setUser] = useState(() => {
+    // getting stored value from localStorage
+    const saved = localStorage.getItem('userSession_FriendDash');
+    const initialValue = JSON.parse(saved);
+    return initialValue || signedOutUserObject;
+  });
+
   const navigate = useNavigate();
   const isOrderFull = groupOrder?.orderDetails.length >= groupOrder?.maxSize;
   let { id } = useParams();
@@ -91,6 +100,10 @@ const GroupOrderPage = () => {
                   >
                     Add to Order
                   </Button>
+                  {(isOrderFull || groupOrder.orderStatus !== 'open' )&& groupOrder.orderDetails.find((order) => order.orderUserId === user.googleId) && 
+                  <RatingPopup groupCreatorUserId = {groupOrder.creatorUserId} groupCreatorName = {groupOrder.creatorName}/>
+                    
+                 }
                 </HStack>
               </HStack>
 
