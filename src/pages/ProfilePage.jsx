@@ -1,5 +1,5 @@
 import Header from '../components/Header/Header';
-
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   Box,
@@ -8,98 +8,41 @@ import {
   Stat,
   StatLabel,
   StatNumber,
-  StatHelpText,
-  StatArrow,
   StatGroup,
   Button,
   useToast,
   useClipboard,
   useColorModeValue,
+  Image,
+  HStack,
+  VStack,
+  Text,
+  Spacer,
 } from '@chakra-ui/react';
-
-import { useEffect } from 'react';
-import { useState } from 'react';
-
+import StatusTag from '../components/StatusTag';
 import NotFound from '../components/NotFound';
+import { restaurantImageMapping } from '../utils/RestaurantImageMapping';
+import { useNavigate } from 'react-router';
 
 // Ref Dynamic Routing: https://reacttraining.com/blog/react-router-v5-1/
-
-// const userMock = {
-//   userName: 'Steven Zhao',
-//   userProfile: 'https://i.imgur.com/GxUEUe0.jpeg',
-//   userEmail: 'default1@gmail.com',
-//   userRating: [4, 5, 2, 3, 5],
-//   userOrders: ['1', '2', '3'],
-//   googleId: '123231',
-// };
-
-// const emptyUser = {
-//   userName: '',
-//   userProfile: '',
-//   userEmail: '',
-//   userRating: [],
-//   userOrders: [],
-//   googleId: 'sad33aas',
-// };
-
-const orderItems = [
-  {
-    menuItem: 'Calimari',
-    price: 12,
-    quantity: 2,
-  },
-  {
-    menuItem: 'Truffle fries',
-    price: 10,
-    quantity: 1,
-  },
-  {
-    menuItem: 'Ice Cream',
-    price: 18,
-    quantity: 1,
-  },
-  {
-    menuItem: 'Green Leaves',
-    price: 12,
-    quantity: 2,
-  },
-  {
-    menuItem: 'Hot fries',
-    price: 10,
-    quantity: 1,
-  },
-  {
-    menuItem: 'Vanilla Cream',
-    price: 18,
-    quantity: 1,
-  },
-  {
-    menuItem: 'Sushi Red',
-    price: 12,
-    quantity: 2,
-  },
-  {
-    menuItem: 'Pancake',
-    price: 10,
-    quantity: 1,
-  },
-  {
-    menuItem: 'Chocolate Ice Cream',
-    price: 18,
-    quantity: 1,
-  },
-];
 
 const ProfilePage = () => {
   let { id } = useParams();
   const [user, setUser] = useState({});
+  const [getOrders, setGetOrders] = useState([]);
 
   const { hasCopied, onCopy } = useClipboard(window.location.href);
   const toast = useToast();
   const bg = useColorModeValue('gray.300', 'black.200');
   const bg2 = useColorModeValue('blue.100', 'gray.500');
+  const navigate = useNavigate();
+
+  const handleViewOrder = getGroupOrder => {
+    navigate(`/group/${getGroupOrder}`);
+  };
 
   useEffect(() => {
+    //   GET API Call to get user object
     (async () => {
       const res = await fetch(
         `https://frienddash-db.herokuapp.com/users/${id}`
@@ -109,6 +52,17 @@ const ProfilePage = () => {
       if (res.status === 200) {
         setUser(json);
       }
+    })();
+
+    //   GET API Call to get array of order objects with the specific googleId
+    (async () => {
+      const res2 = await fetch(
+        `https://frienddash-db.herokuapp.com/orders/getUserOrders/${id}`
+      );
+      const json2 = await res2.json();
+
+      setGetOrders(json2);
+      console.log(JSON.stringify(json2));
     })();
   }, []);
 
@@ -123,7 +77,6 @@ const ProfilePage = () => {
             align="center"
             p="30px"
             bg={bg}
-            // w={{ lg: '600px', md: '600px', base: '100%' }}
             w="100%"
             h="400px"
             borderRadius="10px"
@@ -184,21 +137,77 @@ const ProfilePage = () => {
             overflowY="auto"
           >
             <Heading size="lg" pt="9px">
-              Orders
+              Latest Orders
             </Heading>
 
-            {orderItems.map((entry, index) => {
-              return (
-                <Box
-                  key={index}
-                  backgroundColor={bg2}
-                  padding="20px"
-                  margin="10px"
-                >
-                  {entry.menuItem} x {entry.quantity} @ ${entry.price}
-                </Box>
-              );
-            })}
+            {getOrders
+              .sort(function (a, b) {
+                // Sort by most recent date first
+                return new Date(b.createdAt) - new Date(a.createdAt);
+              })
+              .map((entry, index) => {
+                return (
+                  <Box
+                    key={index}
+                    backgroundColor={bg2}
+                    padding="20px"
+                    margin="10px"
+                    borderRadius="20px"
+                  >
+                    {' '}
+                    <HStack w="100%">
+                      <Image
+                        src={restaurantImageMapping[entry.restaurant]}
+                        h="190px"
+                        w="315px"
+                        borderRadius="10px"
+                        objectFit="cover"
+                      />
+                      <VStack alignItems="flex-start">
+                        <Heading size="xl">{entry.restaurant}</Heading>
+                        <HStack>
+                          <Text fontSize="lg">Pickup Time:</Text>
+                          <Text fontSize="lg">{entry.pickupTime}</Text>
+                        </HStack>
+                        <HStack>
+                          <Text fontSize="lg">Group Creator:</Text>
+                          <Text fontSize="lg">{entry.creatorName}</Text>
+                        </HStack>
+                        <HStack>
+                          <Text fontSize="lg">Users in Order:</Text>
+                          <StatusTag
+                            fontSize="lg"
+                            status={entry.orderDetails.length}
+                          />
+                        </HStack>
+
+                        <HStack>
+                          <Text fontSize="lg">Created:</Text>
+                          <Text fontSize="lg">
+                            {new Date(entry.createdAt).toLocaleString()}{' '}
+                          </Text>
+                        </HStack>
+                      </VStack>{' '}
+                      <Spacer />
+                      {/* Buttons */}
+                      <VStack pr="10px">
+                        <HStack>
+                          <Heading size="md">Status:</Heading>
+                          <StatusTag status={entry.orderStatus} />
+                        </HStack>
+                        <Button
+                          width="250px"
+                          height="50px"
+                          colorScheme="blue"
+                          onClick={() => handleViewOrder(entry._id)}
+                        >
+                          View Order
+                        </Button>
+                      </VStack>
+                    </HStack>
+                  </Box>
+                );
+              })}
           </Box>
         </>
       ) : (
