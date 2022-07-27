@@ -34,7 +34,12 @@ export default chakra(function MemberOrderDetail({ className, groupOrder }) {
               borderTopLeftRadius="20px"
               borderTopRightRadius="20px"
             >
-              Member {i + 1}
+              {/* Member {i + 1}:  */}
+              <a
+                href={`https://frienddash.herokuapp.com/profile/${groupOrder.orderDetails[i].orderUserId}`}
+              >
+                {groupOrder.orderDetails[i].userName}
+              </a>
             </Heading>
 
             {/* Renders order items */}
