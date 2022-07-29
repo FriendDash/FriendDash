@@ -15,9 +15,10 @@ import NotFound from '../components/NotFound';
 const PaymentPage = () => {
   const [paymentMethods, setPaymentMethods] = useState([]);
   const [stripeConnected, setStripeConnected] = useState(null);
-  const userStripeId = JSON.parse(
-    localStorage.getItem('userSession_FriendDash')
-  ).stripeId;
+  const userStripeId =
+    localStorage.getItem('userSession_FriendDash') != null
+      ? JSON.parse(localStorage.getItem('userSession_FriendDash')).stripeId
+      : 0;
   useEffect(() => {
     async function getPaymentMethods() {
       if (userStripeId) {
@@ -43,6 +44,7 @@ const PaymentPage = () => {
 
   return (
     <Box>
+      <Header />
       {stripeConnected && (
         <VStack>
           <Header />
@@ -97,7 +99,9 @@ const PaymentPage = () => {
         <Spinner position={'fixed'} top={'50%'} left={'50%'} />
       )}
       {stripeConnected === false && (
-        <NotFound element={'Your Stripe account'} />
+        <Box mt="60px">
+          <NotFound element={'Your Stripe account'} />
+        </Box>
       )}
     </Box>
   );
