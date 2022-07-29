@@ -87,7 +87,7 @@ const Home = () => {
 
       <Flex
         align="center"
-        flexDir="column"
+        flexDirection="column"
         textAlign="center"
         p="30px"
         // w={{ lg: '600px', md: '600px', base: '100%' }}
@@ -100,7 +100,7 @@ const Home = () => {
         </Heading>
 
         <Flex mt="25px">
-          <a href="https://linkedin.com/in/mrbenc88" flexDir="column">
+          <a href="https://linkedin.com/in/mrbenc88" flexDirection="column">
             <Avatar
               name="Ben Cheung"
               size="2xl"
@@ -109,7 +109,7 @@ const Home = () => {
             />
             <Text>Ben Cheung</Text>
           </a>
-          <a href="https://linkedin.com/in/mrbenc88" flexDir="column">
+          <a href="https://linkedin.com/in/mrbenc88" flexDirection="column">
             <Avatar
               name="Steven Zhao"
               size="2xl"
@@ -118,7 +118,10 @@ const Home = () => {
             />
             <Text>Steven Zhao</Text>
           </a>
-          <a href="https://www.linkedin.com/in/thestevenzhao/" flexDir="column">
+          <a
+            href="https://www.linkedin.com/in/thestevenzhao/"
+            flexDirection="column"
+          >
             <Avatar
               name="Brenden Yee"
               size="2xl"
@@ -129,7 +132,7 @@ const Home = () => {
           </a>
           <a
             href="https://www.linkedin.com/in/maggie-wang-5549711a5/"
-            flexDir="column"
+            flexDirection="column"
           >
             <Avatar
               name="Maggie Wang"
@@ -143,7 +146,7 @@ const Home = () => {
       </Flex>
       <Flex
         align="center"
-        flexDir="column"
+        flexDirection="column"
         textAlign="center"
         p="35px"
         // w={{ lg: '600px', md: '600px', base: '100%' }}

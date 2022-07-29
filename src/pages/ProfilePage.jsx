@@ -48,7 +48,7 @@ const ProfilePage = () => {
         `https://frienddash-db.herokuapp.com/users/${id}`
       );
       const json = await res.json();
-      console.log(json);
+
       if (res.status === 200) {
         setUser(json);
       }
@@ -62,7 +62,7 @@ const ProfilePage = () => {
       const json2 = await res2.json();
 
       setGetOrders(json2);
-      console.log(JSON.stringify(json2));
+      // console.log(JSON.stringify(json2));
     })();
   }, []);
 
@@ -211,7 +211,9 @@ const ProfilePage = () => {
           </Box>
         </>
       ) : (
-        <NotFound element={'User'} />
+        <Box mt="60px">
+          <NotFound element={'User'} />
+        </Box>
       )}
     </Box>
   );
