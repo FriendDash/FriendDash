@@ -16,15 +16,12 @@ import {
     useDisclosure
 } from '@chakra-ui/react';
 import ConfirmationModal from './ConfirmationModal';
-import { useDispatch } from 'react-redux';
-import { removePaymentAsync } from '../redux/payments/thunk';
 
 export default chakra(function ViewCardModal({
     data,
     isOpen,
     onClose,
 }) {
-    const dispatch = useDispatch();
     const {
         isOpen: isConfirmationOpen,
         onOpen: onConfirmationOpen,
@@ -40,9 +37,19 @@ export default chakra(function ViewCardModal({
     }
     
     async function deleteCard() {
-        dispatch(removePaymentAsync(data));
-        onConfirmationClose();
-        onClose();
+        const res = await fetch(
+            //TODO: change url when done testing
+            `http://localhost:5000/stripe/paymentMethods/${data.id}`,
+            {
+                method: 'DELETE',
+            }
+        );
+        if (res.status == 204) {
+            onConfirmationClose();
+            onClose();
+        } else {
+            alert('An error has occurred')
+        }
     }
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
