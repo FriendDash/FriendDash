@@ -18,7 +18,6 @@ const colorMapping = {
 
 export default chakra(function MemberOrderDetail({ className, groupOrder }) {
   const bg = useColorModeValue('gray.200', 'gray.700');
-  console.log(groupOrder);
   return (
     <HStack className={className} spacing="30px">
       {groupOrder.orderDetails.map((order, i) => (
