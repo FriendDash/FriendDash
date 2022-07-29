@@ -1,5 +1,5 @@
-import { Button, Heading, IconButton, useDisclosure } from '@chakra-ui/react';
-import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { Button, Heading, useDisclosure, Text } from '@chakra-ui/react';
+import { HiOutlineShoppingCart } from 'react-icons/hi';
 import {
   AlertDialog,
   AlertDialogBody,
@@ -115,14 +115,16 @@ export default function ConfirmOrderPopup(props) {
 
   return (
     <>
-      <Heading size="lg" ml="18px" pt="9px">
-        Checkout
-      </Heading>
-      <IconButton
+      <Button
+        colorScheme="teal"
+        rightIcon={<HiOutlineShoppingCart size="24px" />}
         aria-label="Customer checkout"
-        icon={<AiOutlineShoppingCart />}
         onClick={openPopUp}
-      />
+        w="200px"
+        h="50px"
+      >
+        <Text fontSize="24px">Checkout</Text>
+      </Button>
 
       <AlertDialog
         isOpen={isOpen}
