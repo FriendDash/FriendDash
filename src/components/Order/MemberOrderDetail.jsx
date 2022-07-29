@@ -18,7 +18,6 @@ const colorMapping = {
 
 export default chakra(function MemberOrderDetail({ className, groupOrder }) {
   const bg = useColorModeValue('gray.200', 'gray.700');
-
   return (
     <HStack className={className} spacing="30px">
       {groupOrder.orderDetails.map((order, i) => (
@@ -34,12 +33,15 @@ export default chakra(function MemberOrderDetail({ className, groupOrder }) {
               borderTopLeftRadius="20px"
               borderTopRightRadius="20px"
             >
-              {/* Member {i + 1}:  */}
+              {groupOrder.orderDetails.filter(order => order.orderUserId === JSON.parse(localStorage.getItem('userSession_FriendDash')).googleId).length == 0
+              ? <div>Member {i + 1}</div>
+              : 
               <a
                 href={`https://frienddash.herokuapp.com/profile/${groupOrder.orderDetails[i].orderUserId}`}
               >
                 {groupOrder.orderDetails[i].userName}
               </a>
+              }
             </Heading>
 
             {/* Renders order items */}
