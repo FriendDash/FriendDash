@@ -60,8 +60,7 @@ const PaymentPage = () => {
               >
                 {paymentMethods.map(paymentMethod => (
                   <SavedCard
-                    cardType={paymentMethod.card.brand}
-                    lastFour={paymentMethod.card.last4}
+                    data={paymentMethod}
                   />
                 ))}
               </Box>
