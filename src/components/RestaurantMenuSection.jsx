@@ -1,21 +1,27 @@
-import {
-  chakra,
-  Heading,
-  Divider,
-} from '@chakra-ui/react';
+import { chakra, Heading, Divider, SimpleGrid } from '@chakra-ui/react';
 import RestaurantMenuItem from './RestaurantMenuItem';
 
-export default chakra(function RestaurantMenuSection(props){
+export default chakra(function RestaurantMenuSection(props) {
   return (
     <div>
       <Divider />
-      <Heading size="lg" ml="18px" pt="9px">
+      <Heading size="lg" py="9px" textAlign="left">
         {props.sectionName}
       </Heading>
-      {props.menuItems.map(item => {
-        return <RestaurantMenuItem key={item.dishName} menuItem={item} orderSoFar={props.orderSoFar} setOrderItem={props.setOrderItem} quantityGTZero={props.quantityGTZero}/>;
-      })}
-      <br/>
+      <SimpleGrid columns={{ lg: 2, base: 1 }} spacing={10}>
+        {props.menuItems.map(item => {
+          return (
+            <RestaurantMenuItem
+              key={item.dishName}
+              menuItem={item}
+              orderSoFar={props.orderSoFar}
+              setOrderItem={props.setOrderItem}
+              quantityGTZero={props.quantityGTZero}
+            />
+          );
+        })}
+      </SimpleGrid>
+      <br />
     </div>
   );
 });

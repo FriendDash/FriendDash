@@ -1,4 +1,4 @@
-import { Box, Heading, chakra, IconButton } from '@chakra-ui/react';
+import { Box, Heading, chakra, IconButton, Image } from '@chakra-ui/react';
 import currentMenu2 from '../mocks/restuarantMenuMock.json';
 import McDonaldsMenu from '../mocks/McDonalds.json';
 import NoriMenu from '../mocks/Nori.json';
@@ -9,6 +9,7 @@ import ConfirmOrderPopup from './ConfirmOrderPopup';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { restaurantImageMapping } from '../utils/RestaurantImageMapping';
 
 export default chakra(function RestaurantMenu(props) {
   const [starters, setStarters] = useState([]);
@@ -17,9 +18,8 @@ export default chakra(function RestaurantMenu(props) {
   const [completeOrder, setCompleteOrder] = useState([]);
   const [groupOrder, setGroupOrder] = useState();
 
-  const [currentMenu, setCurrentMenu] = useState(currentMenu2)
-  const [restaurantName, setRestaurantName] = useState('')
-
+  const [currentMenu, setCurrentMenu] = useState(currentMenu2);
+  const [restaurantName, setRestaurantName] = useState('');
 
   // id is the groupOrderId that we wish to update.
   let { id } = useParams();
@@ -40,25 +40,22 @@ export default chakra(function RestaurantMenu(props) {
       const json = await res.json();
 
       setGroupOrder(json);
-      switch (json.restaurant){
-        case "McDonalds":
-            setCurrentMenu(McDonaldsMenu);
-            break;
-        case "Pizza Pizza":
-            setCurrentMenu(PizzaPizzaMenu);
-            break;
-        case "Subway":
-            setCurrentMenu(SubwayMenu); 
-            break;
-        case "Nori Bento & Udon":
-            setCurrentMenu(NoriMenu); 
-            break;
+      switch (json.restaurant) {
+        case 'McDonalds':
+          setCurrentMenu(McDonaldsMenu);
+          break;
+        case 'Pizza Pizza':
+          setCurrentMenu(PizzaPizzaMenu);
+          break;
+        case 'Subway':
+          setCurrentMenu(SubwayMenu);
+          break;
+        case 'Nori Bento & Udon':
+          setCurrentMenu(NoriMenu);
+          break;
       }
-
     })();
   }, []);
-  
-
 
   return (
     <Box>
@@ -71,9 +68,17 @@ export default chakra(function RestaurantMenu(props) {
         outline="solid"
         marginTop="10px"
       >
-        <Heading size="xl" ml="18px" pt="9px">
-          {currentMenu.name} Menu:
+        <Heading size="xl" pb="9px" textAlign="left">
+          {currentMenu.name}
         </Heading>
+        <Image
+          src={restaurantImageMapping[currentMenu.name]}
+          h="150px"
+          w="100%"
+          borderRadius="10px"
+          objectFit="cover"
+          mb="20px"
+        />
         <RestaurantMenuSection
           sectionName="Starters"
           menuItems={currentMenu.starters}
