@@ -65,7 +65,7 @@ export default chakra(function EditCardModal({
                                 required
                                 marginBottom={'10px'}
                             />
-                            <FormLabel>Expiry Date</FormLabel>
+                            <FormLabel>Expiry Date (MM/YYYY)</FormLabel>
                             <HStack>
                                 <NumberInput
                                     isRequired
