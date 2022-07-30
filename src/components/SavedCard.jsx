@@ -12,7 +12,7 @@ const SavedCard = (props) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     return (
-        <HStack padding='10px' margin={'10px'} borderColor='gray' borderStyle='solid' borderWidth={'2px'} cursor={'pointer'}
+        <HStack borderRadius={'10'} padding='10px' margin={'10px'} borderColor='gray' borderStyle='solid' borderWidth={'2px'} cursor={'pointer'}
             onClick={onOpen}>
             {
                 props.data.card.brand === 'visa' &&
