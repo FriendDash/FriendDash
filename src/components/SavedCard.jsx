@@ -10,10 +10,17 @@ import ViewCardModal from '../components/ViewCardModal';
 
 const SavedCard = (props) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const onClick = () => {
+        if (props.mode === 'view') {
+            onOpen();
+        } else if (props.mode === 'pay') {
+            props.onClickPayment(props.index);
+        }
+    }
 
     return (
-        <HStack borderRadius={'10'} padding='10px' margin={'10px'} borderColor='gray' borderStyle='solid' borderWidth={'2px'} cursor={'pointer'}
-            onClick={onOpen}>
+        <HStack borderRadius={'10'} padding='10px' margin={'10px'} borderColor={props.selected ? 'blue' : 'gray'} borderStyle='solid' borderWidth={'2px'} cursor={'pointer'}
+            onClick={onClick}>
             {
                 props.data.card.brand === 'visa' &&
                 <HStack>

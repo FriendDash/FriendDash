@@ -18,6 +18,7 @@ import { restaurantImageMapping } from '../../utils/RestaurantImageMapping';
 import StatusTag from '../StatusTag';
 import ManageOrderModal from './ManageOrderModal';
 import ConfirmationModal from '../ConfirmationModal';
+import SelectPaymentModal from '../SelectPaymentModal';
 
 export default chakra(function GroupOrderManageCard({
   className,
@@ -27,6 +28,7 @@ export default chakra(function GroupOrderManageCard({
 }) {
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen: isOpenPayment, onOpen: onOpenPayment, onClose: onClosePayment } = useDisclosure();
   const {
     isOpen: isConfirmationOpen,
     onOpen: onConfirmationOpen,
@@ -75,7 +77,7 @@ export default chakra(function GroupOrderManageCard({
       <HStack w="100%">
         <Image
           src={restaurantImageMapping[groupOrder.restaurant]}
-          h="150px"
+          h="180px"
           w="300px"
           borderRadius="10px"
           objectFit="cover"
@@ -107,6 +109,12 @@ export default chakra(function GroupOrderManageCard({
           <Button width="150px" colorScheme="blue" onClick={handleViewOrder}>
             View Order
           </Button>
+          {
+            !isCreator && groupOrder.orderStatus == "closed" &&
+            <Button w="150px" colorScheme="orange" onClick={onOpenPayment}>
+              Pay For Order
+            </Button>
+          }
           {isCreator ? (
             <Button w="150px" colorScheme="teal" onClick={onOpen}>
               Manage Order
@@ -129,6 +137,7 @@ export default chakra(function GroupOrderManageCard({
       />
 
       <ManageOrderModal isOpen={isOpen} onClose={onClose} data={groupOrder} />
+      <SelectPaymentModal isOpen={isOpenPayment} onClose={onClosePayment} />
     </Flex>
   );
 });

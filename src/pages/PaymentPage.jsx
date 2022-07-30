@@ -19,6 +19,11 @@ const PaymentPage = () => {
     localStorage.getItem('userSession_FriendDash') != null
       ? JSON.parse(localStorage.getItem('userSession_FriendDash')).stripeId
       : 0;
+  const userAccountId =
+    localStorage.getItem('userSession_FriendDash') != null
+      ? JSON.parse(localStorage.getItem('userSession_FriendDash')).accountId
+      : 0;
+  const [onboarded, setOnboarded] = useState(false);
   useEffect(() => {
     async function getPaymentMethods() {
       if (userStripeId) {
@@ -61,6 +66,7 @@ const PaymentPage = () => {
                 {paymentMethods.map(paymentMethod => (
                   <SavedCard
                     data={paymentMethod}
+                    mode='view'
                   />
                 ))}
               </Box>
@@ -91,6 +97,30 @@ const PaymentPage = () => {
                 </Button>
               </form>
             </VStack>
+            {
+              !onboarded && userAccountId != 0 &&
+              <VStack>
+                <Heading textAlign="center" my="20px">
+                  Create Your Stripe Connected Account to Receive Payments!
+                </Heading>
+                <form
+                  action={`http://localhost:5000/stripe/accountLink/${userAccountId}`}
+                  method="POST"
+                >
+                  <Button
+                    cursor={'pointer'}
+                    padding="25px"
+                    borderColor="gray"
+                    borderStyle="solid"
+                    borderWidth={'2px'}
+                    type="submit"
+                    marginBottom={'50px'}
+                  >
+                    <Text>Create Account</Text>
+                  </Button>
+                </form>
+              </VStack>
+            }
           </Box>
         </VStack>
       )}
