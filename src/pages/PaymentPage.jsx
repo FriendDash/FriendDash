@@ -44,7 +44,27 @@ const PaymentPage = () => {
         setStripeConnected(false);
       }
     }
+
+    async function isOnboarded() {
+      if (userAccountId) {
+        const res = await fetch(
+          `http://localhost:5000/stripe/accounts/${userAccountId}`,
+          {
+            method: 'GET',
+          }
+        );
+        if (res.status == 200) {
+          const json = await res.json();
+          setOnboarded(json.charges_enabled);
+        } else {
+          setOnboarded(false);
+        }
+      } else {
+        setOnboarded(false);
+      }
+    }
     getPaymentMethods();
+    isOnboarded();
   }, []);
 
   return (
