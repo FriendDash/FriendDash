@@ -39,6 +39,8 @@ export default chakra(function ViewCardModal({
                 return 'Visa';
             case 'mastercard':
                 return 'MasterCard';
+            case 'amex':
+                return 'American Express';
         }
     }
 
