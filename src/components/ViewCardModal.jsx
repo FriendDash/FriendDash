@@ -16,6 +16,7 @@ import {
     useDisclosure
 } from '@chakra-ui/react';
 import ConfirmationModal from './ConfirmationModal';
+import EditCardModal from './EditCardModal';
 
 export default chakra(function ViewCardModal({
     data,
@@ -27,6 +28,11 @@ export default chakra(function ViewCardModal({
         onOpen: onConfirmationOpen,
         onClose: onConfirmationClose,
     } = useDisclosure();
+    const {
+        isOpen: isEditOpen,
+        onOpen: onEditOpen,
+        onClose: onEditClose,
+    } = useDisclosure();
     const styleCardBrand = (brand) => {
         switch (brand) {
             case 'visa':
@@ -35,11 +41,10 @@ export default chakra(function ViewCardModal({
                 return 'MasterCard';
         }
     }
-    
+
     async function deleteCard() {
         const res = await fetch(
-            //TODO: change url when done testing
-            `http://localhost:5000/stripe/paymentMethods/${data.id}`,
+            `https://frienddash-db.herokuapp.com/stripe/paymentMethods/${data.id}`,
             {
                 method: 'DELETE',
             }
@@ -47,6 +52,7 @@ export default chakra(function ViewCardModal({
         if (res.status == 204) {
             onConfirmationClose();
             onClose();
+            window.location.reload();
         } else {
             alert('An error has occurred')
         }
@@ -71,17 +77,26 @@ export default chakra(function ViewCardModal({
                     </HStack>
                 </ModalBody>
 
-                <ModalFooter>
+                <ModalFooter display={'flex'} justifyContent={'space-between'}>
                     <Button colorScheme="blue" mr={3} onClick={onClose} w="110px">
                         Close
                     </Button>
-                    <Button
-                        colorScheme="teal"
-                        w="110px"
-                        onClick={onConfirmationOpen}
-                    >
-                        Delete Card
-                    </Button>
+                    <HStack>
+                        <Button
+                            colorScheme="teal"
+                            w="110px"
+                            onClick={onEditOpen}
+                        >
+                            Edit Card
+                        </Button>
+                        <Button
+                            colorScheme="red"
+                            w="110px"
+                            onClick={onConfirmationOpen}
+                        >
+                            Delete Card
+                        </Button>
+                    </HStack>
                     <ConfirmationModal
                         isOpen={isConfirmationOpen}
                         onClose={onConfirmationClose}
@@ -89,6 +104,14 @@ export default chakra(function ViewCardModal({
                         confirmButton={'Confirm'}
                         cancelButton={'Cancel'}
                         onConfirm={deleteCard}
+                    />
+                    <EditCardModal
+                        pmId={data.id}
+                        name={data.billing_details.name}
+                        exp_month={data.card.exp_month}
+                        exp_year={data.card.exp_year}
+                        isOpen={isEditOpen}
+                        onClose={onEditClose}
                     />
                 </ModalFooter>
             </ModalContent>
