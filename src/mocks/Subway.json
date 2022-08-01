@@ -4,13 +4,11 @@
     {
       "dishName": "Grilled Chicken Salad",
       "price": 12,
-      "priceId": "price_1LRr5AFJkD2X0rrAw3pEMWzA",
       "description": "Everything but the bread! Turn any one of your favourite sandwiches into a salad. Add crunch to your meal with chopped lettuce, red onions, tomatoes, cucumbers and much more!"
     },
     {
       "dishName": "Caesar Salad",
       "price": 6,
-      "priceId": "price_1LRr5pFJkD2X0rrAhZ5cNHzH",
       "description": "Classic caesar salad served with ranch and crunchy croutons."
     }
   ],
@@ -18,19 +16,16 @@
     {
       "dishName": "Cold Cut 6-inch",
       "price": 5,
-      "priceId": "price_1LRr63FJkD2X0rrAFwjCq3dM",
       "description": "Are you a meat-lover? Then you'll love our Cold Cut Combo! One bite into these delicious deli meats, topped with crisp vegetables and served on your choice of bread and you'll be addicted."
     },
     {
       "dishName": "Footlong Meatball Marinara Sub",
       "price": 8,
-      "priceId": "price_1LRr6LFJkD2X0rrAkBNYYhAx",
       "description": "Zesty meatballs, covered with marinara sauce, and served on your choice of bread. Every bite is simply sensational! Get it toasted for even more great taste."
     },
     {
       "dishName": "Footlong Sweet Onion Chicken Teriyaki Sub",
       "price": 12,
-      "priceId": "price_1LRr6jFJkD2X0rrALCNkG3yV",
       "description": "Our Sweet Onion Chicken Teriyaki is stuffed with teriyaki glazed chicken strips and topped with our own fat free Sweet Onion sauce."
     }
   ],
@@ -38,13 +33,11 @@
     {
       "dishName": "Chocolate Chip Cookie",
       "price": 2,
-      "priceId": "price_1LRr6tFJkD2X0rrAgMUFkv2Y",
       "description": "Classic chocolate chip cookie. Don't say we didn't warn you, our cookies are irresistible."
     },
     {
       "dishName": "White Chocolate Macademia Nut Cookie",
       "price": 2,
-      "priceId": "price_1LRr7BFJkD2X0rrAWy2gkWBh",
       "description": "Irresistible white chocolate macademia nut cookie. Don't say we didn't warn you, our cookies are irresistible."
     }
   ]

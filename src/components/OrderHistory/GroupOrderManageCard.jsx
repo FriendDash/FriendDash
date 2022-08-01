@@ -73,7 +73,7 @@ export default chakra(function GroupOrderManageCard({
   };
 
   return (
-    <Flex w="800px" className={className} h="150px" bg={bg} rounded="10px">
+    <Flex w="800px" className={className} h="180px" bg={bg} rounded="10px">
       <HStack w="100%">
         <Image
           src={restaurantImageMapping[groupOrder.restaurant]}

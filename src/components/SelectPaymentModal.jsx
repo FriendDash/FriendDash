@@ -27,6 +27,8 @@ export default chakra(function SelectPaymentModal({ isOpen, onClose, orderId, us
     const [stripeConnected, setStripeConnected] = useState(null);
     const [completeOrder, setCompleteOrder] = useState({});
     const [selectedPayment, setSelectedPayment] = useState(0);
+    const [recipientId, setRecipientId] = useState(null);
+    const [totalCost, setTotalCost] = useState(0);
     const { isOpen: isConfirmationOpen, onOpen: onConfirmationOpen, onClose: onConfirmationClose } = useDisclosure();
     const userStripeId =
         localStorage.getItem('userSession_FriendDash') != null
@@ -74,9 +76,37 @@ export default chakra(function SelectPaymentModal({ isOpen, onClose, orderId, us
             const userOrder = order.orderDetails.find(detail => { return detail.orderUserId === userId });
             setCompleteOrder(userOrder.orderItems);
             onConfirmationOpen();
+            setTotalCost(
+                userOrder.orderItems.reduce(
+                    (previousValue, currentElement) =>
+                        previousValue +
+                        currentElement.price * currentElement.quantity,
+                    0
+                )
+            );
+            setRecipientId(order.creatorAccountId);
         } else {
             alert('An error has occurred')
         }
+    }
+
+    async function checkout() {
+        const bodyObject = {
+            userStripeId: userStripeId,
+            amount: totalCost * 100,
+            paymentMethodId: paymentMethods[selectedPayment].id,
+            receiverId: recipientId
+        };
+        const res = await fetch(
+            'https://frienddash-db.herokuapp.com/stripe/checkout',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify(bodyObject)
+            }
+        )
     }
 
     return (
@@ -134,7 +164,7 @@ export default chakra(function SelectPaymentModal({ isOpen, onClose, orderId, us
                             <Button ref={cancelRef} onClick={onConfirmationClose}>
                                 Cancel
                             </Button>
-                            <Button colorScheme="green" ml={3}>
+                            <Button colorScheme="green" onClick={checkout} ml={3}>
                                 Confirm
                             </Button>
                         </AlertDialogFooter>

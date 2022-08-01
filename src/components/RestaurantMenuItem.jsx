@@ -57,7 +57,6 @@ export default chakra(function RestaurantMenuItem({
             handleChange({
               menuItem: menuItem.dishName,
               price: menuItem.price,
-              priceId: menuItem.priceId,
               quantity: parseInt(valueString),
             })
           }
