@@ -20,6 +20,7 @@ import {
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import ItemsTable from './ItemsTable';
 
 export default function ConfirmOrderPopup(props) {
   const dispatch = useDispatch();
@@ -139,49 +140,7 @@ export default function ConfirmOrderPopup(props) {
 
             <AlertDialogBody>
               <Heading size="sm">Order Summary</Heading>
-              <TableContainer>
-                <Table size="sm">
-                  <Thead>
-                    <Tr>
-                      <Th>Item Name</Th>
-                      <Th>Quantity</Th>
-                      <Th isNumeric>Price</Th>
-                    </Tr>
-                  </Thead>
-                  <Tbody>
-                    {completeOrder.map((e, i) => {
-                      return (
-                        <Tr key={i}>
-                          <Td>{e.menuItem}</Td>
-                          <Td>{e.quantity}</Td>
-                          <Td isNumeric>
-                            ${e.price} x {e.quantity} = ${e.price * e.quantity}
-                          </Td>
-                        </Tr>
-                      );
-                    })}
-                  </Tbody>
-                  <Tfoot>
-                    <Tr>
-                      <Th> </Th>
-                      <Th>
-                        <b>TOTAL COST:</b>
-                      </Th>
-                      <Th isNumeric>
-                        <b>
-                          $
-                          {completeOrder.reduce(
-                            (previousValue, currentElement) =>
-                              previousValue +
-                              currentElement.price * currentElement.quantity,
-                            0
-                          )}
-                        </b>
-                      </Th>
-                    </Tr>
-                  </Tfoot>
-                </Table>
-              </TableContainer>
+              <ItemsTable completeOrder={completeOrder} />
               <br />
               Are you sure you want to add to the group order? You can't make
               any changes afterwards.

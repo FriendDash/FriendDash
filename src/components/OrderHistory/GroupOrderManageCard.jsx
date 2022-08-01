@@ -137,7 +137,7 @@ export default chakra(function GroupOrderManageCard({
       />
 
       <ManageOrderModal isOpen={isOpen} onClose={onClose} data={groupOrder} />
-      <SelectPaymentModal isOpen={isOpenPayment} onClose={onClosePayment} />
+      <SelectPaymentModal isOpen={isOpenPayment} onClose={onClosePayment} userId={userId} orderId={groupOrder._id} />
     </Flex>
   );
 });

@@ -44,7 +44,7 @@ const Login = () => {
     };
     (async () => {
       const response = await fetch(
-        'http://localhost:5000/users/add',
+        'https://frienddash-db.herokuapp.com/users/add',
         {
           method: 'POST',
           headers: {

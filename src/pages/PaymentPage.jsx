@@ -48,7 +48,7 @@ const PaymentPage = () => {
     async function isOnboarded() {
       if (userAccountId) {
         const res = await fetch(
-          `http://localhost:5000/stripe/accounts/${userAccountId}`,
+          `https://frienddash-db.herokuapp.com/stripe/accounts/${userAccountId}`,
           {
             method: 'GET',
           }
@@ -124,7 +124,7 @@ const PaymentPage = () => {
                   Create Your Stripe Connected Account to Receive Payments!
                 </Heading>
                 <form
-                  action={`http://localhost:5000/stripe/accountLink/${userAccountId}`}
+                  action={`https://frienddash-db.herokuapp.com/stripe/accountLink/${userAccountId}`}
                   method="POST"
                 >
                   <Button
