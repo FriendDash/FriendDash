@@ -19,7 +19,7 @@ const SavedCard = (props) => {
     }
 
     return (
-        <HStack borderRadius={'10'} padding='10px' margin={'10px'} borderColor={props.selected ? 'blue' : 'gray'} borderStyle='solid' borderWidth={'2px'} cursor={'pointer'}
+        <HStack borderRadius={'10'} padding='10px' margin={'10px'} borderColor={props.selected ? 'blue' : 'gray'} borderStyle='solid' borderWidth={'2px'} cursor={props.mode === 'static' ? 'auto' : 'pointer'}
             onClick={onClick}>
             {
                 props.data.card.brand === 'visa' &&

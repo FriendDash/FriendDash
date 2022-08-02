@@ -19,6 +19,7 @@ import StatusTag from '../StatusTag';
 import ManageOrderModal from './ManageOrderModal';
 import ConfirmationModal from '../ConfirmationModal';
 import SelectPaymentModal from '../SelectPaymentModal';
+import { useState } from 'react';
 
 export default chakra(function GroupOrderManageCard({
   className,
@@ -29,6 +30,7 @@ export default chakra(function GroupOrderManageCard({
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isOpen: isOpenPayment, onOpen: onOpenPayment, onClose: onClosePayment } = useDisclosure();
+  const [paid, setPaid] = useState(groupOrder.orderDetails.find(detail => detail.orderUserId === userId)?.paid);
   const {
     isOpen: isConfirmationOpen,
     onOpen: onConfirmationOpen,
@@ -105,12 +107,16 @@ export default chakra(function GroupOrderManageCard({
           <HStack>
             <Heading size="sm">Status:</Heading>
             <StatusTag status={groupOrder.orderStatus} />
+            {
+              paid && 
+              <StatusTag status={'paid'} />
+            }
           </HStack>
           <Button width="150px" colorScheme="blue" onClick={handleViewOrder}>
             View Order
           </Button>
           {
-            !isCreator && groupOrder.orderStatus == "closed" &&
+            !isCreator && !paid && groupOrder.orderStatus == "closed" &&
             <Button w="150px" colorScheme="orange" onClick={onOpenPayment}>
               Pay For Order
             </Button>

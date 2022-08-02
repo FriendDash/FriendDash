@@ -16,7 +16,9 @@ import {
     Modal,
     Box,
     ModalFooter,
-    Button
+    Button,
+    Text,
+    Link
 } from "@chakra-ui/react";
 import React, { useState, useEffect } from 'react';
 import SavedCard from "./SavedCard";
@@ -25,7 +27,7 @@ import ItemsTable from "./ItemsTable";
 export default chakra(function SelectPaymentModal({ isOpen, onClose, orderId, userId }) {
     const [paymentMethods, setPaymentMethods] = useState([]);
     const [stripeConnected, setStripeConnected] = useState(null);
-    const [completeOrder, setCompleteOrder] = useState({});
+    const [userOrder, setUserOrder] = useState({});
     const [selectedPayment, setSelectedPayment] = useState(0);
     const [recipientId, setRecipientId] = useState(null);
     const [totalCost, setTotalCost] = useState(0);
@@ -73,11 +75,11 @@ export default chakra(function SelectPaymentModal({ isOpen, onClose, orderId, us
         );
         if (res.status === 200) {
             const order = await res.json();
-            const userOrder = order.orderDetails.find(detail => { return detail.orderUserId === userId });
-            setCompleteOrder(userOrder.orderItems);
+            const userOrderDetail = order.orderDetails.find(detail => detail.orderUserId === userId);
+            setUserOrder(userOrderDetail);
             onConfirmationOpen();
             setTotalCost(
-                userOrder.orderItems.reduce(
+                userOrderDetail.orderItems.reduce(
                     (previousValue, currentElement) =>
                         previousValue +
                         currentElement.price * currentElement.quantity,
@@ -103,10 +105,30 @@ export default chakra(function SelectPaymentModal({ isOpen, onClose, orderId, us
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify(bodyObject)
+                },
+                body: JSON.stringify(bodyObject)
             }
         )
+        if (res.status == 200) {
+            userOrder.paid = true;
+            const res = await fetch(
+                `https://frienddash-db.herokuapp.com/orders/editOrderDetail/${orderId}/${userOrder._id}`,
+                {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userOrder)
+                }
+            );
+            if (res.status === 200) {
+                window.location.reload();
+            } else {
+                alert('An error has occurred');
+            }
+        } else {
+            alert("An error has occurred")
+        }
     }
 
     return (
@@ -117,17 +139,29 @@ export default chakra(function SelectPaymentModal({ isOpen, onClose, orderId, us
                     <ModalHeader>Please Select a Payment Method</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        <Box>
-                            {paymentMethods.map((paymentMethod, index) => (
-                                <SavedCard
-                                    index={index}
-                                    onClickPayment={onSelectPayment}
-                                    selected={index === selectedPayment}
-                                    data={paymentMethod}
-                                    mode='pay'
-                                />
-                            ))}
-                        </Box>
+                        {
+                            paymentMethods.length > 0 ?
+                                <Box>
+                                    {paymentMethods.map((paymentMethod, index) => (
+                                        <SavedCard
+                                            index={index}
+                                            onClickPayment={onSelectPayment}
+                                            selected={index === selectedPayment}
+                                            data={paymentMethod}
+                                            mode='pay'
+                                        />
+                                    ))}
+                                </Box>
+                                :
+                                <Text>
+                                    Oops, you have no payment methods! Please go to the {' '}
+                                    <Link color='teal.400' href='/payment'>
+                                        Payment Page
+                                    </Link>
+                                    {' '}to add a payment method.
+                                </Text>
+                        }
+
                     </ModalBody>
                     <ModalFooter>
                         <Button colorScheme="blue" mr={3} onClick={onClose} w="110px">
@@ -136,6 +170,7 @@ export default chakra(function SelectPaymentModal({ isOpen, onClose, orderId, us
                         <Button
                             colorScheme="teal"
                             w="110px"
+                            disabled={paymentMethods.length === 0}
                             onClick={onClickSelect}
                         >
                             Select
@@ -157,7 +192,9 @@ export default chakra(function SelectPaymentModal({ isOpen, onClose, orderId, us
 
                         <AlertDialogBody>
                             <Heading size="sm">Order Summary</Heading>
-                            <ItemsTable completeOrder={completeOrder} />
+                            <ItemsTable completeOrder={userOrder.orderItems} />
+                            <Heading size="sm">Payment Method</Heading>
+                            <SavedCard mode='static' data={paymentMethods[selectedPayment]} />
                         </AlertDialogBody>
 
                         <AlertDialogFooter>

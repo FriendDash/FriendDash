@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import ConfirmationModal from '../ConfirmationModal';
+import StatusTag from '../StatusTag';
 
 export default chakra(function OrderDetailUser({
   className,
@@ -66,6 +67,7 @@ export default chakra(function OrderDetailUser({
       >
         {userOrder.userName}
       </Button>
+      <StatusTag status={userOrder.paid ? 'paid' : 'not paid'} />
       <Spacer />
       <Button colorScheme="red" onClick={onConfirmationOpen} w="130px">
         Remove User

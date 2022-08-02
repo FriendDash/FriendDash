@@ -74,25 +74,31 @@ const PaymentPage = () => {
         <VStack>
           <Header />
           <Box paddingTop={'50px'}>
-            <VStack>
+            <VStack paddingBottom={'20px'}>
               <Heading textAlign="center" my="20px">
                 Your Payment Methods
               </Heading>
+              <>
+              { paymentMethods.length > 0 ? 
               <Box
                 borderColor={'black'}
                 borderStyle="solid"
                 borderWidth={'2px'}
               >
-                {paymentMethods.map(paymentMethod => (
+                { paymentMethods.map(paymentMethod => (
                   <SavedCard
                     data={paymentMethod}
                     mode='view'
                   />
                 ))}
-              </Box>
+              </Box> 
+              : 
+              <Text>You have no saved payment methods</Text>}
+              </>
+              
             </VStack>
-            <VStack>
-              <Heading textAlign="center" my="20px">
+            <VStack paddingBottom={'20px'}>
+              <Heading textAlign="center" my="20px" marginTop='50px'>
                 Add a Payment Method
               </Heading>
               <form
@@ -102,11 +108,8 @@ const PaymentPage = () => {
                 <Button
                   cursor={'pointer'}
                   padding="25px"
-                  borderColor="gray"
-                  borderStyle="solid"
-                  borderWidth={'2px'}
                   type="submit"
-                  marginBottom={'50px'}
+                  colorScheme="teal"
                 >
                   <Image
                     width={'50px'}
@@ -119,8 +122,8 @@ const PaymentPage = () => {
             </VStack>
             {
               !onboarded && userAccountId != 0 &&
-              <VStack>
-                <Heading textAlign="center" my="20px">
+              <VStack paddingBottom={'20px'}>
+                <Heading textAlign="center" my="20px" marginTop='50px'>
                   Create Your Stripe Connected Account to Receive Payments!
                 </Heading>
                 <form
@@ -130,11 +133,8 @@ const PaymentPage = () => {
                   <Button
                     cursor={'pointer'}
                     padding="25px"
-                    borderColor="gray"
-                    borderStyle="solid"
-                    borderWidth={'2px'}
                     type="submit"
-                    marginBottom={'50px'}
+                    backgroundColor={'lavender'}
                   >
                     <Text>Create Account</Text>
                   </Button>

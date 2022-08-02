@@ -65,6 +65,7 @@ export default function ConfirmOrderPopup(props) {
     const newOrderItem = {
       orderUserId: user.googleId,
       userName: user.userName,
+      paid: false,
       orderItems: completeOrder,
     };
 
