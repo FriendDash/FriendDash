@@ -116,7 +116,7 @@ export default chakra(function GroupOrderManageCard({
             View Order
           </Button>
           {
-            !isCreator && !paid && groupOrder.orderStatus == "closed" &&
+            !isCreator && !paid && groupOrder.orderStatus != "open" &&
             <Button w="150px" colorScheme="orange" onClick={onOpenPayment}>
               Pay For Order
             </Button>
