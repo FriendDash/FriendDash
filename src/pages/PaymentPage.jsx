@@ -134,7 +134,7 @@ const PaymentPage = () => {
                     cursor={'pointer'}
                     padding="25px"
                     type="submit"
-                    backgroundColor={'lavender'}
+                    colorScheme="blue"
                   >
                     <Text>Create Account</Text>
                   </Button>
