@@ -19,6 +19,11 @@ const PaymentPage = () => {
     localStorage.getItem('userSession_FriendDash') != null
       ? JSON.parse(localStorage.getItem('userSession_FriendDash')).stripeId
       : 0;
+  const userAccountId =
+    localStorage.getItem('userSession_FriendDash') != null
+      ? JSON.parse(localStorage.getItem('userSession_FriendDash')).accountId
+      : 0;
+  const [onboarded, setOnboarded] = useState(false);
   useEffect(() => {
     async function getPaymentMethods() {
       if (userStripeId) {
@@ -39,7 +44,27 @@ const PaymentPage = () => {
         setStripeConnected(false);
       }
     }
+
+    async function isOnboarded() {
+      if (userAccountId) {
+        const res = await fetch(
+          `https://frienddash-db.herokuapp.com/stripe/accounts/${userAccountId}`,
+          {
+            method: 'GET',
+          }
+        );
+        if (res.status == 200) {
+          const json = await res.json();
+          setOnboarded(json.charges_enabled);
+        } else {
+          setOnboarded(false);
+        }
+      } else {
+        setOnboarded(false);
+      }
+    }
     getPaymentMethods();
+    isOnboarded();
   }, []);
 
   return (
@@ -49,24 +74,31 @@ const PaymentPage = () => {
         <VStack>
           <Header />
           <Box paddingTop={'50px'}>
-            <VStack>
+            <VStack paddingBottom={'20px'}>
               <Heading textAlign="center" my="20px">
                 Your Payment Methods
               </Heading>
+              <>
+              { paymentMethods.length > 0 ? 
               <Box
                 borderColor={'black'}
                 borderStyle="solid"
                 borderWidth={'2px'}
               >
-                {paymentMethods.map(paymentMethod => (
+                { paymentMethods.map(paymentMethod => (
                   <SavedCard
                     data={paymentMethod}
+                    mode='view'
                   />
                 ))}
-              </Box>
+              </Box> 
+              : 
+              <Text>You have no saved payment methods</Text>}
+              </>
+              
             </VStack>
-            <VStack>
-              <Heading textAlign="center" my="20px">
+            <VStack paddingBottom={'20px'}>
+              <Heading textAlign="center" my="20px" marginTop='50px'>
                 Add a Payment Method
               </Heading>
               <form
@@ -76,11 +108,8 @@ const PaymentPage = () => {
                 <Button
                   cursor={'pointer'}
                   padding="25px"
-                  borderColor="gray"
-                  borderStyle="solid"
-                  borderWidth={'2px'}
                   type="submit"
-                  marginBottom={'50px'}
+                  colorScheme="teal"
                 >
                   <Image
                     width={'50px'}
@@ -91,6 +120,27 @@ const PaymentPage = () => {
                 </Button>
               </form>
             </VStack>
+            {
+              !onboarded && userAccountId != 0 &&
+              <VStack paddingBottom={'20px'}>
+                <Heading textAlign="center" my="20px" marginTop='50px'>
+                  Create Your Stripe Connected Account to Receive Payments!
+                </Heading>
+                <form
+                  action={`https://frienddash-db.herokuapp.com/stripe/accountLink/${userAccountId}`}
+                  method="POST"
+                >
+                  <Button
+                    cursor={'pointer'}
+                    padding="25px"
+                    type="submit"
+                    colorScheme="blue"
+                  >
+                    <Text>Create Account</Text>
+                  </Button>
+                </form>
+              </VStack>
+            }
           </Box>
         </VStack>
       )}

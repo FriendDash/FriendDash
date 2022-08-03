@@ -3,4 +3,5 @@ export const orderStatusColorMapping = {
   closed: 'red',
   completed: 'teal',
   inProgress: 'orange',
+  paid: 'green'
 };

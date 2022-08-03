@@ -75,6 +75,7 @@ export default chakra(function CreateGroupForm({ className, isOpen, onClose }) {
       pickupTime: time,
       maxSize: groupMembers,
       creatorUserId: user.googleId,
+      creatorAccountId: user.accountId
     };
     if (restaurantName.trim() === '' || time === '' || pickupLocation === '') {
       alert('You must not submit an empty form.');
