@@ -12,13 +12,14 @@ import {
   Text,
   Image,
   Divider,
+  Stack,
 } from '@chakra-ui/react';
 import ContentContainer from '../components/ContentContainer';
 import { restaurantImageMapping } from '../utils/RestaurantImageMapping';
 import MemberOrderDetail from '../components/Order/MemberOrderDetail';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { signedOutUserObject } from '../utils/SignedOutUserObject';
-import RatingPopup  from '../components/RatingPopup';
+import RatingPopup from '../components/RatingPopup';
 
 const GroupOrderPage = () => {
   const [groupOrder, setGroupOrder] = useState();
@@ -78,7 +79,14 @@ const GroupOrderPage = () => {
           {groupOrder ? (
             <Box>
               {/* Info Banner */}
-              <HStack bg="gray.700" w="100%" p="10px" rounded="10px">
+              <Stack
+                bg="gray.700"
+                w="100%"
+                p="10px"
+                rounded="10px"
+                direction={{ lg: 'row', base: 'column' }}
+                alignItems="center"
+              >
                 <VStack alignItems="flex-start">
                   <HStack>
                     <Heading color="white">{groupOrder.creatorName}'s</Heading>
@@ -89,7 +97,10 @@ const GroupOrderPage = () => {
                   </Text>
                 </VStack>
                 <Spacer />
-                <HStack>
+                <Stack
+                  direction={{ lg: 'row', base: 'column' }}
+                  alignItems="center"
+                >
                   <Button w="130px" onClick={() => navigate('/dashboard')}>
                     Go Back
                   </Button>
@@ -100,12 +111,17 @@ const GroupOrderPage = () => {
                   >
                     Add to Order
                   </Button>
-                  {(isOrderFull || groupOrder.orderStatus !== 'open' )&& groupOrder.orderDetails.find((order) => order.orderUserId === user.googleId) && 
-                  <RatingPopup groupCreatorUserId = {groupOrder.creatorUserId} groupCreatorName = {groupOrder.creatorName}/>
-                    
-                 }
-                </HStack>
-              </HStack>
+                  {(isOrderFull || groupOrder.orderStatus !== 'open') &&
+                    groupOrder.orderDetails.find(
+                      order => order.orderUserId === user.googleId
+                    ) && (
+                      <RatingPopup
+                        groupCreatorUserId={groupOrder.creatorUserId}
+                        groupCreatorName={groupOrder.creatorName}
+                      />
+                    )}
+                </Stack>
+              </Stack>
 
               {/* Order Full Banner */}
               {isOrderFull && (

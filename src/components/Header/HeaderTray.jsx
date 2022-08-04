@@ -10,7 +10,7 @@ import {
   HStack,
   Avatar,
   Box,
-  DrawerFooter,
+  Flex,
   Image,
   Icon,
 } from '@chakra-ui/react';
@@ -28,7 +28,6 @@ import {
 import { HamburgerIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ToggleColor from '../ToggleColor';
 
 import { signedOutUserObject } from '../../utils/SignedOutUserObject';
 
@@ -80,13 +79,15 @@ const HeaderTray = () => {
           <a href="/dashboard">
             <HStack>
               <Image src={MainLogo} h="40px" />
-              <Text fontSize="xl" as="b">
-                FriendDash |
-              </Text>
+              <Flex flexDir={{ lg: 'row', base: 'column' }}>
+                <Text fontSize="xl" as="b" pr="10px">
+                  FriendDash |
+                </Text>
 
-              <Text fontSize="xl" paddingRight="20px" as="b">
-                Hello {user.userName}!
-              </Text>
+                <Text fontSize="xl" paddingRight="20px" as="b">
+                  Hello {user.userName}!
+                </Text>
+              </Flex>
             </HStack>
           </a>
         </HStack>
@@ -99,7 +100,9 @@ const HeaderTray = () => {
               style={{ cursor: 'pointer' }}
             >
               <Icon as={IoMdPower} w={6} h={6} />
-              <Text fontSize="20px">Logout</Text>
+              <Text fontSize="20px" display={{ lg: 'inline', base: 'none' }}>
+                Logout
+              </Text>
             </HStack>
           ) : (
             <HStack

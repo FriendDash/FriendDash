@@ -7,23 +7,13 @@ import {
   AlertDialogHeader,
   AlertDialogContent,
   AlertDialogOverlay,
-  Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
   useToast,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import ItemsTable from './ItemsTable';
 
 export default function ConfirmOrderPopup(props) {
-  const dispatch = useDispatch();
   const toast = useToast();
 
   const signedOutUserObject = {

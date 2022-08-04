@@ -5,6 +5,7 @@ import {
   HStack,
   Text,
   Circle,
+  Stack,
   useColorModeValue,
 } from '@chakra-ui/react';
 
@@ -19,7 +20,12 @@ const colorMapping = {
 export default chakra(function MemberOrderDetail({ className, groupOrder }) {
   const bg = useColorModeValue('gray.200', 'gray.700');
   return (
-    <HStack className={className} spacing="30px">
+    <Stack
+      className={className}
+      spacing="30px"
+      direction={{ lg: 'row', base: 'column' }}
+      alignItems="center"
+    >
       {groupOrder.orderDetails.map((order, i) => (
         <Box key={i} h="300px" w="200px" bg={bg} rounded="20px">
           <Box alignItems="flex-start">
@@ -76,6 +82,6 @@ export default chakra(function MemberOrderDetail({ className, groupOrder }) {
           </Box>
         </Box>
       ))}
-    </HStack>
+    </Stack>
   );
 });

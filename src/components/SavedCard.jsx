@@ -4,7 +4,6 @@ import {
     Text,
     useDisclosure,
 } from '@chakra-ui/react';
-import { useState } from 'react';
 
 import ViewCardModal from '../components/ViewCardModal';
 
