@@ -11,6 +11,7 @@ import {
   Spacer,
   useDisclosure,
   useColorModeValue,
+  Stack,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router';
 
@@ -29,8 +30,14 @@ export default chakra(function GroupOrderManageCard({
 }) {
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { isOpen: isOpenPayment, onOpen: onOpenPayment, onClose: onClosePayment } = useDisclosure();
-  const [paid, setPaid] = useState(groupOrder.orderDetails.find(detail => detail.orderUserId === userId)?.paid);
+  const {
+    isOpen: isOpenPayment,
+    onOpen: onOpenPayment,
+    onClose: onClosePayment,
+  } = useDisclosure();
+  const [paid, setPaid] = useState(
+    groupOrder.orderDetails.find(detail => detail.orderUserId === userId)?.paid
+  );
   const {
     isOpen: isConfirmationOpen,
     onOpen: onConfirmationOpen,
@@ -75,14 +82,25 @@ export default chakra(function GroupOrderManageCard({
   };
 
   return (
-    <Flex w="800px" className={className} h="180px" bg={bg} rounded="10px">
-      <HStack w="100%">
+    <Flex
+      w={{ lg: '800px', base: '100%' }}
+      className={className}
+      h={{ lg: '180px', base: 'fit-content' }}
+      bg={bg}
+      rounded="10px"
+    >
+      <Stack
+        w="100%"
+        direction={{ lg: 'row', base: 'column' }}
+        alignItems="center"
+      >
         <Image
           src={restaurantImageMapping[groupOrder.restaurant]}
           h="180px"
           w="300px"
           borderRadius="10px"
           objectFit="cover"
+          display={{ lg: 'inline', base: 'none' }}
         />
         <VStack alignItems="flex-start">
           <Heading size="md">{groupOrder.restaurant}</Heading>
@@ -107,20 +125,16 @@ export default chakra(function GroupOrderManageCard({
           <HStack>
             <Heading size="sm">Status:</Heading>
             <StatusTag status={groupOrder.orderStatus} />
-            {
-              paid && 
-              <StatusTag status={'paid'} />
-            }
+            {paid && <StatusTag status={'paid'} />}
           </HStack>
           <Button width="150px" colorScheme="blue" onClick={handleViewOrder}>
             View Order
           </Button>
-          {
-            !isCreator && !paid && groupOrder.orderStatus != "open" &&
+          {!isCreator && !paid && groupOrder.orderStatus != 'open' && (
             <Button w="150px" colorScheme="orange" onClick={onOpenPayment}>
               Pay For Order
             </Button>
-          }
+          )}
           {isCreator ? (
             <Button w="150px" colorScheme="teal" onClick={onOpen}>
               Manage Order
@@ -131,7 +145,7 @@ export default chakra(function GroupOrderManageCard({
             </Button>
           )}
         </VStack>
-      </HStack>
+      </Stack>
 
       <ConfirmationModal
         isOpen={isConfirmationOpen}
@@ -143,7 +157,12 @@ export default chakra(function GroupOrderManageCard({
       />
 
       <ManageOrderModal isOpen={isOpen} onClose={onClose} data={groupOrder} />
-      <SelectPaymentModal isOpen={isOpenPayment} onClose={onClosePayment} userId={userId} orderId={groupOrder._id} />
+      <SelectPaymentModal
+        isOpen={isOpenPayment}
+        onClose={onClosePayment}
+        userId={userId}
+        orderId={groupOrder._id}
+      />
     </Flex>
   );
 });

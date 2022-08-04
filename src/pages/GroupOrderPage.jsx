@@ -12,13 +12,14 @@ import {
   Text,
   Image,
   Divider,
+  Stack,
 } from '@chakra-ui/react';
 import ContentContainer from '../components/ContentContainer';
 import { restaurantImageMapping } from '../utils/RestaurantImageMapping';
 import MemberOrderDetail from '../components/Order/MemberOrderDetail';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { signedOutUserObject } from '../utils/SignedOutUserObject';
-import RatingPopup  from '../components/RatingPopup';
+import RatingPopup from '../components/RatingPopup';
 
 const GroupOrderPage = () => {
   const [groupOrder, setGroupOrder] = useState();
@@ -78,18 +79,31 @@ const GroupOrderPage = () => {
           {groupOrder ? (
             <Box>
               {/* Info Banner */}
-              <HStack bg="gray.700" w="100%" p="10px" rounded="10px">
-                <VStack alignItems="flex-start">
-                  <HStack>
+              <Stack
+                bg="gray.700"
+                w="100%"
+                p="10px"
+                rounded="10px"
+                direction={{ lg: 'row', base: 'column' }}
+                alignItems="center"
+              >
+                <VStack alignItems={{ lg: 'flex-start', base: 'center' }}>
+                  <Stack
+                    direction={{ lg: 'row', base: 'column' }}
+                    alignItems="center"
+                  >
                     <Heading color="white">{groupOrder.creatorName}'s</Heading>
                     <Heading color="whiteAlpha.800">Group Order</Heading>
-                  </HStack>
+                  </Stack>
                   <Text color="white">
                     Large orders may take longer to prepare
                   </Text>
                 </VStack>
                 <Spacer />
-                <HStack>
+                <Stack
+                  direction={{ lg: 'row', base: 'column' }}
+                  alignItems="center"
+                >
                   <Button w="130px" onClick={() => navigate('/dashboard')}>
                     Go Back
                   </Button>
@@ -100,12 +114,17 @@ const GroupOrderPage = () => {
                   >
                     Add to Order
                   </Button>
-                  {(isOrderFull || groupOrder.orderStatus !== 'open' )&& groupOrder.orderDetails.find((order) => order.orderUserId === user.googleId) && 
-                  <RatingPopup groupCreatorUserId = {groupOrder.creatorUserId} groupCreatorName = {groupOrder.creatorName}/>
-                    
-                 }
-                </HStack>
-              </HStack>
+                  {(isOrderFull || groupOrder.orderStatus !== 'open') &&
+                    groupOrder.orderDetails.find(
+                      order => order.orderUserId === user.googleId
+                    ) && (
+                      <RatingPopup
+                        groupCreatorUserId={groupOrder.creatorUserId}
+                        groupCreatorName={groupOrder.creatorName}
+                      />
+                    )}
+                </Stack>
+              </Stack>
 
               {/* Order Full Banner */}
               {isOrderFull && (
@@ -126,7 +145,11 @@ const GroupOrderPage = () => {
                 objectFit="cover"
               />
 
-              <HStack mt="10px">
+              <Stack
+                mt="10px"
+                direction={{ lg: 'row', base: 'column' }}
+                alignItems="center"
+              >
                 <Heading>{groupOrder.restaurant}</Heading>
                 <HStack
                   border="1px solid gray"
@@ -149,7 +172,7 @@ const GroupOrderPage = () => {
                 <Box flexGrow={1} rounded="5px" h="100%">
                   {getStatusMessage(groupOrder.orderStatus)}
                 </Box>
-              </HStack>
+              </Stack>
 
               {/* Render all currently added orders as cards */}
               <MemberOrderDetail mt="20px" groupOrder={groupOrder} />

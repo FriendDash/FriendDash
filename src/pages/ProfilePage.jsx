@@ -18,6 +18,7 @@ import {
   VStack,
   Text,
   Spacer,
+  Stack,
 } from '@chakra-ui/react';
 import StatusTag from '../components/StatusTag';
 import NotFound from '../components/NotFound';
@@ -34,7 +35,7 @@ const ProfilePage = () => {
   const { hasCopied, onCopy } = useClipboard(window.location.href);
   const toast = useToast();
   const bg = useColorModeValue('gray.300', 'black.200');
-  const bg2 = useColorModeValue('blue.100', 'gray.500');
+  const bg2 = useColorModeValue('gray.50', 'gray.700');
   const navigate = useNavigate();
 
   const handleViewOrder = getGroupOrder => {
@@ -73,15 +74,13 @@ const ProfilePage = () => {
       {Object.keys(user).length > 1 ? (
         <>
           <Box
-            marginTop="4%"
+            marginTop="70px"
             align="center"
             p="30px"
             bg={bg}
             w="100%"
-            h="400px"
             borderRadius="10px"
           >
-            {' '}
             <Avatar size="2xl" name={user.userName} src={user.userProfile} />
             <Heading size="xl" pt="9px">
               {user.userName}
@@ -149,19 +148,23 @@ const ProfilePage = () => {
                 return (
                   <Box
                     key={index}
-                    backgroundColor={bg2}
+                    bg={bg2}
                     padding="20px"
                     margin="10px"
                     borderRadius="20px"
                   >
-                    {' '}
-                    <HStack w="100%">
+                    <Stack
+                      w="100%"
+                      direction={{ lg: 'row', base: 'column' }}
+                      alignItems="center"
+                    >
                       <Image
                         src={restaurantImageMapping[entry.restaurant]}
                         h="190px"
                         w="315px"
                         borderRadius="10px"
                         objectFit="cover"
+                        display={{ lg: 'inline', base: 'none' }}
                       />
                       <VStack alignItems="flex-start">
                         <Heading size="xl">{entry.restaurant}</Heading>
@@ -198,13 +201,14 @@ const ProfilePage = () => {
                         <Button
                           width="250px"
                           height="50px"
+                          rounded="10px"
                           colorScheme="blue"
                           onClick={() => handleViewOrder(entry._id)}
                         >
                           View Order
                         </Button>
                       </VStack>
-                    </HStack>
+                    </Stack>
                   </Box>
                 );
               })}

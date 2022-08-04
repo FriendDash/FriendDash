@@ -1,4 +1,4 @@
-import { Box, HStack, chakra } from '@chakra-ui/react';
+import { Box, chakra } from '@chakra-ui/react';
 import { useColorModeValue } from '@chakra-ui/react';
 
 import HeaderTray from './HeaderTray';

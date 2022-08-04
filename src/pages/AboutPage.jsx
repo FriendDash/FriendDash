@@ -3,20 +3,7 @@ import {
   Box,
   Heading,
   Avatar,
-  Stat,
-  StatLabel,
-  StatNumber,
-  StatHelpText,
-  StatArrow,
-  StatGroup,
-  Button,
-  useToast,
-  useClipboard,
   Text,
-  VStack,
-  HStack,
-  AvatarBadge,
-  AvatarGroup,
   Flex,
   Accordion,
   AccordionItem,
@@ -61,19 +48,17 @@ const Home = () => {
     <div>
       <Header />
       <Box
-        marginTop="4%"
+        marginTop="66px"
         align="center"
         p="30px"
         bg={bg}
-        // w={{ lg: '600px', md: '600px', base: '100%' }}
         w="100%"
-        h="400px"
         borderRadius="10px"
       >
         <Heading size="2xl" mt="25px">
           Who we are
         </Heading>
-        <Text fontSize="xl" mt="10px" p="50px">
+        <Text fontSize="xl" mt="10px" p={{ lg: '50px', base: '10px' }}>
           FriendDash is a technology company that enables users to save time,
           money, and get their food faster! We work to connect people with the
           best of their communities across Canada. We enables local community
@@ -92,14 +77,13 @@ const Home = () => {
         p="30px"
         // w={{ lg: '600px', md: '600px', base: '100%' }}
         w="100%"
-        h="400px"
         borderRadius="10px"
       >
-        <Heading size="2xl" mt="25px" textAlign="center">
+        <Heading size="2xl" textAlign="center">
           Our Team
         </Heading>
 
-        <Flex mt="25px">
+        <Flex mt="25px" wrap="wrap" justify="center">
           <a href="https://linkedin.com/in/mrbenc88" flexDirection="column">
             <Avatar
               name="Ben Cheung"
