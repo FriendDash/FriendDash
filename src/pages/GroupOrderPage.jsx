@@ -87,11 +87,14 @@ const GroupOrderPage = () => {
                 direction={{ lg: 'row', base: 'column' }}
                 alignItems="center"
               >
-                <VStack alignItems="flex-start">
-                  <HStack>
+                <VStack alignItems={{ lg: 'flex-start', base: 'center' }}>
+                  <Stack
+                    direction={{ lg: 'row', base: 'column' }}
+                    alignItems="center"
+                  >
                     <Heading color="white">{groupOrder.creatorName}'s</Heading>
                     <Heading color="whiteAlpha.800">Group Order</Heading>
-                  </HStack>
+                  </Stack>
                   <Text color="white">
                     Large orders may take longer to prepare
                   </Text>
@@ -142,7 +145,11 @@ const GroupOrderPage = () => {
                 objectFit="cover"
               />
 
-              <HStack mt="10px">
+              <Stack
+                mt="10px"
+                direction={{ lg: 'row', base: 'column' }}
+                alignItems="center"
+              >
                 <Heading>{groupOrder.restaurant}</Heading>
                 <HStack
                   border="1px solid gray"
@@ -165,7 +172,7 @@ const GroupOrderPage = () => {
                 <Box flexGrow={1} rounded="5px" h="100%">
                   {getStatusMessage(groupOrder.orderStatus)}
                 </Box>
-              </HStack>
+              </Stack>
 
               {/* Render all currently added orders as cards */}
               <MemberOrderDetail mt="20px" groupOrder={groupOrder} />
