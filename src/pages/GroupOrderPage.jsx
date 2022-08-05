@@ -29,6 +29,7 @@ const GroupOrderPage = () => {
     const initialValue = JSON.parse(saved);
     return initialValue || signedOutUserObject;
   });
+  const [userInGroup, setUserInGroup] = useState();
 
   const navigate = useNavigate();
   const isOrderFull = groupOrder?.orderDetails.length >= groupOrder?.maxSize;
@@ -42,6 +43,7 @@ const GroupOrderPage = () => {
       const json = await res.json();
 
       setGroupOrder(json);
+      setUserInGroup(json.orderDetails.includes(order => order.orderUserId === user.googleId));
     })();
   }, []);
 
@@ -108,7 +110,7 @@ const GroupOrderPage = () => {
                     Go Back
                   </Button>
                   <Button
-                    disabled={isOrderFull || groupOrder.orderStatus !== 'open'}
+                    disabled={isOrderFull || groupOrder.orderStatus !== 'open' || userInGroup}
                     w="130px"
                     onClick={() => navigate(`/menu/${id}`)}
                   >
