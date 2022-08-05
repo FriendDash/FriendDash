@@ -119,7 +119,8 @@ const GroupOrderPage = () => {
                   {(isOrderFull || groupOrder.orderStatus !== 'open') &&
                     groupOrder.orderDetails.find(
                       order => order.orderUserId === user.googleId
-                    ) && (
+                    ) &&
+                    groupOrder.creatorUserId != user.googleId && (
                       <RatingPopup
                         groupCreatorUserId={groupOrder.creatorUserId}
                         groupCreatorName={groupOrder.creatorName}
