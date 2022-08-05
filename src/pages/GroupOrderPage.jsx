@@ -43,7 +43,7 @@ const GroupOrderPage = () => {
       const json = await res.json();
 
       setGroupOrder(json);
-      setUserInGroup(json.orderDetails.includes(order => order.orderUserId === user.googleId));
+      setUserInGroup(json.orderDetails.filter(order => order.orderUserId === user.googleId).length > 0);
     })();
   }, []);
 
