@@ -116,6 +116,7 @@ const AccountsPage = () => {
                   </Button>
                 </Box>
               )}{' '} */}
+              <br />
               <ToggleColor />
             </Box>
           </>
