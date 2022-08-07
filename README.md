@@ -1,8 +1,8 @@
 # FriendDash
 
-#### FriendDash is a web app that enables users to save time, money, and get their food faster! We work to connect students with their communities across UBC. FriendDash offers a group order management and delivery platform which facilitates order sharing and group buys with minimal overhead.  
+#### FriendDash is a web app that enables users to save time, money, and get their food faster! We work to connect students with their communities across UBC. FriendDash offers a group order management and delivery platform which facilitates order sharing and group buys with minimal overhead.
 
-Try it out at https://frienddash.herokuapp.com/
+Try it out at https://frienddash.vercel.app/
 
 Repos:
 

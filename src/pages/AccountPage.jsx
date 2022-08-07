@@ -97,7 +97,7 @@ const AccountsPage = () => {
                   defaultValue={user.userEmail}
                 />
               </FormControl>
-              {user.userName !== 'Foodie' && (
+              {/* {user.userName !== 'Foodie' && (
                 <Box align="right" w="100%" pt="20px">
                   <Button
                     onClick={() => {
@@ -115,7 +115,7 @@ const AccountsPage = () => {
                     Delete Account
                   </Button>
                 </Box>
-              )}{' '}
+              )}{' '} */}
               <ToggleColor />
             </Box>
           </>
