@@ -69,9 +69,12 @@ export default chakra(function OrderDetailUser({
       </Button>
       <StatusTag status={userOrder.paid ? 'paid' : 'not paid'} />
       <Spacer />
-      <Button colorScheme="red" onClick={onConfirmationOpen} w="130px">
-        Remove User
-      </Button>
+      {
+        !userOrder.paid &&
+          <Button colorScheme="red" onClick={onConfirmationOpen} w="130px">
+            Remove User
+          </Button>
+      }
 
       <ConfirmationModal
         isOpen={isConfirmationOpen}

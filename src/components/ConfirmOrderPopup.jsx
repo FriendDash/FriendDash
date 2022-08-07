@@ -82,6 +82,8 @@ export default function ConfirmOrderPopup(props) {
           position: 'bottom',
           isClosable: true,
         });
+      } else {
+        alert(response.json());
       }
     })();
 
@@ -112,6 +114,7 @@ export default function ConfirmOrderPopup(props) {
         rightIcon={<HiOutlineShoppingCart size="24px" />}
         aria-label="Customer checkout"
         onClick={openPopUp}
+        disabled={starters.length === 0 && mains.length === 0 && desserts.length === 0}
         w="200px"
         h="50px"
       >

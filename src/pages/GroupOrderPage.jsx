@@ -29,6 +29,7 @@ const GroupOrderPage = () => {
     const initialValue = JSON.parse(saved);
     return initialValue || signedOutUserObject;
   });
+  const [userInGroup, setUserInGroup] = useState();
 
   const navigate = useNavigate();
   const isOrderFull = groupOrder?.orderDetails.length >= groupOrder?.maxSize;
@@ -42,6 +43,7 @@ const GroupOrderPage = () => {
       const json = await res.json();
 
       setGroupOrder(json);
+      setUserInGroup(json.orderDetails.filter(order => order.orderUserId === user.googleId).length > 0);
     })();
   }, []);
 
@@ -108,7 +110,7 @@ const GroupOrderPage = () => {
                     Go Back
                   </Button>
                   <Button
-                    disabled={isOrderFull || groupOrder.orderStatus !== 'open'}
+                    disabled={isOrderFull || groupOrder.orderStatus !== 'open' || userInGroup}
                     w="130px"
                     onClick={() => navigate(`/menu/${id}`)}
                   >
@@ -117,7 +119,8 @@ const GroupOrderPage = () => {
                   {(isOrderFull || groupOrder.orderStatus !== 'open') &&
                     groupOrder.orderDetails.find(
                       order => order.orderUserId === user.googleId
-                    ) && (
+                    ) &&
+                    groupOrder.creatorUserId != user.googleId && (
                       <RatingPopup
                         groupCreatorUserId={groupOrder.creatorUserId}
                         groupCreatorName={groupOrder.creatorName}
