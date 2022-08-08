@@ -178,9 +178,10 @@ Try it out at https://frienddash.vercel.app/
 [![](https://contrib.rocks/image?repo=EZWin-Clap/FriendDash)](https://github.com/EZWin-Clap/FriendDash/graphs/contributors)
 
 ### [Benjamin Cheung](https://linkedin.com/in/mrbenc88)
-- Developed a responsive front-end for Profile, Login, Help, and Account including interactive components for user accessibility and better user experience such as light/dark mode, toasts, Google OAuth, Google reverse geolocation,  and subtle styling. 
+- Developed a responsive front-end for Profile, Login, Help, and Account pages including interactive components for user accessibility and better user experience such as light/dark mode, toasts, Google OAuth, Google reverse geolocation,  and subtle styling. 
 - Took leadership in setting up scalable MongoDB schema and directing data flow along with associated backend endpoints.
 - Coordinated and scheduled meetings, weekly scrums, sprint retros, and sprint planning.
+- Deployed application and implemented dynamic routing for profiles.
 
 ### [Steven Zhao](https://www.linkedin.com/in/thestevenzhao/)
 - Led the overall UI/UX development. Designed the overall App flow and build major UI elements for all pages
