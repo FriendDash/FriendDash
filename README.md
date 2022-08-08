@@ -5,7 +5,10 @@
 
 Try it out at https://frienddash.vercel.app/
 
-<img src="https://user-images.githubusercontent.com/50121934/183317399-7b9b0e83-c727-4755-83d6-5f768c57f46b.png" width="600">
+<details>
+	<summary>App Image Previews</summary>
+	<img src="https://user-images.githubusercontent.com/50121934/183317399-7b9b0e83-c727-4755-83d6-5f768c57f46b.png" width="600">
+</details>
 
 ### Repos
 - Front-end: https://github.com/EZWin-Clap/FriendDash
