@@ -12,6 +12,8 @@ Try it out: https://frienddash.vercel.app/
 	<img src="https://user-images.githubusercontent.com/50121934/183318090-cbba60c9-dae4-4f2a-b4be-2bcd0dd50612.png" width="600"> 
 	<img src="https://user-images.githubusercontent.com/50121934/183318141-d34225e1-3963-4cfa-975a-337e994504c0.png" width="600">
 	<img src="https://user-images.githubusercontent.com/50121934/183318361-e1c54db8-8a75-435c-b634-0a7237f1c8dd.png" width="600">
+	<img src="https://user-images.githubusercontent.com/50121934/183318828-a6cd2ca6-b0ed-4c28-bf77-4c7b1a6e7a96.png" width="600">
+
 </details>
 
 ### Repos
