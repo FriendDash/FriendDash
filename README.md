@@ -202,5 +202,7 @@ Try it out: https://frienddash.vercel.app/
 - Collaborated on developing dynamic routing and parameter passing for restaurant menu pages and group leader rating pages
 
 ### [Maggie Wang](https://www.linkedin.com/in/maggie-wang-5549711a5/)
-- Payments
+- Designed and implemented the whole payment workflow on the front end to allow users to add credit cards and pay for existing orders using saved credit cards, including the payment page and touching on the order management pages as well
+- Designed and implemented the api routes that facilitate communication between the front end and Stripe API, doing things such as redirecting the user to an external Stripe link, creating users/accounts/payments on the Stripe side, and setting up Stripe configurations
+- Created the New Group Order form and sort/filter system on the Dashboard
 
