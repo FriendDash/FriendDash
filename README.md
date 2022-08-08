@@ -5,7 +5,7 @@
 
 Try it out at https://frienddash.vercel.app/
 
-![image](https://user-images.githubusercontent.com/50121934/183317399-7b9b0e83-c727-4755-83d6-5f768c57f46b.png)
+<img src="https://user-images.githubusercontent.com/50121934/183317399-7b9b0e83-c727-4755-83d6-5f768c57f46b.png" width="600">
 
 ### Repos
 - Front-end: https://github.com/EZWin-Clap/FriendDash
@@ -171,6 +171,8 @@ Try it out at https://frienddash.vercel.app/
 ---
 
 ## 6. Contributions
+
+[![](https://contrib.rocks/image?repo=EZWin-Clap/FriendDash)](https://github.com/EZWin-Clap/FriendDash/graphs/contributors)
 
 ### [Benjamin Cheung](https://linkedin.com/in/mrbenc88)
 - Developed a responsive front-end for Profile, Login, Help, and Account including interactive components for user accessibility and better user experience such as light/dark mode, toasts, Google OAuth, Google reverse geolocation,  and subtle styling. 
