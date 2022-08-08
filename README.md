@@ -1,9 +1,11 @@
-# FriendDash - Order Management & Delivery Platform
+# [FriendDash](https://frienddash.vercel.app) - Order Management & Delivery Platform
 
 ## 1. Project Description
 #### FriendDash is a web app that enables users to save time, money, and get their food faster! We work to connect students with their communities across UBC. FriendDash offers a group order management and delivery platform which facilitates order sharing and group buys with minimal overhead.
 
 Try it out at https://frienddash.vercel.app/
+
+![image](https://user-images.githubusercontent.com/50121934/183317399-7b9b0e83-c727-4755-83d6-5f768c57f46b.png)
 
 ### Repos
 - Front-end: https://github.com/EZWin-Clap/FriendDash
@@ -47,9 +49,9 @@ Try it out at https://frienddash.vercel.app/
 
 - ✅Group advanced profiles (saved groups)
 - ✅Reputation system
-- ✅Group leader can accept or deny members from joining
 - ✅Payment system
 - ✅Dark mode
+- ⚠️Group leader can accept or deny members from joining
 - ❌Public API
 - ❌GPS tracking your order
 - ❌Group chats
@@ -189,6 +191,4 @@ Try it out at https://frienddash.vercel.app/
 
 ### [Maggie Wang](https://www.linkedin.com/in/maggie-wang-5549711a5/)
 - Payments
-  
-
 
