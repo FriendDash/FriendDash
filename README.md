@@ -3,10 +3,11 @@
 ## 1. Project Description
 #### FriendDash is a web app that enables users to save time, money, and get their food faster! We work to connect students with their communities across UBC. FriendDash offers a group order management and delivery platform which facilitates order sharing and group buys with minimal overhead.
 
-Try it out at https://frienddash.vercel.app/
+Try it out: https://frienddash.vercel.app/
 
+### App Image Previews
 <details>
-	<summary>App Image Previews</summary>
+	<summary>Expand to view Images</summary>
 	<img src="https://user-images.githubusercontent.com/50121934/183317399-7b9b0e83-c727-4755-83d6-5f768c57f46b.png" width="600">
 	<img src="https://user-images.githubusercontent.com/50121934/183318090-cbba60c9-dae4-4f2a-b4be-2bcd0dd50612.png" width="600"> 
 	<img src="https://user-images.githubusercontent.com/50121934/183318141-d34225e1-3963-4cfa-975a-337e994504c0.png" width="600">
