@@ -42,7 +42,6 @@ export default function ConfirmOrderPopup(props) {
 
   const onConfirm = () => {
     onClose();
-    // TODO: implement the proper navigation for closing group order
     navigate(`/group/${groupOrder._id}`);
   };
 
@@ -73,7 +72,6 @@ export default function ConfirmOrderPopup(props) {
       );
 
       if (response.status == '200') {
-        console.log('inside 200 check');
         toast({
           title: 'Order Added.',
           description: "We've added your order for you.",

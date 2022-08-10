@@ -63,7 +63,6 @@ const ProfilePage = () => {
       const json2 = await res2.json();
 
       setGetOrders(json2);
-      // console.log(JSON.stringify(json2));
     })();
   }, []);
 

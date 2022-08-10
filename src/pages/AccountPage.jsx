@@ -2,24 +2,16 @@ import Header from '../components/Header/Header';
 import {
   Box,
   Heading,
-  Avatar,
-  Stat,
-  StatLabel,
-  StatNumber,
-  StatHelpText,
-  StatArrow,
-  StatGroup,
-  Button,
   useToast,
   FormControl,
   FormLabel,
   Input,
   useColorModeValue,
 } from '@chakra-ui/react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import ToggleColor from '../components/ToggleColor';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { removeUserAsync } from '../redux/users/thunk';
 import { useNavigate } from 'react-router-dom';
 import NotFound from '../components/NotFound';
@@ -64,7 +56,6 @@ const AccountsPage = () => {
               align="left"
               p="35px"
               bg={bg}
-              // w={{ lg: '600px', md: '600px', base: '100%' }}
               w="100%"
               h="100px"
               borderRadius="10px"
@@ -97,25 +88,6 @@ const AccountsPage = () => {
                   defaultValue={user.userEmail}
                 />
               </FormControl>
-              {/* {user.userName !== 'Foodie' && (
-                <Box align="right" w="100%" pt="20px">
-                  <Button
-                    onClick={() => {
-                      toast({
-                        position: 'bottom',
-                        title: 'Account deleted.',
-                        description: "We've deleted your account for you.",
-                        status: 'success',
-                        duration: 9000,
-                        isClosable: true,
-                      });
-                      handleDeleteAccount();
-                    }}
-                  >
-                    Delete Account
-                  </Button>
-                </Box>
-              )}{' '} */}
               <br />
               <ToggleColor />
             </Box>

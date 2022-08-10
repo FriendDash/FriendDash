@@ -75,7 +75,6 @@ const Home = () => {
         flexDirection="column"
         textAlign="center"
         p="30px"
-        // w={{ lg: '600px', md: '600px', base: '100%' }}
         w="100%"
         borderRadius="10px"
       >
