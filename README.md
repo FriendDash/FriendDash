@@ -124,7 +124,7 @@ Try it out: https://frienddash.vercel.app/
 - Payments
   - Integrated Stripe API to allow users to make and receive payments since order leaders will be paying for the whole group’s orders and having them paid back by the members
   - Some buttons redirect to an external, one-time-use URL from Stripe to ensure security when entering sensitive information, and back to the app when the user is done
-  - Our API calls the Stripe API to add, retrieve, edit, and delete a user’s saved information
+  - Our API calls the Stripe API to add, retrieve, edit, and delete Stripe entities (Customer, Account, AccountLink, PaymentMethod, PaymentIntent) that are necessary for payments to occur between users, and save any relevant information in our own database so they can be referenced
   - Intuitive payment workflow, allowing users to save their cards and activate their Stripe accounts from the Payment page, and simply select a saved card at checkout
 - Google OAuth
   - Implemented seamless Google OAuth to verify and authenticate users making use of Google’s OAuth API to be able to persist user data.
