@@ -17,7 +17,7 @@ import CreateGroupForm from '../CreateGroupForm';
 
 export default chakra(function GroupOrderNew({ className }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const user = JSON.parse(localStorage.getItem('userSession_FriendDash'));
+  const user = await JSON.parse(localStorage.getItem('userSession_FriendDash'));
 
   return (
     <Box>

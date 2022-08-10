@@ -17,11 +17,11 @@ const PaymentPage = () => {
   const [stripeConnected, setStripeConnected] = useState(null);
   const userStripeId =
     localStorage.getItem('userSession_FriendDash') != null
-      ? JSON.parse(localStorage.getItem('userSession_FriendDash')).stripeId
+      ? await JSON.parse(localStorage.getItem('userSession_FriendDash')).stripeId
       : 0;
   const userAccountId =
     localStorage.getItem('userSession_FriendDash') != null
-      ? JSON.parse(localStorage.getItem('userSession_FriendDash')).accountId
+      ? await JSON.parse(localStorage.getItem('userSession_FriendDash')).accountId
       : 0;
   const [onboarded, setOnboarded] = useState(false);
   useEffect(() => {

@@ -34,7 +34,7 @@ export default chakra(function SelectPaymentModal({ isOpen, onClose, orderId, us
     const { isOpen: isConfirmationOpen, onOpen: onConfirmationOpen, onClose: onConfirmationClose } = useDisclosure();
     const userStripeId =
         localStorage.getItem('userSession_FriendDash') != null
-            ? JSON.parse(localStorage.getItem('userSession_FriendDash')).stripeId
+            ? await JSON.parse(localStorage.getItem('userSession_FriendDash')).stripeId
             : 0;
 
     const cancelRef = React.useRef();

@@ -39,15 +39,15 @@ export default chakra(function MemberOrderDetail({ className, groupOrder }) {
               borderTopLeftRadius="20px"
               borderTopRightRadius="20px"
             >
-              {JSON.parse(localStorage.getItem('userSession_FriendDash')) !=
+              {await JSON.parse(localStorage.getItem('userSession_FriendDash')) !=
               null ? (
                 groupOrder.creatorUserId !=
-                  JSON.parse(localStorage.getItem('userSession_FriendDash'))
+                  await JSON.parse(localStorage.getItem('userSession_FriendDash'))
                     .googleId &&
                 groupOrder.orderDetails.filter(
                   order =>
                     order.orderUserId ===
-                    JSON.parse(localStorage.getItem('userSession_FriendDash'))
+                    await JSON.parse(localStorage.getItem('userSession_FriendDash'))
                       .googleId
                 ).length == 0 ? (
                   <div>Member {i + 1}</div>
