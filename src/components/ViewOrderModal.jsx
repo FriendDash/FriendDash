@@ -30,7 +30,7 @@ export default chakra(function ViewOrderModal({
   onClose,
 }) {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('userSession_FriendDash'));
+  const user = localStorage.getItem('userSession_FriendDash');
   return (
     <Modal isOpen={isOpen} onClose={onClose} className={className}>
       <ModalOverlay />
@@ -81,7 +81,7 @@ export default chakra(function ViewOrderModal({
           <Button
             colorScheme="teal"
             w="110px"
-            disabled={user.userName === "Foodie"}
+            disabled={!user || JSON.parse(user).userName === "Foodie"}
             onClick={() => navigate(`/group/${data._id}`)}
           >
             Join Order

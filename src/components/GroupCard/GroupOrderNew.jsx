@@ -17,7 +17,7 @@ import CreateGroupForm from '../CreateGroupForm';
 
 export default chakra(function GroupOrderNew({ className }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const user = JSON.parse(localStorage.getItem('userSession_FriendDash'));
+  const user = localStorage.getItem('userSession_FriendDash');
 
   return (
     <Box>
@@ -30,7 +30,7 @@ export default chakra(function GroupOrderNew({ className }) {
 
             <Box h="10px" />
 
-            <Button colorScheme="teal" w="50px" h="50px" rounded="25px" disabled={user.userName === "Foodie"} >
+            <Button colorScheme="teal" w="50px" h="50px" rounded="25px" disabled={!user || JSON.parse(user).userName === "Foodie"} >
               <AddIcon w={6} h={6} onClick={onOpen} />
             </Button>
 
