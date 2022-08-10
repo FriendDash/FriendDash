@@ -116,7 +116,7 @@ const GroupOrderPage = () => {
                   >
                     Add to Order
                   </Button>
-                  {(isOrderFull || groupOrder.orderStatus !== 'open') &&
+                  {(groupOrder.orderStatus !== 'open' && groupOrder.orderStatus !== 'inProgress') &&
                     groupOrder.orderDetails.find(
                       order => order.orderUserId === user.googleId
                     ) &&

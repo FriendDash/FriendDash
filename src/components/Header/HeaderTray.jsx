@@ -133,6 +133,7 @@ const HeaderTray = () => {
             <Box w="100%" p="1px">
               {menuItems.map((entry, index) => {
                 return (
+                  <a href={entry.url} key={index}>
                   <Button
                     key={index}
                     variant="ghost"
@@ -142,13 +143,12 @@ const HeaderTray = () => {
                     h="50px"
                     justifyContent="flex-start"
                   >
-                    <a href={entry.url}>
                       <HStack p="10px">
                         <Icon as={entry.icon} w={6} h={6} mr="5px" />
                         <Text fontSize="20px">{entry.tabName}</Text>
                       </HStack>
-                    </a>
-                  </Button>
+                    
+                  </Button></a>
                 );
               })}
             </Box>

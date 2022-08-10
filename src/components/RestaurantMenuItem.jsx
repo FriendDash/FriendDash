@@ -53,6 +53,7 @@ export default chakra(function RestaurantMenuItem({
         <NumberInput
           defaultValue="0"
           min={0}
+          max={99}
           onChange={valueString =>
             handleChange({
               menuItem: menuItem.dishName,
