@@ -51,7 +51,7 @@ export default function ConfirmOrderPopup(props) {
     onOpen();
   };
 
-  const confirmOrderClick = () => {
+  const confirmOrderClick = async () => {
     const newOrderItem = {
       orderUserId: user.googleId,
       userName: user.userName,
@@ -60,7 +60,7 @@ export default function ConfirmOrderPopup(props) {
     };
 
     // PUT req to main order
-    (async () => {
+    await (async () => {
       const response = await fetch(
         `https://frienddash-db.herokuapp.com/orders/updateOrderDetails/${groupOrder._id}`,
         {
@@ -88,7 +88,7 @@ export default function ConfirmOrderPopup(props) {
     })();
 
     // PUT req user
-    (async () => {
+    await (async () => {
       const response = await fetch(
         `https://frienddash-db.herokuapp.com/users/updateUserOrders/${user.googleId}/${groupOrder._id}`,
         {
@@ -114,7 +114,9 @@ export default function ConfirmOrderPopup(props) {
         rightIcon={<HiOutlineShoppingCart size="24px" />}
         aria-label="Customer checkout"
         onClick={openPopUp}
-        disabled={starters.length === 0 && mains.length === 0 && desserts.length === 0}
+        disabled={
+          starters.length === 0 && mains.length === 0 && desserts.length === 0
+        }
         w="200px"
         h="50px"
       >

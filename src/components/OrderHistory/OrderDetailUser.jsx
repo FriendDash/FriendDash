@@ -26,9 +26,9 @@ export default chakra(function OrderDetailUser({
 
   const navigate = useNavigate();
 
-  const removeUser = userId => {
+  const removeUser = async userId => {
     // function to remove
-    (async () => {
+    await (async () => {
       const response = await fetch(
         `https://frienddash-db.herokuapp.com/orders/removeUser/${groupId}/${userId}`,
         {
@@ -39,7 +39,7 @@ export default chakra(function OrderDetailUser({
     })();
 
     // delete order from userOrders
-    (async () => {
+    await (async () => {
       const response = await fetch(
         `https://frienddash-db.herokuapp.com/users/removeOrder/${userId}/${groupId}`,
         {
@@ -69,12 +69,11 @@ export default chakra(function OrderDetailUser({
       </Button>
       <StatusTag status={userOrder.paid ? 'paid' : 'not paid'} />
       <Spacer />
-      {
-        !userOrder.paid &&
-          <Button colorScheme="red" onClick={onConfirmationOpen} w="130px">
-            Remove User
-          </Button>
-      }
+      {!userOrder.paid && (
+        <Button colorScheme="red" onClick={onConfirmationOpen} w="130px">
+          Remove User
+        </Button>
+      )}
 
       <ConfirmationModal
         isOpen={isConfirmationOpen}
