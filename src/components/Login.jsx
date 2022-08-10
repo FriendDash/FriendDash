@@ -24,16 +24,6 @@ const Login = () => {
     console.log(userObject);
 
     // store credentials in mongodb dependent if already added or not (handled in endpoint)
-    // dispatch(
-    //   addUserAsync({
-    //     userName: userObject.name,
-    //     userProfile: userObject.picture,
-    //     userEmail: userObject.email,
-    //     userRating: [],
-    //     userOrders: ['99'],
-    //     googleId: userObject.sub,
-    //   })
-    // );
     const newUser = {
       userName: userObject.name,
       userProfile: userObject.picture,

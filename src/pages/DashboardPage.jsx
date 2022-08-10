@@ -14,7 +14,6 @@ import SearchBar from '../components/SearchBar';
 import Header from '../components/Header/Header';
 import LoadingSpinner from '../components/LoadingSpinner';
 
-// import mockData from '../mockData.json';
 import { getOrdersAsync } from '../redux/orders/thunk';
 import { useSelector, useDispatch } from 'react-redux';
 
