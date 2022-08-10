@@ -191,6 +191,7 @@ export default chakra(function CreateGroupForm({ className, isOpen, onClose }) {
             colorScheme="teal"
             type="Submit"
             onClick={handleSubmitToServer}
+            disabled={user.userName === "Foodie"}
           >
             Create Group
           </Button>
