@@ -43,8 +43,8 @@ export default chakra(function ManageOrderModal({
     onClose: onConfirmationClose,
   } = useDisclosure();
   const dispatch = useDispatch();
-  const deleteOrder = () => {
-    dispatch(removeOrderAsync(data._id));
+  const deleteOrder = async () => {
+    await dispatch(removeOrderAsync(data._id));
     onConfirmationClose();
     onClose();
     navigate(0);
@@ -53,11 +53,11 @@ export default chakra(function ManageOrderModal({
   const [orderStatus, setOrderStatus] = useState(data.orderStatus);
   const bg = useColorModeValue('red.100', 'red.700');
 
-  const handleSavePUTReq = () => {
+  const handleSavePUTReq = async () => {
     const newOrderStatus = {
       orderStatus: orderStatus,
     };
-    (async () => {
+    await (async () => {
       const response = await fetch(
         `https://frienddash-db.herokuapp.com/orders/updateStatus/${data._id}`,
         {

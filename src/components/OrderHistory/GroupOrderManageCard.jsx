@@ -49,11 +49,11 @@ export default chakra(function GroupOrderManageCard({
     navigate(`/group/${groupOrder._id}`);
   };
 
-  const removeUser = userId => {
+  const removeUser = async userId => {
     // leave order from order -> orderDetails
     // leave order from user -> ordersArray
 
-    (async () => {
+    await (async () => {
       const response = await fetch(
         `https://frienddash-db.herokuapp.com/orders/removeUser/${groupOrder._id}/${userId}`,
         {
@@ -64,7 +64,7 @@ export default chakra(function GroupOrderManageCard({
     })();
 
     // delete order from userOrders
-    (async () => {
+    await (async () => {
       const response = await fetch(
         `https://frienddash-db.herokuapp.com/users/removeOrder/${userId}/${groupOrder._id}`,
         {
