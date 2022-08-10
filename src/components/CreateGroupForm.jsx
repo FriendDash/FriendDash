@@ -60,8 +60,6 @@ export default chakra(function CreateGroupForm({ className, isOpen, onClose }) {
         setLong(position.coords.longitude);
       });
       console.log(lat + ' - ' + long);
-
-      // console.log(mapsAPIResponse);
     } else {
       console.log('geolocation is not supported');
     }
@@ -75,7 +73,7 @@ export default chakra(function CreateGroupForm({ className, isOpen, onClose }) {
       pickupTime: time,
       maxSize: groupMembers,
       creatorUserId: user.googleId,
-      creatorAccountId: user.accountId
+      creatorAccountId: user.accountId,
     };
     if (restaurantName.trim() === '' || time === '' || pickupLocation === '') {
       alert('You must not submit an empty form.');

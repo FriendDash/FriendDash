@@ -16,11 +16,8 @@ import GroupCard from './GroupCard';
 import CreateGroupForm from '../CreateGroupForm';
 
 export default chakra(function GroupOrderNew({ className }) {
-  // const [modalVisible, setModalVisible] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // const handleModalClose = () => {
-  //   setModalVisible(false);
-  // };
+
   return (
     <Box>
       <GroupCard className={className}>
