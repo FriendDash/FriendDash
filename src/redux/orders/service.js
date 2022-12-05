@@ -1,6 +1,6 @@
 const addOrder = async order => {
   const response = await fetch(
-    'https://frienddash-db.herokuapp.com/orders/add',
+    'https://frienddash-db.onrender.com/orders/add',
     {
       method: 'POST',
       headers: {
@@ -20,7 +20,7 @@ const addOrder = async order => {
 };
 
 const getOrders = async () => {
-  const response = await fetch('https://frienddash-db.herokuapp.com/orders', {
+  const response = await fetch('https://frienddash-db.onrender.com/orders', {
     method: 'GET',
   });
   return response.json();
@@ -28,7 +28,7 @@ const getOrders = async () => {
 
 const removeOrder = async _id => {
   const response = await fetch(
-    `https://frienddash-db.herokuapp.com/orders/remove/${_id}`,
+    `https://frienddash-db.onrender.com/orders/remove/${_id}`,
     {
       method: 'DELETE',
     }
@@ -41,7 +41,7 @@ const removeOrder = async _id => {
 
 const updateOrder = async order => {
   const response = await fetch(
-    `https://frienddash-db.herokuapp.com/orders/update/${order._id}`,
+    `https://frienddash-db.onrender.com/orders/update/${order._id}`,
     {
       method: 'PUT',
       headers: {

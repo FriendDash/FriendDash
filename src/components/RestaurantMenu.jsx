@@ -35,7 +35,7 @@ export default chakra(function RestaurantMenu(props) {
   useEffect(() => {
     (async () => {
       const res = await fetch(
-        `https://frienddash-db.herokuapp.com/orders/${id}`
+        `https://frienddash-db.onrender.com/orders/${id}`
       );
       const json = await res.json();
 

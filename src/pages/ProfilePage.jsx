@@ -45,9 +45,7 @@ const ProfilePage = () => {
   useEffect(() => {
     //   GET API Call to get user object
     (async () => {
-      const res = await fetch(
-        `https://frienddash-db.herokuapp.com/users/${id}`
-      );
+      const res = await fetch(`https://frienddash-db.onrender.com/users/${id}`);
       const json = await res.json();
 
       if (res.status === 200) {
@@ -58,7 +56,7 @@ const ProfilePage = () => {
     //   GET API Call to get array of order objects with the specific googleId
     (async () => {
       const res2 = await fetch(
-        `https://frienddash-db.herokuapp.com/orders/getUserOrders/${id}`
+        `https://frienddash-db.onrender.com/orders/getUserOrders/${id}`
       );
       const json2 = await res2.json();
 

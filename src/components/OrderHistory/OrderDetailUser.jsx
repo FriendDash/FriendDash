@@ -30,7 +30,7 @@ export default chakra(function OrderDetailUser({
     // function to remove
     await (async () => {
       const response = await fetch(
-        `https://frienddash-db.herokuapp.com/orders/removeUser/${groupId}/${userId}`,
+        `https://frienddash-db.onrender.com/orders/removeUser/${groupId}/${userId}`,
         {
           method: 'DELETE',
         }
@@ -41,7 +41,7 @@ export default chakra(function OrderDetailUser({
     // delete order from userOrders
     await (async () => {
       const response = await fetch(
-        `https://frienddash-db.herokuapp.com/users/removeOrder/${userId}/${groupId}`,
+        `https://frienddash-db.onrender.com/users/removeOrder/${userId}/${groupId}`,
         {
           method: 'DELETE',
         }
