@@ -1,14 +1,11 @@
 const addUser = async user => {
-  const response = await fetch(
-    'https://frienddash-db.herokuapp.com/users/add',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    }
-  );
+  const response = await fetch('https://frienddash-db.onrender.com/users/add', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(user),
+  });
 
   const data = await response.json();
   if (!response.ok) {
@@ -20,7 +17,7 @@ const addUser = async user => {
 };
 
 const getUsers = async () => {
-  const response = await fetch('https://frienddash-db.herokuapp.com/users', {
+  const response = await fetch('https://frienddash-db.onrender.com/users', {
     method: 'GET',
   });
   return response.json();
@@ -28,7 +25,7 @@ const getUsers = async () => {
 
 const removeUser = async _id => {
   const response = await fetch(
-    `https://frienddash-db.herokuapp.com/users/remove/${_id}`,
+    `https://frienddash-db.onrender.com/users/remove/${_id}`,
     {
       method: 'DELETE',
     }
@@ -41,7 +38,7 @@ const removeUser = async _id => {
 
 const getUserById = async googleID => {
   const response = await fetch(
-    `https://frienddash-db.herokuapp.com/users/${googleID}`,
+    `https://frienddash-db.onrender.com/users/${googleID}`,
     {
       method: 'GET',
     }
@@ -51,7 +48,7 @@ const getUserById = async googleID => {
 
 const updateUser = async user => {
   const response = await fetch(
-    `https://frienddash-db.herokuapp.com/users/update/${user._id}}`,
+    `https://frienddash-db.onrender.com/users/update/${user._id}}`,
     {
       method: 'PUT',
       headers: {

@@ -61,7 +61,7 @@ export default function ConfirmOrderPopup(props) {
     // PUT req to main order
     await (async () => {
       const response = await fetch(
-        `https://frienddash-db.herokuapp.com/orders/updateOrderDetails/${groupOrder._id}`,
+        `https://frienddash-db.onrender.com/orders/updateOrderDetails/${groupOrder._id}`,
         {
           method: 'PUT',
           headers: {
@@ -88,7 +88,7 @@ export default function ConfirmOrderPopup(props) {
     // PUT req user
     await (async () => {
       const response = await fetch(
-        `https://frienddash-db.herokuapp.com/users/updateUserOrders/${user.googleId}/${groupOrder._id}`,
+        `https://frienddash-db.onrender.com/users/updateUserOrders/${user.googleId}/${groupOrder._id}`,
         {
           method: 'PUT',
           headers: {

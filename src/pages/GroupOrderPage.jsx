@@ -38,12 +38,15 @@ const GroupOrderPage = () => {
   useEffect(() => {
     (async () => {
       const res = await fetch(
-        `https://frienddash-db.herokuapp.com/orders/${id}`
+        `https://frienddash-db.onrender.com/orders/${id}`
       );
       const json = await res.json();
 
       setGroupOrder(json);
-      setUserInGroup(json.orderDetails.filter(order => order.orderUserId === user.googleId).length > 0);
+      setUserInGroup(
+        json.orderDetails.filter(order => order.orderUserId === user.googleId)
+          .length > 0
+      );
     })();
   }, []);
 
@@ -110,7 +113,11 @@ const GroupOrderPage = () => {
                     Go Back
                   </Button>
                   <Button
-                    disabled={isOrderFull || groupOrder.orderStatus !== 'open' || userInGroup}
+                    disabled={
+                      isOrderFull ||
+                      groupOrder.orderStatus !== 'open' ||
+                      userInGroup
+                    }
                     w="130px"
                     onClick={() => navigate(`/menu/${id}`)}
                   >

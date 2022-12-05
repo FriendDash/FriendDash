@@ -38,7 +38,7 @@ export default chakra(function RatingPopup(props) {
     // PUT req user
     (async () => {
       const response = await fetch(
-        `https://frienddash-db.herokuapp.com/users/updateUserRating/${props.groupCreatorUserId}/${rating}`,
+        `https://frienddash-db.onrender.com/users/updateUserRating/${props.groupCreatorUserId}/${rating}`,
         {
           method: 'PUT',
           headers: {
@@ -64,50 +64,48 @@ export default chakra(function RatingPopup(props) {
 
   return (
     <>
-        <Button
-          aria-label="Customer checkout"
-          w="130px"
-          onClick={openPopUp}
-        >Rate Order</Button>
+      <Button aria-label="Customer checkout" w="130px" onClick={openPopUp}>
+        Rate Order
+      </Button>
 
-        <AlertDialog
-          isOpen={isOpen}
-          leastDestructiveRef={cancelRef}
-          onClose={onClose}
-        >
-          <AlertDialogOverlay>
-            <AlertDialogContent>
-              <AlertDialogHeader fontSize="lg" fontWeight="bold">
-                Rate your group leader {props.groupCreatorName}:
-              </AlertDialogHeader>
+      <AlertDialog
+        isOpen={isOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
+              Rate your group leader {props.groupCreatorName}:
+            </AlertDialogHeader>
 
-              <AlertDialogBody>
-                <Heading size="md">
-                  How did {props.groupCreatorName} do? <br />1 = Terrible, 5 = Great!
-                </Heading>
-                <RatingStars
-                  size={48}
-                  icon="star"
-                  scale={5}
-                  fillColor="gold"
-                  strokeColor="grey"
-                  rating={rating}
-                  setRating={setRating}
-                />
-              </AlertDialogBody>
+            <AlertDialogBody>
+              <Heading size="md">
+                How did {props.groupCreatorName} do? <br />1 = Terrible, 5 =
+                Great!
+              </Heading>
+              <RatingStars
+                size={48}
+                icon="star"
+                scale={5}
+                fillColor="gold"
+                strokeColor="grey"
+                rating={rating}
+                setRating={setRating}
+              />
+            </AlertDialogBody>
 
-              <AlertDialogFooter>
-                <Button ref={cancelRef} onClick={onClose}>
-                  Cancel
-                </Button>
-                <Button colorScheme="green" onClick={confirmRatingClick} ml={3}>
-                  Submit
-                </Button>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialogOverlay>
-        </AlertDialog>
-
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={onClose}>
+                Cancel
+              </Button>
+              <Button colorScheme="green" onClick={confirmRatingClick} ml={3}>
+                Submit
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
     </>
   );
-})
+});
